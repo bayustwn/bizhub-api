@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model file {
+  id             String   @id @db.VarChar(50)
+  nama_file      String   @db.VarChar(255)
+  url            String   @db.Text
+  id_tugas       String   @db.VarChar(50)
+  tanggal_upload DateTime @default(now()) @db.Timestamp(0)
+  tugas          tugas    @relation(fields: [id_tugas], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "file_ibfk_1")
+
+  @@index([id_tugas], map: "id_tugas")
+}
+
+model laporan_bulanan {
+  id              String @id @db.VarChar(50)
+  bulan           String @db.VarChar(20)
+  tahun           Int
+  id_user         String @db.VarChar(50)
+  total_tugas     Int
+  tugas_selesai   Int
+  tugas_terlambat Int
+  user            user   @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "laporan_bulanan_ibfk_1")
+
+  @@index([id_user], map: "id_user")
+}
+
+model tugas {
+  id             String       @id @db.VarChar(50)
+  judul          String       @db.VarChar(255)
+  brief          String?      @db.Text
+  kuantitas      Int?
+  deadline       DateTime?    @db.DateTime(0)
+  status         String?      @db.VarChar(50)
+  id_admin       String?      @db.VarChar(50)
+  tanggal_dibuat DateTime?    @default(now()) @db.DateTime(0)
+  tanggal_diubah DateTime?    @db.DateTime(0)
+  file           file[]
+  user           user?        @relation(fields: [id_admin], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "tugas_ibfk_1")
+  user_tugas     user_tugas[]
+
+  @@index([id_admin], map: "id_admin")
+}
+
+model user {
+  id              String            @id @db.VarChar(50)
+  nama            String            @db.VarChar(100)
+  email           String            @unique(map: "email") @db.VarChar(100)
+  password        String            @db.VarChar(100)
+  posisi          String            @db.VarChar(50)
+  laporan_bulanan laporan_bulanan[]
+  tugas           tugas[]
+  user_tugas      user_tugas[]
+}
+
+model user_tugas {
+  id_user  String @db.VarChar(50)
+  id_tugas String @db.VarChar(50)
+  user     user   @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "user_tugas_ibfk_1")
+  tugas    tugas  @relation(fields: [id_tugas], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "user_tugas_ibfk_2")
+
+  @@id([id_user, id_tugas])
+  @@index([id_tugas], map: "id_tugas")
+}
