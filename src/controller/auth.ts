@@ -2,27 +2,25 @@ import prisma from "../../prisma/prisma";
 import {Context} from "hono";
 import {sign} from "hono/jwt";
 import { z } from "zod";
+import {responses} from "../utils/response";
 
 const loginSchema = z.object({
     email: z.string().email(),
-    password: z.string().min(8),
+    password: z.string(),
 })
 
 export const login = async (ctx: Context) => {
 
-    const {email, password} = await loginSchema.parseAsync(ctx.req.json());
+    const {email, password} = await loginSchema.parseAsync(await ctx.req.json());
 
     try {
-        const user = await prisma.user.findFirst({
+        const user = await prisma.user.findUnique({
             where: {email: email},
             select: {id: true, nama: true, posisi: true, email: true , password: true},
         });
 
         if (!user) {
-            return ctx.json(
-                {success: false, message: "Email atau password salah!"},
-                401
-            );
+            return responses(ctx, 401, false, "Email atau password salah!");
         }
 
         const isPasswordValid = await Bun.password.verify(
@@ -32,10 +30,7 @@ export const login = async (ctx: Context) => {
         );
 
         if (!isPasswordValid) {
-            return ctx.json(
-                {success: false, message: "Email atau password salah!"},
-                401
-            );
+            return responses(ctx, 401, false, "Email atau password salah!");
         }
 
         const payload = {
@@ -48,19 +43,9 @@ export const login = async (ctx: Context) => {
 
         const token = await sign(payload, `${Bun.env.SECRET_KEY}`, "HS256");
 
-        return ctx.json(
-            {
-                success: true,
-                message: "Berhasil Login",
-                token
-            },
-            200
-        );
+        return responses(ctx, 200, true, "Berhasil Login", { token });
 
     } catch (error) {
-        return ctx.json(
-            {success: false, message: "Server Error"},
-            500
-        );
+        return responses(ctx, 500, false, "Server Error");
     }
 };

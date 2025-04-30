@@ -156,6 +156,7 @@ exports.Prisma.UserScalarFieldEnum = {
 };
 
 exports.Prisma.User_tugasScalarFieldEnum = {
+  id: 'id',
   id_user: 'id_user',
   id_tugas: 'id_tugas'
 };
@@ -200,6 +201,7 @@ exports.Prisma.userOrderByRelevanceFieldEnum = {
 };
 
 exports.Prisma.user_tugasOrderByRelevanceFieldEnum = {
+  id: 'id',
   id_user: 'id_user',
   id_tugas: 'id_tugas'
 };

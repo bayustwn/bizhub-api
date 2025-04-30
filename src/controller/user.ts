@@ -1,16 +1,18 @@
 import {Context} from "hono";
 import prisma from "../../prisma/prisma";
+import { z } from "zod";
+import {responses, serverError} from "../utils/response";
+
+const userSchema = z.object({
+    nama :  z.string(),
+    email: z.string().email(),
+    password: z.string().min(8),
+    posisi :  z.string(),
+})
 
 export const create = async (ctx: Context) => {
 
-    const {nama, email, password, posisi} = await ctx.req.json()
-
-    if (!nama || !email || !password || !posisi) {
-        return ctx.json(
-            {success: false, message: "Form harus diisi!"},
-            400
-        );
-    }
+    const {nama, email, password, posisi} = await userSchema.parseAsync(await ctx.req.json())
 
     try {
 
@@ -32,24 +34,13 @@ export const create = async (ctx: Context) => {
         })
 
         if (user) {
-            return ctx.json({
-                success: true,
-                message: "Success create user",
-                data: user
-            }, 201)
+            return responses(ctx,201,true,"User berhasil dibuat!",user)
         }else{
-            return ctx.json({
-                success: true,
-                message: "Error creating user",
-                data: user
-            }, 400)
+            return responses(ctx,400,false,"User gagal dibuat!")
         }
 
     } catch (error) {
-        return ctx.json(
-            {success: false, message: "Server Error"},
-            500
-        );
+        return serverError(ctx)
     }
 
 }

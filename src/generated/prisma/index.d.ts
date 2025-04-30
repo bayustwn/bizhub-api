@@ -1194,12 +1194,10 @@ export namespace Prisma {
 
   export type TugasCountOutputType = {
     file: number
-    user_tugas: number
   }
 
   export type TugasCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     file?: boolean | TugasCountOutputTypeCountFileArgs
-    user_tugas?: boolean | TugasCountOutputTypeCountUser_tugasArgs
   }
 
   // Custom InputTypes
@@ -1220,13 +1218,6 @@ export namespace Prisma {
     where?: fileWhereInput
   }
 
-  /**
-   * TugasCountOutputType without action
-   */
-  export type TugasCountOutputTypeCountUser_tugasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: user_tugasWhereInput
-  }
-
 
   /**
    * Count Type UserCountOutputType
@@ -1235,13 +1226,11 @@ export namespace Prisma {
   export type UserCountOutputType = {
     laporan_bulanan: number
     tugas: number
-    user_tugas: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     laporan_bulanan?: boolean | UserCountOutputTypeCountLaporan_bulananArgs
     tugas?: boolean | UserCountOutputTypeCountTugasArgs
-    user_tugas?: boolean | UserCountOutputTypeCountUser_tugasArgs
   }
 
   // Custom InputTypes
@@ -1267,13 +1256,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountTugasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: tugasWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountUser_tugasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: user_tugasWhereInput
   }
 
 
@@ -3439,7 +3421,6 @@ export namespace Prisma {
     tanggal_diubah?: boolean
     file?: boolean | tugas$fileArgs<ExtArgs>
     user?: boolean | tugas$userArgs<ExtArgs>
-    user_tugas?: boolean | tugas$user_tugasArgs<ExtArgs>
     _count?: boolean | TugasCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tugas"]>
 
@@ -3461,7 +3442,6 @@ export namespace Prisma {
   export type tugasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     file?: boolean | tugas$fileArgs<ExtArgs>
     user?: boolean | tugas$userArgs<ExtArgs>
-    user_tugas?: boolean | tugas$user_tugasArgs<ExtArgs>
     _count?: boolean | TugasCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3470,7 +3450,6 @@ export namespace Prisma {
     objects: {
       file: Prisma.$filePayload<ExtArgs>[]
       user: Prisma.$userPayload<ExtArgs> | null
-      user_tugas: Prisma.$user_tugasPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3824,7 +3803,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     file<T extends tugas$fileArgs<ExtArgs> = {}>(args?: Subset<T, tugas$fileArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$filePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends tugas$userArgs<ExtArgs> = {}>(args?: Subset<T, tugas$userArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    user_tugas<T extends tugas$user_tugasArgs<ExtArgs> = {}>(args?: Subset<T, tugas$user_tugasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_tugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4249,30 +4227,6 @@ export namespace Prisma {
   }
 
   /**
-   * tugas.user_tugas
-   */
-  export type tugas$user_tugasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_tugas
-     */
-    select?: user_tugasSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_tugas
-     */
-    omit?: user_tugasOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_tugasInclude<ExtArgs> | null
-    where?: user_tugasWhereInput
-    orderBy?: user_tugasOrderByWithRelationInput | user_tugasOrderByWithRelationInput[]
-    cursor?: user_tugasWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: User_tugasScalarFieldEnum | User_tugasScalarFieldEnum[]
-  }
-
-  /**
    * tugas without action
    */
   export type tugasDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4457,7 +4411,6 @@ export namespace Prisma {
     posisi?: boolean
     laporan_bulanan?: boolean | user$laporan_bulananArgs<ExtArgs>
     tugas?: boolean | user$tugasArgs<ExtArgs>
-    user_tugas?: boolean | user$user_tugasArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4475,7 +4428,6 @@ export namespace Prisma {
   export type userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     laporan_bulanan?: boolean | user$laporan_bulananArgs<ExtArgs>
     tugas?: boolean | user$tugasArgs<ExtArgs>
-    user_tugas?: boolean | user$user_tugasArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -4484,7 +4436,6 @@ export namespace Prisma {
     objects: {
       laporan_bulanan: Prisma.$laporan_bulananPayload<ExtArgs>[]
       tugas: Prisma.$tugasPayload<ExtArgs>[]
-      user_tugas: Prisma.$user_tugasPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4834,7 +4785,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     laporan_bulanan<T extends user$laporan_bulananArgs<ExtArgs> = {}>(args?: Subset<T, user$laporan_bulananArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$laporan_bulananPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tugas<T extends user$tugasArgs<ExtArgs> = {}>(args?: Subset<T, user$tugasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    user_tugas<T extends user$user_tugasArgs<ExtArgs> = {}>(args?: Subset<T, user$user_tugasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_tugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5260,30 +5210,6 @@ export namespace Prisma {
   }
 
   /**
-   * user.user_tugas
-   */
-  export type user$user_tugasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_tugas
-     */
-    select?: user_tugasSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_tugas
-     */
-    omit?: user_tugasOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_tugasInclude<ExtArgs> | null
-    where?: user_tugasWhereInput
-    orderBy?: user_tugasOrderByWithRelationInput | user_tugasOrderByWithRelationInput[]
-    cursor?: user_tugasWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: User_tugasScalarFieldEnum | User_tugasScalarFieldEnum[]
-  }
-
-  /**
    * user without action
    */
   export type userDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5313,16 +5239,19 @@ export namespace Prisma {
   }
 
   export type User_tugasMinAggregateOutputType = {
+    id: string | null
     id_user: string | null
     id_tugas: string | null
   }
 
   export type User_tugasMaxAggregateOutputType = {
+    id: string | null
     id_user: string | null
     id_tugas: string | null
   }
 
   export type User_tugasCountAggregateOutputType = {
+    id: number
     id_user: number
     id_tugas: number
     _all: number
@@ -5330,16 +5259,19 @@ export namespace Prisma {
 
 
   export type User_tugasMinAggregateInputType = {
+    id?: true
     id_user?: true
     id_tugas?: true
   }
 
   export type User_tugasMaxAggregateInputType = {
+    id?: true
     id_user?: true
     id_tugas?: true
   }
 
   export type User_tugasCountAggregateInputType = {
+    id?: true
     id_user?: true
     id_tugas?: true
     _all?: true
@@ -5418,6 +5350,7 @@ export namespace Prisma {
   }
 
   export type User_tugasGroupByOutputType = {
+    id: string
     id_user: string
     id_tugas: string
     _count: User_tugasCountAggregateOutputType | null
@@ -5440,32 +5373,26 @@ export namespace Prisma {
 
 
   export type user_tugasSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     id_user?: boolean
     id_tugas?: boolean
-    user?: boolean | userDefaultArgs<ExtArgs>
-    tugas?: boolean | tugasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_tugas"]>
 
 
 
   export type user_tugasSelectScalar = {
+    id?: boolean
     id_user?: boolean
     id_tugas?: boolean
   }
 
-  export type user_tugasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_user" | "id_tugas", ExtArgs["result"]["user_tugas"]>
-  export type user_tugasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | userDefaultArgs<ExtArgs>
-    tugas?: boolean | tugasDefaultArgs<ExtArgs>
-  }
+  export type user_tugasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_user" | "id_tugas", ExtArgs["result"]["user_tugas"]>
 
   export type $user_tugasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "user_tugas"
-    objects: {
-      user: Prisma.$userPayload<ExtArgs>
-      tugas: Prisma.$tugasPayload<ExtArgs>
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
+      id: string
       id_user: string
       id_tugas: string
     }, ExtArgs["result"]["user_tugas"]>
@@ -5551,8 +5478,8 @@ export namespace Prisma {
      * // Get first 10 User_tugases
      * const user_tugases = await prisma.user_tugas.findMany({ take: 10 })
      * 
-     * // Only select the `id_user`
-     * const user_tugasWithId_userOnly = await prisma.user_tugas.findMany({ select: { id_user: true } })
+     * // Only select the `id`
+     * const user_tugasWithIdOnly = await prisma.user_tugas.findMany({ select: { id: true } })
      * 
      */
     findMany<T extends user_tugasFindManyArgs>(args?: SelectSubset<T, user_tugasFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_tugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -5808,8 +5735,6 @@ export namespace Prisma {
    */
   export interface Prisma__user_tugasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, userDefaultArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    tugas<T extends tugasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, tugasDefaultArgs<ExtArgs>>): Prisma__tugasClient<$Result.GetResult<Prisma.$tugasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5839,6 +5764,7 @@ export namespace Prisma {
    * Fields of the user_tugas model
    */
   interface user_tugasFieldRefs {
+    readonly id: FieldRef<"user_tugas", 'String'>
     readonly id_user: FieldRef<"user_tugas", 'String'>
     readonly id_tugas: FieldRef<"user_tugas", 'String'>
   }
@@ -5858,10 +5784,6 @@ export namespace Prisma {
      */
     omit?: user_tugasOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_tugasInclude<ExtArgs> | null
-    /**
      * Filter, which user_tugas to fetch.
      */
     where: user_tugasWhereUniqueInput
@@ -5880,10 +5802,6 @@ export namespace Prisma {
      */
     omit?: user_tugasOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_tugasInclude<ExtArgs> | null
-    /**
      * Filter, which user_tugas to fetch.
      */
     where: user_tugasWhereUniqueInput
@@ -5901,10 +5819,6 @@ export namespace Prisma {
      * Omit specific fields from the user_tugas
      */
     omit?: user_tugasOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_tugasInclude<ExtArgs> | null
     /**
      * Filter, which user_tugas to fetch.
      */
@@ -5954,10 +5868,6 @@ export namespace Prisma {
      */
     omit?: user_tugasOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_tugasInclude<ExtArgs> | null
-    /**
      * Filter, which user_tugas to fetch.
      */
     where?: user_tugasWhereInput
@@ -6006,10 +5916,6 @@ export namespace Prisma {
      */
     omit?: user_tugasOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_tugasInclude<ExtArgs> | null
-    /**
      * Filter, which user_tugases to fetch.
      */
     where?: user_tugasWhereInput
@@ -6053,10 +5959,6 @@ export namespace Prisma {
      */
     omit?: user_tugasOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_tugasInclude<ExtArgs> | null
-    /**
      * The data needed to create a user_tugas.
      */
     data: XOR<user_tugasCreateInput, user_tugasUncheckedCreateInput>
@@ -6085,10 +5987,6 @@ export namespace Prisma {
      * Omit specific fields from the user_tugas
      */
     omit?: user_tugasOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_tugasInclude<ExtArgs> | null
     /**
      * The data needed to update a user_tugas.
      */
@@ -6130,10 +6028,6 @@ export namespace Prisma {
      */
     omit?: user_tugasOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_tugasInclude<ExtArgs> | null
-    /**
      * The filter to search for the user_tugas to update in case it exists.
      */
     where: user_tugasWhereUniqueInput
@@ -6159,10 +6053,6 @@ export namespace Prisma {
      * Omit specific fields from the user_tugas
      */
     omit?: user_tugasOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_tugasInclude<ExtArgs> | null
     /**
      * Filter which user_tugas to delete.
      */
@@ -6195,10 +6085,6 @@ export namespace Prisma {
      * Omit specific fields from the user_tugas
      */
     omit?: user_tugasOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_tugasInclude<ExtArgs> | null
   }
 
 
@@ -6267,6 +6153,7 @@ export namespace Prisma {
 
 
   export const User_tugasScalarFieldEnum: {
+    id: 'id',
     id_user: 'id_user',
     id_tugas: 'id_tugas'
   };
@@ -6332,6 +6219,7 @@ export namespace Prisma {
 
 
   export const user_tugasOrderByRelevanceFieldEnum: {
+    id: 'id',
     id_user: 'id_user',
     id_tugas: 'id_tugas'
   };
@@ -6514,7 +6402,6 @@ export namespace Prisma {
     tanggal_diubah?: DateTimeNullableFilter<"tugas"> | Date | string | null
     file?: FileListRelationFilter
     user?: XOR<UserNullableScalarRelationFilter, userWhereInput> | null
-    user_tugas?: User_tugasListRelationFilter
   }
 
   export type tugasOrderByWithRelationInput = {
@@ -6529,7 +6416,6 @@ export namespace Prisma {
     tanggal_diubah?: SortOrderInput | SortOrder
     file?: fileOrderByRelationAggregateInput
     user?: userOrderByWithRelationInput
-    user_tugas?: user_tugasOrderByRelationAggregateInput
     _relevance?: tugasOrderByRelevanceInput
   }
 
@@ -6548,7 +6434,6 @@ export namespace Prisma {
     tanggal_diubah?: DateTimeNullableFilter<"tugas"> | Date | string | null
     file?: FileListRelationFilter
     user?: XOR<UserNullableScalarRelationFilter, userWhereInput> | null
-    user_tugas?: User_tugasListRelationFilter
   }, "id">
 
   export type tugasOrderByWithAggregationInput = {
@@ -6594,7 +6479,6 @@ export namespace Prisma {
     posisi?: StringFilter<"user"> | string
     laporan_bulanan?: Laporan_bulananListRelationFilter
     tugas?: TugasListRelationFilter
-    user_tugas?: User_tugasListRelationFilter
   }
 
   export type userOrderByWithRelationInput = {
@@ -6605,7 +6489,6 @@ export namespace Prisma {
     posisi?: SortOrder
     laporan_bulanan?: laporan_bulananOrderByRelationAggregateInput
     tugas?: tugasOrderByRelationAggregateInput
-    user_tugas?: user_tugasOrderByRelationAggregateInput
     _relevance?: userOrderByRelevanceInput
   }
 
@@ -6620,7 +6503,6 @@ export namespace Prisma {
     posisi?: StringFilter<"user"> | string
     laporan_bulanan?: Laporan_bulananListRelationFilter
     tugas?: TugasListRelationFilter
-    user_tugas?: User_tugasListRelationFilter
   }, "id" | "email">
 
   export type userOrderByWithAggregationInput = {
@@ -6649,32 +6531,29 @@ export namespace Prisma {
     AND?: user_tugasWhereInput | user_tugasWhereInput[]
     OR?: user_tugasWhereInput[]
     NOT?: user_tugasWhereInput | user_tugasWhereInput[]
+    id?: StringFilter<"user_tugas"> | string
     id_user?: StringFilter<"user_tugas"> | string
     id_tugas?: StringFilter<"user_tugas"> | string
-    user?: XOR<UserScalarRelationFilter, userWhereInput>
-    tugas?: XOR<TugasScalarRelationFilter, tugasWhereInput>
   }
 
   export type user_tugasOrderByWithRelationInput = {
+    id?: SortOrder
     id_user?: SortOrder
     id_tugas?: SortOrder
-    user?: userOrderByWithRelationInput
-    tugas?: tugasOrderByWithRelationInput
     _relevance?: user_tugasOrderByRelevanceInput
   }
 
   export type user_tugasWhereUniqueInput = Prisma.AtLeast<{
-    id_user_id_tugas?: user_tugasId_userId_tugasCompoundUniqueInput
+    id?: string
     AND?: user_tugasWhereInput | user_tugasWhereInput[]
     OR?: user_tugasWhereInput[]
     NOT?: user_tugasWhereInput | user_tugasWhereInput[]
     id_user?: StringFilter<"user_tugas"> | string
     id_tugas?: StringFilter<"user_tugas"> | string
-    user?: XOR<UserScalarRelationFilter, userWhereInput>
-    tugas?: XOR<TugasScalarRelationFilter, tugasWhereInput>
-  }, "id_user_id_tugas">
+  }, "id">
 
   export type user_tugasOrderByWithAggregationInput = {
+    id?: SortOrder
     id_user?: SortOrder
     id_tugas?: SortOrder
     _count?: user_tugasCountOrderByAggregateInput
@@ -6686,6 +6565,7 @@ export namespace Prisma {
     AND?: user_tugasScalarWhereWithAggregatesInput | user_tugasScalarWhereWithAggregatesInput[]
     OR?: user_tugasScalarWhereWithAggregatesInput[]
     NOT?: user_tugasScalarWhereWithAggregatesInput | user_tugasScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"user_tugas"> | string
     id_user?: StringWithAggregatesFilter<"user_tugas"> | string
     id_tugas?: StringWithAggregatesFilter<"user_tugas"> | string
   }
@@ -6825,7 +6705,6 @@ export namespace Prisma {
     tanggal_diubah?: Date | string | null
     file?: fileCreateNestedManyWithoutTugasInput
     user?: userCreateNestedOneWithoutTugasInput
-    user_tugas?: user_tugasCreateNestedManyWithoutTugasInput
   }
 
   export type tugasUncheckedCreateInput = {
@@ -6839,7 +6718,6 @@ export namespace Prisma {
     tanggal_dibuat?: Date | string | null
     tanggal_diubah?: Date | string | null
     file?: fileUncheckedCreateNestedManyWithoutTugasInput
-    user_tugas?: user_tugasUncheckedCreateNestedManyWithoutTugasInput
   }
 
   export type tugasUpdateInput = {
@@ -6853,7 +6731,6 @@ export namespace Prisma {
     tanggal_diubah?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     file?: fileUpdateManyWithoutTugasNestedInput
     user?: userUpdateOneWithoutTugasNestedInput
-    user_tugas?: user_tugasUpdateManyWithoutTugasNestedInput
   }
 
   export type tugasUncheckedUpdateInput = {
@@ -6867,7 +6744,6 @@ export namespace Prisma {
     tanggal_dibuat?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tanggal_diubah?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     file?: fileUncheckedUpdateManyWithoutTugasNestedInput
-    user_tugas?: user_tugasUncheckedUpdateManyWithoutTugasNestedInput
   }
 
   export type tugasCreateManyInput = {
@@ -6913,7 +6789,6 @@ export namespace Prisma {
     posisi: string
     laporan_bulanan?: laporan_bulananCreateNestedManyWithoutUserInput
     tugas?: tugasCreateNestedManyWithoutUserInput
-    user_tugas?: user_tugasCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateInput = {
@@ -6924,7 +6799,6 @@ export namespace Prisma {
     posisi: string
     laporan_bulanan?: laporan_bulananUncheckedCreateNestedManyWithoutUserInput
     tugas?: tugasUncheckedCreateNestedManyWithoutUserInput
-    user_tugas?: user_tugasUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userUpdateInput = {
@@ -6935,7 +6809,6 @@ export namespace Prisma {
     posisi?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUpdateManyWithoutUserNestedInput
     tugas?: tugasUpdateManyWithoutUserNestedInput
-    user_tugas?: user_tugasUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateInput = {
@@ -6946,7 +6819,6 @@ export namespace Prisma {
     posisi?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUncheckedUpdateManyWithoutUserNestedInput
     tugas?: tugasUncheckedUpdateManyWithoutUserNestedInput
-    user_tugas?: user_tugasUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type userCreateManyInput = {
@@ -6974,35 +6846,43 @@ export namespace Prisma {
   }
 
   export type user_tugasCreateInput = {
-    user: userCreateNestedOneWithoutUser_tugasInput
-    tugas: tugasCreateNestedOneWithoutUser_tugasInput
+    id: string
+    id_user: string
+    id_tugas: string
   }
 
   export type user_tugasUncheckedCreateInput = {
+    id: string
     id_user: string
     id_tugas: string
   }
 
   export type user_tugasUpdateInput = {
-    user?: userUpdateOneRequiredWithoutUser_tugasNestedInput
-    tugas?: tugasUpdateOneRequiredWithoutUser_tugasNestedInput
+    id?: StringFieldUpdateOperationsInput | string
+    id_user?: StringFieldUpdateOperationsInput | string
+    id_tugas?: StringFieldUpdateOperationsInput | string
   }
 
   export type user_tugasUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     id_user?: StringFieldUpdateOperationsInput | string
     id_tugas?: StringFieldUpdateOperationsInput | string
   }
 
   export type user_tugasCreateManyInput = {
+    id: string
     id_user: string
     id_tugas: string
   }
 
   export type user_tugasUpdateManyMutationInput = {
-
+    id?: StringFieldUpdateOperationsInput | string
+    id_user?: StringFieldUpdateOperationsInput | string
+    id_tugas?: StringFieldUpdateOperationsInput | string
   }
 
   export type user_tugasUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     id_user?: StringFieldUpdateOperationsInput | string
     id_tugas?: StringFieldUpdateOperationsInput | string
   }
@@ -7230,22 +7110,12 @@ export namespace Prisma {
     isNot?: userWhereInput | null
   }
 
-  export type User_tugasListRelationFilter = {
-    every?: user_tugasWhereInput
-    some?: user_tugasWhereInput
-    none?: user_tugasWhereInput
-  }
-
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type fileOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type user_tugasOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7403,22 +7273,20 @@ export namespace Prisma {
     search: string
   }
 
-  export type user_tugasId_userId_tugasCompoundUniqueInput = {
-    id_user: string
-    id_tugas: string
-  }
-
   export type user_tugasCountOrderByAggregateInput = {
+    id?: SortOrder
     id_user?: SortOrder
     id_tugas?: SortOrder
   }
 
   export type user_tugasMaxOrderByAggregateInput = {
+    id?: SortOrder
     id_user?: SortOrder
     id_tugas?: SortOrder
   }
 
   export type user_tugasMinOrderByAggregateInput = {
+    id?: SortOrder
     id_user?: SortOrder
     id_tugas?: SortOrder
   }
@@ -7480,25 +7348,11 @@ export namespace Prisma {
     connect?: userWhereUniqueInput
   }
 
-  export type user_tugasCreateNestedManyWithoutTugasInput = {
-    create?: XOR<user_tugasCreateWithoutTugasInput, user_tugasUncheckedCreateWithoutTugasInput> | user_tugasCreateWithoutTugasInput[] | user_tugasUncheckedCreateWithoutTugasInput[]
-    connectOrCreate?: user_tugasCreateOrConnectWithoutTugasInput | user_tugasCreateOrConnectWithoutTugasInput[]
-    createMany?: user_tugasCreateManyTugasInputEnvelope
-    connect?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-  }
-
   export type fileUncheckedCreateNestedManyWithoutTugasInput = {
     create?: XOR<fileCreateWithoutTugasInput, fileUncheckedCreateWithoutTugasInput> | fileCreateWithoutTugasInput[] | fileUncheckedCreateWithoutTugasInput[]
     connectOrCreate?: fileCreateOrConnectWithoutTugasInput | fileCreateOrConnectWithoutTugasInput[]
     createMany?: fileCreateManyTugasInputEnvelope
     connect?: fileWhereUniqueInput | fileWhereUniqueInput[]
-  }
-
-  export type user_tugasUncheckedCreateNestedManyWithoutTugasInput = {
-    create?: XOR<user_tugasCreateWithoutTugasInput, user_tugasUncheckedCreateWithoutTugasInput> | user_tugasCreateWithoutTugasInput[] | user_tugasUncheckedCreateWithoutTugasInput[]
-    connectOrCreate?: user_tugasCreateOrConnectWithoutTugasInput | user_tugasCreateOrConnectWithoutTugasInput[]
-    createMany?: user_tugasCreateManyTugasInputEnvelope
-    connect?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -7541,20 +7395,6 @@ export namespace Prisma {
     update?: XOR<XOR<userUpdateToOneWithWhereWithoutTugasInput, userUpdateWithoutTugasInput>, userUncheckedUpdateWithoutTugasInput>
   }
 
-  export type user_tugasUpdateManyWithoutTugasNestedInput = {
-    create?: XOR<user_tugasCreateWithoutTugasInput, user_tugasUncheckedCreateWithoutTugasInput> | user_tugasCreateWithoutTugasInput[] | user_tugasUncheckedCreateWithoutTugasInput[]
-    connectOrCreate?: user_tugasCreateOrConnectWithoutTugasInput | user_tugasCreateOrConnectWithoutTugasInput[]
-    upsert?: user_tugasUpsertWithWhereUniqueWithoutTugasInput | user_tugasUpsertWithWhereUniqueWithoutTugasInput[]
-    createMany?: user_tugasCreateManyTugasInputEnvelope
-    set?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    disconnect?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    delete?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    connect?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    update?: user_tugasUpdateWithWhereUniqueWithoutTugasInput | user_tugasUpdateWithWhereUniqueWithoutTugasInput[]
-    updateMany?: user_tugasUpdateManyWithWhereWithoutTugasInput | user_tugasUpdateManyWithWhereWithoutTugasInput[]
-    deleteMany?: user_tugasScalarWhereInput | user_tugasScalarWhereInput[]
-  }
-
   export type fileUncheckedUpdateManyWithoutTugasNestedInput = {
     create?: XOR<fileCreateWithoutTugasInput, fileUncheckedCreateWithoutTugasInput> | fileCreateWithoutTugasInput[] | fileUncheckedCreateWithoutTugasInput[]
     connectOrCreate?: fileCreateOrConnectWithoutTugasInput | fileCreateOrConnectWithoutTugasInput[]
@@ -7567,20 +7407,6 @@ export namespace Prisma {
     update?: fileUpdateWithWhereUniqueWithoutTugasInput | fileUpdateWithWhereUniqueWithoutTugasInput[]
     updateMany?: fileUpdateManyWithWhereWithoutTugasInput | fileUpdateManyWithWhereWithoutTugasInput[]
     deleteMany?: fileScalarWhereInput | fileScalarWhereInput[]
-  }
-
-  export type user_tugasUncheckedUpdateManyWithoutTugasNestedInput = {
-    create?: XOR<user_tugasCreateWithoutTugasInput, user_tugasUncheckedCreateWithoutTugasInput> | user_tugasCreateWithoutTugasInput[] | user_tugasUncheckedCreateWithoutTugasInput[]
-    connectOrCreate?: user_tugasCreateOrConnectWithoutTugasInput | user_tugasCreateOrConnectWithoutTugasInput[]
-    upsert?: user_tugasUpsertWithWhereUniqueWithoutTugasInput | user_tugasUpsertWithWhereUniqueWithoutTugasInput[]
-    createMany?: user_tugasCreateManyTugasInputEnvelope
-    set?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    disconnect?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    delete?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    connect?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    update?: user_tugasUpdateWithWhereUniqueWithoutTugasInput | user_tugasUpdateWithWhereUniqueWithoutTugasInput[]
-    updateMany?: user_tugasUpdateManyWithWhereWithoutTugasInput | user_tugasUpdateManyWithWhereWithoutTugasInput[]
-    deleteMany?: user_tugasScalarWhereInput | user_tugasScalarWhereInput[]
   }
 
   export type laporan_bulananCreateNestedManyWithoutUserInput = {
@@ -7597,13 +7423,6 @@ export namespace Prisma {
     connect?: tugasWhereUniqueInput | tugasWhereUniqueInput[]
   }
 
-  export type user_tugasCreateNestedManyWithoutUserInput = {
-    create?: XOR<user_tugasCreateWithoutUserInput, user_tugasUncheckedCreateWithoutUserInput> | user_tugasCreateWithoutUserInput[] | user_tugasUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: user_tugasCreateOrConnectWithoutUserInput | user_tugasCreateOrConnectWithoutUserInput[]
-    createMany?: user_tugasCreateManyUserInputEnvelope
-    connect?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-  }
-
   export type laporan_bulananUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<laporan_bulananCreateWithoutUserInput, laporan_bulananUncheckedCreateWithoutUserInput> | laporan_bulananCreateWithoutUserInput[] | laporan_bulananUncheckedCreateWithoutUserInput[]
     connectOrCreate?: laporan_bulananCreateOrConnectWithoutUserInput | laporan_bulananCreateOrConnectWithoutUserInput[]
@@ -7616,13 +7435,6 @@ export namespace Prisma {
     connectOrCreate?: tugasCreateOrConnectWithoutUserInput | tugasCreateOrConnectWithoutUserInput[]
     createMany?: tugasCreateManyUserInputEnvelope
     connect?: tugasWhereUniqueInput | tugasWhereUniqueInput[]
-  }
-
-  export type user_tugasUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<user_tugasCreateWithoutUserInput, user_tugasUncheckedCreateWithoutUserInput> | user_tugasCreateWithoutUserInput[] | user_tugasUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: user_tugasCreateOrConnectWithoutUserInput | user_tugasCreateOrConnectWithoutUserInput[]
-    createMany?: user_tugasCreateManyUserInputEnvelope
-    connect?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
   }
 
   export type laporan_bulananUpdateManyWithoutUserNestedInput = {
@@ -7653,20 +7465,6 @@ export namespace Prisma {
     deleteMany?: tugasScalarWhereInput | tugasScalarWhereInput[]
   }
 
-  export type user_tugasUpdateManyWithoutUserNestedInput = {
-    create?: XOR<user_tugasCreateWithoutUserInput, user_tugasUncheckedCreateWithoutUserInput> | user_tugasCreateWithoutUserInput[] | user_tugasUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: user_tugasCreateOrConnectWithoutUserInput | user_tugasCreateOrConnectWithoutUserInput[]
-    upsert?: user_tugasUpsertWithWhereUniqueWithoutUserInput | user_tugasUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: user_tugasCreateManyUserInputEnvelope
-    set?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    disconnect?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    delete?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    connect?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    update?: user_tugasUpdateWithWhereUniqueWithoutUserInput | user_tugasUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: user_tugasUpdateManyWithWhereWithoutUserInput | user_tugasUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: user_tugasScalarWhereInput | user_tugasScalarWhereInput[]
-  }
-
   export type laporan_bulananUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<laporan_bulananCreateWithoutUserInput, laporan_bulananUncheckedCreateWithoutUserInput> | laporan_bulananCreateWithoutUserInput[] | laporan_bulananUncheckedCreateWithoutUserInput[]
     connectOrCreate?: laporan_bulananCreateOrConnectWithoutUserInput | laporan_bulananCreateOrConnectWithoutUserInput[]
@@ -7693,48 +7491,6 @@ export namespace Prisma {
     update?: tugasUpdateWithWhereUniqueWithoutUserInput | tugasUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: tugasUpdateManyWithWhereWithoutUserInput | tugasUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: tugasScalarWhereInput | tugasScalarWhereInput[]
-  }
-
-  export type user_tugasUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<user_tugasCreateWithoutUserInput, user_tugasUncheckedCreateWithoutUserInput> | user_tugasCreateWithoutUserInput[] | user_tugasUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: user_tugasCreateOrConnectWithoutUserInput | user_tugasCreateOrConnectWithoutUserInput[]
-    upsert?: user_tugasUpsertWithWhereUniqueWithoutUserInput | user_tugasUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: user_tugasCreateManyUserInputEnvelope
-    set?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    disconnect?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    delete?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    connect?: user_tugasWhereUniqueInput | user_tugasWhereUniqueInput[]
-    update?: user_tugasUpdateWithWhereUniqueWithoutUserInput | user_tugasUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: user_tugasUpdateManyWithWhereWithoutUserInput | user_tugasUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: user_tugasScalarWhereInput | user_tugasScalarWhereInput[]
-  }
-
-  export type userCreateNestedOneWithoutUser_tugasInput = {
-    create?: XOR<userCreateWithoutUser_tugasInput, userUncheckedCreateWithoutUser_tugasInput>
-    connectOrCreate?: userCreateOrConnectWithoutUser_tugasInput
-    connect?: userWhereUniqueInput
-  }
-
-  export type tugasCreateNestedOneWithoutUser_tugasInput = {
-    create?: XOR<tugasCreateWithoutUser_tugasInput, tugasUncheckedCreateWithoutUser_tugasInput>
-    connectOrCreate?: tugasCreateOrConnectWithoutUser_tugasInput
-    connect?: tugasWhereUniqueInput
-  }
-
-  export type userUpdateOneRequiredWithoutUser_tugasNestedInput = {
-    create?: XOR<userCreateWithoutUser_tugasInput, userUncheckedCreateWithoutUser_tugasInput>
-    connectOrCreate?: userCreateOrConnectWithoutUser_tugasInput
-    upsert?: userUpsertWithoutUser_tugasInput
-    connect?: userWhereUniqueInput
-    update?: XOR<XOR<userUpdateToOneWithWhereWithoutUser_tugasInput, userUpdateWithoutUser_tugasInput>, userUncheckedUpdateWithoutUser_tugasInput>
-  }
-
-  export type tugasUpdateOneRequiredWithoutUser_tugasNestedInput = {
-    create?: XOR<tugasCreateWithoutUser_tugasInput, tugasUncheckedCreateWithoutUser_tugasInput>
-    connectOrCreate?: tugasCreateOrConnectWithoutUser_tugasInput
-    upsert?: tugasUpsertWithoutUser_tugasInput
-    connect?: tugasWhereUniqueInput
-    update?: XOR<XOR<tugasUpdateToOneWithWhereWithoutUser_tugasInput, tugasUpdateWithoutUser_tugasInput>, tugasUncheckedUpdateWithoutUser_tugasInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -7939,7 +7695,6 @@ export namespace Prisma {
     tanggal_dibuat?: Date | string | null
     tanggal_diubah?: Date | string | null
     user?: userCreateNestedOneWithoutTugasInput
-    user_tugas?: user_tugasCreateNestedManyWithoutTugasInput
   }
 
   export type tugasUncheckedCreateWithoutFileInput = {
@@ -7952,7 +7707,6 @@ export namespace Prisma {
     id_admin?: string | null
     tanggal_dibuat?: Date | string | null
     tanggal_diubah?: Date | string | null
-    user_tugas?: user_tugasUncheckedCreateNestedManyWithoutTugasInput
   }
 
   export type tugasCreateOrConnectWithoutFileInput = {
@@ -7981,7 +7735,6 @@ export namespace Prisma {
     tanggal_dibuat?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tanggal_diubah?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: userUpdateOneWithoutTugasNestedInput
-    user_tugas?: user_tugasUpdateManyWithoutTugasNestedInput
   }
 
   export type tugasUncheckedUpdateWithoutFileInput = {
@@ -7994,7 +7747,6 @@ export namespace Prisma {
     id_admin?: NullableStringFieldUpdateOperationsInput | string | null
     tanggal_dibuat?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tanggal_diubah?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    user_tugas?: user_tugasUncheckedUpdateManyWithoutTugasNestedInput
   }
 
   export type userCreateWithoutLaporan_bulananInput = {
@@ -8004,7 +7756,6 @@ export namespace Prisma {
     password: string
     posisi: string
     tugas?: tugasCreateNestedManyWithoutUserInput
-    user_tugas?: user_tugasCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateWithoutLaporan_bulananInput = {
@@ -8014,7 +7765,6 @@ export namespace Prisma {
     password: string
     posisi: string
     tugas?: tugasUncheckedCreateNestedManyWithoutUserInput
-    user_tugas?: user_tugasUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userCreateOrConnectWithoutLaporan_bulananInput = {
@@ -8040,7 +7790,6 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
     tugas?: tugasUpdateManyWithoutUserNestedInput
-    user_tugas?: user_tugasUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateWithoutLaporan_bulananInput = {
@@ -8050,7 +7799,6 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
     tugas?: tugasUncheckedUpdateManyWithoutUserNestedInput
-    user_tugas?: user_tugasUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type fileCreateWithoutTugasInput = {
@@ -8084,7 +7832,6 @@ export namespace Prisma {
     password: string
     posisi: string
     laporan_bulanan?: laporan_bulananCreateNestedManyWithoutUserInput
-    user_tugas?: user_tugasCreateNestedManyWithoutUserInput
   }
 
   export type userUncheckedCreateWithoutTugasInput = {
@@ -8094,30 +7841,11 @@ export namespace Prisma {
     password: string
     posisi: string
     laporan_bulanan?: laporan_bulananUncheckedCreateNestedManyWithoutUserInput
-    user_tugas?: user_tugasUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type userCreateOrConnectWithoutTugasInput = {
     where: userWhereUniqueInput
     create: XOR<userCreateWithoutTugasInput, userUncheckedCreateWithoutTugasInput>
-  }
-
-  export type user_tugasCreateWithoutTugasInput = {
-    user: userCreateNestedOneWithoutUser_tugasInput
-  }
-
-  export type user_tugasUncheckedCreateWithoutTugasInput = {
-    id_user: string
-  }
-
-  export type user_tugasCreateOrConnectWithoutTugasInput = {
-    where: user_tugasWhereUniqueInput
-    create: XOR<user_tugasCreateWithoutTugasInput, user_tugasUncheckedCreateWithoutTugasInput>
-  }
-
-  export type user_tugasCreateManyTugasInputEnvelope = {
-    data: user_tugasCreateManyTugasInput | user_tugasCreateManyTugasInput[]
-    skipDuplicates?: boolean
   }
 
   export type fileUpsertWithWhereUniqueWithoutTugasInput = {
@@ -8165,7 +7893,6 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUpdateManyWithoutUserNestedInput
-    user_tugas?: user_tugasUpdateManyWithoutUserNestedInput
   }
 
   export type userUncheckedUpdateWithoutTugasInput = {
@@ -8175,31 +7902,6 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUncheckedUpdateManyWithoutUserNestedInput
-    user_tugas?: user_tugasUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type user_tugasUpsertWithWhereUniqueWithoutTugasInput = {
-    where: user_tugasWhereUniqueInput
-    update: XOR<user_tugasUpdateWithoutTugasInput, user_tugasUncheckedUpdateWithoutTugasInput>
-    create: XOR<user_tugasCreateWithoutTugasInput, user_tugasUncheckedCreateWithoutTugasInput>
-  }
-
-  export type user_tugasUpdateWithWhereUniqueWithoutTugasInput = {
-    where: user_tugasWhereUniqueInput
-    data: XOR<user_tugasUpdateWithoutTugasInput, user_tugasUncheckedUpdateWithoutTugasInput>
-  }
-
-  export type user_tugasUpdateManyWithWhereWithoutTugasInput = {
-    where: user_tugasScalarWhereInput
-    data: XOR<user_tugasUpdateManyMutationInput, user_tugasUncheckedUpdateManyWithoutTugasInput>
-  }
-
-  export type user_tugasScalarWhereInput = {
-    AND?: user_tugasScalarWhereInput | user_tugasScalarWhereInput[]
-    OR?: user_tugasScalarWhereInput[]
-    NOT?: user_tugasScalarWhereInput | user_tugasScalarWhereInput[]
-    id_user?: StringFilter<"user_tugas"> | string
-    id_tugas?: StringFilter<"user_tugas"> | string
   }
 
   export type laporan_bulananCreateWithoutUserInput = {
@@ -8240,7 +7942,6 @@ export namespace Prisma {
     tanggal_dibuat?: Date | string | null
     tanggal_diubah?: Date | string | null
     file?: fileCreateNestedManyWithoutTugasInput
-    user_tugas?: user_tugasCreateNestedManyWithoutTugasInput
   }
 
   export type tugasUncheckedCreateWithoutUserInput = {
@@ -8253,7 +7954,6 @@ export namespace Prisma {
     tanggal_dibuat?: Date | string | null
     tanggal_diubah?: Date | string | null
     file?: fileUncheckedCreateNestedManyWithoutTugasInput
-    user_tugas?: user_tugasUncheckedCreateNestedManyWithoutTugasInput
   }
 
   export type tugasCreateOrConnectWithoutUserInput = {
@@ -8263,24 +7963,6 @@ export namespace Prisma {
 
   export type tugasCreateManyUserInputEnvelope = {
     data: tugasCreateManyUserInput | tugasCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type user_tugasCreateWithoutUserInput = {
-    tugas: tugasCreateNestedOneWithoutUser_tugasInput
-  }
-
-  export type user_tugasUncheckedCreateWithoutUserInput = {
-    id_tugas: string
-  }
-
-  export type user_tugasCreateOrConnectWithoutUserInput = {
-    where: user_tugasWhereUniqueInput
-    create: XOR<user_tugasCreateWithoutUserInput, user_tugasUncheckedCreateWithoutUserInput>
-  }
-
-  export type user_tugasCreateManyUserInputEnvelope = {
-    data: user_tugasCreateManyUserInput | user_tugasCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -8344,155 +8026,11 @@ export namespace Prisma {
     tanggal_diubah?: DateTimeNullableFilter<"tugas"> | Date | string | null
   }
 
-  export type user_tugasUpsertWithWhereUniqueWithoutUserInput = {
-    where: user_tugasWhereUniqueInput
-    update: XOR<user_tugasUpdateWithoutUserInput, user_tugasUncheckedUpdateWithoutUserInput>
-    create: XOR<user_tugasCreateWithoutUserInput, user_tugasUncheckedCreateWithoutUserInput>
-  }
-
-  export type user_tugasUpdateWithWhereUniqueWithoutUserInput = {
-    where: user_tugasWhereUniqueInput
-    data: XOR<user_tugasUpdateWithoutUserInput, user_tugasUncheckedUpdateWithoutUserInput>
-  }
-
-  export type user_tugasUpdateManyWithWhereWithoutUserInput = {
-    where: user_tugasScalarWhereInput
-    data: XOR<user_tugasUpdateManyMutationInput, user_tugasUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type userCreateWithoutUser_tugasInput = {
-    id: string
-    nama: string
-    email: string
-    password: string
-    posisi: string
-    laporan_bulanan?: laporan_bulananCreateNestedManyWithoutUserInput
-    tugas?: tugasCreateNestedManyWithoutUserInput
-  }
-
-  export type userUncheckedCreateWithoutUser_tugasInput = {
-    id: string
-    nama: string
-    email: string
-    password: string
-    posisi: string
-    laporan_bulanan?: laporan_bulananUncheckedCreateNestedManyWithoutUserInput
-    tugas?: tugasUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type userCreateOrConnectWithoutUser_tugasInput = {
-    where: userWhereUniqueInput
-    create: XOR<userCreateWithoutUser_tugasInput, userUncheckedCreateWithoutUser_tugasInput>
-  }
-
-  export type tugasCreateWithoutUser_tugasInput = {
-    id: string
-    judul: string
-    brief?: string | null
-    kuantitas?: number | null
-    deadline?: Date | string | null
-    status?: string | null
-    tanggal_dibuat?: Date | string | null
-    tanggal_diubah?: Date | string | null
-    file?: fileCreateNestedManyWithoutTugasInput
-    user?: userCreateNestedOneWithoutTugasInput
-  }
-
-  export type tugasUncheckedCreateWithoutUser_tugasInput = {
-    id: string
-    judul: string
-    brief?: string | null
-    kuantitas?: number | null
-    deadline?: Date | string | null
-    status?: string | null
-    id_admin?: string | null
-    tanggal_dibuat?: Date | string | null
-    tanggal_diubah?: Date | string | null
-    file?: fileUncheckedCreateNestedManyWithoutTugasInput
-  }
-
-  export type tugasCreateOrConnectWithoutUser_tugasInput = {
-    where: tugasWhereUniqueInput
-    create: XOR<tugasCreateWithoutUser_tugasInput, tugasUncheckedCreateWithoutUser_tugasInput>
-  }
-
-  export type userUpsertWithoutUser_tugasInput = {
-    update: XOR<userUpdateWithoutUser_tugasInput, userUncheckedUpdateWithoutUser_tugasInput>
-    create: XOR<userCreateWithoutUser_tugasInput, userUncheckedCreateWithoutUser_tugasInput>
-    where?: userWhereInput
-  }
-
-  export type userUpdateToOneWithWhereWithoutUser_tugasInput = {
-    where?: userWhereInput
-    data: XOR<userUpdateWithoutUser_tugasInput, userUncheckedUpdateWithoutUser_tugasInput>
-  }
-
-  export type userUpdateWithoutUser_tugasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nama?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    posisi?: StringFieldUpdateOperationsInput | string
-    laporan_bulanan?: laporan_bulananUpdateManyWithoutUserNestedInput
-    tugas?: tugasUpdateManyWithoutUserNestedInput
-  }
-
-  export type userUncheckedUpdateWithoutUser_tugasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nama?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    posisi?: StringFieldUpdateOperationsInput | string
-    laporan_bulanan?: laporan_bulananUncheckedUpdateManyWithoutUserNestedInput
-    tugas?: tugasUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type tugasUpsertWithoutUser_tugasInput = {
-    update: XOR<tugasUpdateWithoutUser_tugasInput, tugasUncheckedUpdateWithoutUser_tugasInput>
-    create: XOR<tugasCreateWithoutUser_tugasInput, tugasUncheckedCreateWithoutUser_tugasInput>
-    where?: tugasWhereInput
-  }
-
-  export type tugasUpdateToOneWithWhereWithoutUser_tugasInput = {
-    where?: tugasWhereInput
-    data: XOR<tugasUpdateWithoutUser_tugasInput, tugasUncheckedUpdateWithoutUser_tugasInput>
-  }
-
-  export type tugasUpdateWithoutUser_tugasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    judul?: StringFieldUpdateOperationsInput | string
-    brief?: NullableStringFieldUpdateOperationsInput | string | null
-    kuantitas?: NullableIntFieldUpdateOperationsInput | number | null
-    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    tanggal_dibuat?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    tanggal_diubah?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    file?: fileUpdateManyWithoutTugasNestedInput
-    user?: userUpdateOneWithoutTugasNestedInput
-  }
-
-  export type tugasUncheckedUpdateWithoutUser_tugasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    judul?: StringFieldUpdateOperationsInput | string
-    brief?: NullableStringFieldUpdateOperationsInput | string | null
-    kuantitas?: NullableIntFieldUpdateOperationsInput | number | null
-    deadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    id_admin?: NullableStringFieldUpdateOperationsInput | string | null
-    tanggal_dibuat?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    tanggal_diubah?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    file?: fileUncheckedUpdateManyWithoutTugasNestedInput
-  }
-
   export type fileCreateManyTugasInput = {
     id: string
     nama_file: string
     url: string
     tanggal_upload?: Date | string
-  }
-
-  export type user_tugasCreateManyTugasInput = {
-    id_user: string
   }
 
   export type fileUpdateWithoutTugasInput = {
@@ -8516,18 +8054,6 @@ export namespace Prisma {
     tanggal_upload?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type user_tugasUpdateWithoutTugasInput = {
-    user?: userUpdateOneRequiredWithoutUser_tugasNestedInput
-  }
-
-  export type user_tugasUncheckedUpdateWithoutTugasInput = {
-    id_user?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type user_tugasUncheckedUpdateManyWithoutTugasInput = {
-    id_user?: StringFieldUpdateOperationsInput | string
-  }
-
   export type laporan_bulananCreateManyUserInput = {
     id: string
     bulan: string
@@ -8546,10 +8072,6 @@ export namespace Prisma {
     status?: string | null
     tanggal_dibuat?: Date | string | null
     tanggal_diubah?: Date | string | null
-  }
-
-  export type user_tugasCreateManyUserInput = {
-    id_tugas: string
   }
 
   export type laporan_bulananUpdateWithoutUserInput = {
@@ -8589,7 +8111,6 @@ export namespace Prisma {
     tanggal_dibuat?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tanggal_diubah?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     file?: fileUpdateManyWithoutTugasNestedInput
-    user_tugas?: user_tugasUpdateManyWithoutTugasNestedInput
   }
 
   export type tugasUncheckedUpdateWithoutUserInput = {
@@ -8602,7 +8123,6 @@ export namespace Prisma {
     tanggal_dibuat?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tanggal_diubah?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     file?: fileUncheckedUpdateManyWithoutTugasNestedInput
-    user_tugas?: user_tugasUncheckedUpdateManyWithoutTugasNestedInput
   }
 
   export type tugasUncheckedUpdateManyWithoutUserInput = {
@@ -8614,18 +8134,6 @@ export namespace Prisma {
     status?: NullableStringFieldUpdateOperationsInput | string | null
     tanggal_dibuat?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tanggal_diubah?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type user_tugasUpdateWithoutUserInput = {
-    tugas?: tugasUpdateOneRequiredWithoutUser_tugasNestedInput
-  }
-
-  export type user_tugasUncheckedUpdateWithoutUserInput = {
-    id_tugas?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type user_tugasUncheckedUpdateManyWithoutUserInput = {
-    id_tugas?: StringFieldUpdateOperationsInput | string
   }
 
 
