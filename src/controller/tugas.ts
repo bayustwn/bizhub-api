@@ -58,7 +58,42 @@ export const addTugas = async (ctx: Context) => {
 
 }
 
-export const tugasByid = async (ctx: Context) => {
+export const detailTugas = async(ctx:Context) => {
+
+    const tugas_id = ctx.req.param("id")
+
+    try {
+
+        const tugas = await prisma.tugas.findUnique({
+            where : {
+                id : tugas_id
+            }
+        })
+
+        if (tugas){
+            const user_tugas = await prisma.user_tugas.findMany({
+                where : {
+                    id_tugas :  tugas_id
+                }, select : {
+                    id_user : true
+                }
+            })
+
+            responses(ctx,200,true,"Sukses mendapatkan detail tugas!",{
+                tugas,
+                user_tugas: user_tugas
+            })
+        }else{
+            return responses(ctx,404,false,"Tugas tidak ditemukan!")
+        }
+
+    }catch (error) {
+        return serverError(ctx)
+    }
+
+}
+
+export const tugasByUserId = async (ctx: Context) => {
     const user_id = ctx.req.param("id");
 
     try {
@@ -90,6 +125,30 @@ export const tugasByid = async (ctx: Context) => {
     } catch (error) {
         return serverError(ctx);
     }
+}
+
+export const deleteTugas = async (ctx: Context ) => {
+
+    const tugas_id = ctx.req.param("id");
+
+    try {
+
+        const tugas = await prisma.tugas.delete({
+            where : {
+                id : tugas_id
+            }
+        })
+
+        if (tugas){
+            return responses(ctx,200,true,"Sukses menghapus tugas!")
+        }else{
+            return responses(ctx,400, false,"Gagal menghapus tugas!")
+        }
+
+    }catch (error) {
+        return serverError(ctx);
+    }
+
 }
 
 export const semuaTugas =  async (ctx: Context) => {
