@@ -5,29 +5,25 @@ import { z } from "zod";
 import {responses} from "../utils/response";
 
 const loginSchema = z.object({
-    email: z.string().email(),
-    password: z.string(),
-})
+    email: z.string({ required_error: "Email wajib diisi" })
+        .email("Format email tidak valid"),
+    password: z.string({ required_error: "Password wajib diisi" })
+});
 
 export const login = async (ctx: Context) => {
-
-    const {email, password} = await loginSchema.parseAsync(await ctx.req.json());
-
     try {
+        const { email, password } = await loginSchema.parseAsync(await ctx.req.json());
+
         const user = await prisma.user.findUnique({
-            where: {email: email},
-            select: {id: true, nama: true, posisi: true, email: true , password: true},
+            where: { email },
+            select: { id: true, nama: true, posisi: true, email: true, password: true },
         });
 
         if (!user) {
             return responses(ctx, 401, false, "Email atau password salah!");
         }
 
-        const isPasswordValid = await Bun.password.verify(
-            password,
-            user.password,
-            "bcrypt"
-        );
+        const isPasswordValid = await Bun.password.verify(password, user.password, "bcrypt");
 
         if (!isPasswordValid) {
             return responses(ctx, 401, false, "Email atau password salah!");
@@ -46,6 +42,12 @@ export const login = async (ctx: Context) => {
         return responses(ctx, 200, true, "Berhasil Login", { token });
 
     } catch (error) {
+        if (error instanceof z.ZodError) {
+            const messages = error.errors.map(e => e.message).join(', ');
+            return responses(ctx, 400, false, messages);
+        }
+
         return responses(ctx, 500, false, "Server Error");
     }
 };
+

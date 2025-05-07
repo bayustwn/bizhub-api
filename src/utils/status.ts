@@ -1,7 +1,7 @@
 export const status_map = {
     dibuat: 'Dibuat',
-    dikerjakan: 'Sedang Dikerjakan',
+    dikerjakan: 'Dikerjakan',
     selesai: 'Selesai',
-    revisi: 'Perlu Revisi',
-    terlambat: 'Terlambat'
+    revisi: 'Revisi',
+    ditinjau : "Ditinjau"
 };

@@ -38,7 +38,7 @@ export const verifyToken = (admin: boolean) => {
             ctx.set("user_data", user);
             await next();
         } catch (error) {
-            return serverError(ctx);
+            return serverError(ctx,"Jwt Expired!");
         }
     };
 };

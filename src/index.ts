@@ -2,9 +2,11 @@ import { Hono } from 'hono'
 import auth from "./routes/auth";
 import user from "./routes/user";
 import tugas from "./routes/tugas";
+import {cors} from "hono/cors";
 
 const app = new Hono()
 
+app.use(cors())
 app.route('/auth',auth)
 app.route('/user',user)
 app.route('/tugas',tugas)

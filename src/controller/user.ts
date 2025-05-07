@@ -10,6 +10,65 @@ const userSchema = z.object({
     posisi :  z.string(),
 })
 
+export const detailUser = async (ctx:Context) => {
+
+    const id = ctx.req.param("id")
+
+    try {
+
+        const user = await prisma.user.findUnique({
+            where : {
+                id : id
+            }, select : {
+                id : true,
+                nama : true,
+                email : true
+            }
+        })
+
+        if (user){
+            return responses(ctx,200,true,"Berhasil mendapatkan detail user!",user)
+        }else{
+            return responses(ctx,404,false,"User tidak ada!")
+        }
+
+
+
+    }catch (error){
+        return serverError(ctx)
+    }
+
+}
+
+export const profile = async (ctx:Context) => {
+    const user = ctx.get("user_data")
+
+    try {
+
+        const profile = await prisma.user.findUnique({
+            where : {
+                id : user.id
+            },select:{
+                id : true,
+                nama : true,
+                email : true,
+                posisi : true
+            }
+        })
+
+        if (profile) {
+            return responses(ctx,200,true,"Profil user ditemukan",profile)
+        }else{
+            return responses(ctx,404,false,"Profil user tidak ditemukan")
+        }
+
+    }catch (error) {
+        return serverError(ctx);
+    }
+
+
+}
+
 export const create = async (ctx: Context) => {
 
     const {nama, email, password, posisi} = await userSchema.parseAsync(await ctx.req.json())

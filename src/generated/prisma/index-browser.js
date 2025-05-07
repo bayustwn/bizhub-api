@@ -141,6 +141,7 @@ exports.Prisma.TugasScalarFieldEnum = {
   brief: 'brief',
   kuantitas: 'kuantitas',
   deadline: 'deadline',
+  terlambat: 'terlambat',
   status: 'status',
   id_admin: 'id_admin',
   tanggal_dibuat: 'tanggal_dibuat',
