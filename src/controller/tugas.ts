@@ -99,20 +99,20 @@ export const tugasByUserId = async (ctx: Context) => {
     try {
         const tugas = await prisma.user_tugas.findMany({
             where: {
-                id_user : user_id
+                id_user: user_id
             },
-            select : {
-                id_tugas : true
+            select: {
+                id_tugas: true
             }
         });
 
         if (!tugas || tugas.length === 0) {
-            return responses(ctx, 404, false, "Gagal membuat tugas! atau tugas tidak ada");
+            return responses(ctx, 404, false, "Gagal mendapatkan tugas! atau tugas tidak ada");
         }
 
         const semua_tugas = await Promise.all(
             tugas.map((tugass) =>
-                prisma.tugas.findMany({
+                prisma.tugas.findUnique({
                     where: {
                         id: tugass.id_tugas
                     }
@@ -126,6 +126,7 @@ export const tugasByUserId = async (ctx: Context) => {
         return serverError(ctx);
     }
 }
+
 
 export const deleteTugas = async (ctx: Context ) => {
 
@@ -155,7 +156,19 @@ export const semuaTugas =  async (ctx: Context) => {
 
     try {
 
-        const tugas =  await prisma.tugas.findMany()
+        const tugas = await prisma.tugas.findMany({
+            where: {
+                user_tugas: {
+                    some: {
+                        user: {
+                            posisi: {
+                                not: "admin",
+                            },
+                        },
+                    },
+                },
+            },
+        });
 
         return  responses(ctx, 200, true, "Sukes mengambil tugas",tugas)
 

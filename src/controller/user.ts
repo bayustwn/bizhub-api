@@ -103,3 +103,74 @@ export const create = async (ctx: Context) => {
     }
 
 }
+
+export const performaMingguan = async(ctx: Context) => {
+
+    try {
+
+        const week = new Date();
+        week.setDate(week.getDate() - 7);
+
+        const userMingguan = await prisma.user.findMany({
+            where: {
+                posisi: {
+                    not: "admin",
+                },
+            },
+            select: {
+                nama: true,
+                email: true,
+                _count: {
+                    select: {
+                        user_tugas: {
+                            where: {
+                                tugas: {
+                                    tanggal_dibuat: {
+                                        gte: week,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        });
+
+        if (userMingguan){
+            return responses(ctx,200,true,"Sukses mengambil performa mingguan",userMingguan.sort((a, b) => b._count.user_tugas - a._count.user_tugas))
+        }
+
+    }catch (error) {
+        return serverError(ctx);
+    }
+}
+
+export const semuaTim = async(ctx:Context) =>{
+    try {
+
+        const  user = await prisma.user.findMany({
+            where : {
+                posisi : {
+                    not : "admin"
+                }
+            },select : {
+                id: true,
+                nama : true,
+                email : true,
+                posisi : true,
+                _count: {
+                    select: {
+                        user_tugas : true
+                    },
+                },
+            }
+        })
+
+        if (user) {
+            return responses(ctx,200,true,"Sukses mengambil semua user",user)
+        }
+
+    }catch (error) {
+        return serverError(ctx);
+    }
+}
