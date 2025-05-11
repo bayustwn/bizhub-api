@@ -152,17 +152,25 @@ export const deleteTugas = async (ctx: Context ) => {
 
 }
 
-export const semuaTugas =  async (ctx: Context) => {
-
+export const semuaTugas = async (ctx: Context) => {
     try {
-
         const tugas = await prisma.tugas.findMany({
-            where: {
+            include: {
                 user_tugas: {
-                    some: {
+                    where: {
                         user: {
                             posisi: {
                                 not: "admin",
+                            },
+                        },
+                    },
+                    select: {
+                        user: {
+                            select: {
+                                id: true,
+                                nama: true,
+                                email: true,
+                                posisi: true
                             },
                         },
                     },
@@ -170,10 +178,13 @@ export const semuaTugas =  async (ctx: Context) => {
             },
         });
 
-        return  responses(ctx, 200, true, "Sukes mengambil tugas",tugas)
+        const hasil = tugas.map((t) => ({
+            ...t,
+            user_tugas: t.user_tugas.map((ut) => ut.user),
+        }));
 
-    }catch (error) {
-        return  serverError(ctx);
+        return responses(ctx, 200, true, "Sukses mengambil tugas", hasil);
+    } catch (error) {
+        return serverError(ctx);
     }
-
-}
+};

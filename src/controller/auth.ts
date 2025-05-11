@@ -39,7 +39,10 @@ export const login = async (ctx: Context) => {
 
         const token = await sign(payload, `${Bun.env.SECRET_KEY}`, "HS256");
 
-        return responses(ctx, 200, true, "Berhasil Login", { token });
+        return responses(ctx, 200, true, "Berhasil Login", {
+            token : token,
+            posisi : user.posisi
+        });
 
     } catch (error) {
         if (error instanceof z.ZodError) {

@@ -10,6 +10,11 @@ const userSchema = z.object({
     posisi :  z.string(),
 })
 
+const dateSchema = z.object({
+    bulan : z.number(),
+    tahun :  z.number(),
+})
+
 export const detailUser = async (ctx:Context) => {
 
     const id = ctx.req.param("id")
@@ -104,6 +109,88 @@ export const create = async (ctx: Context) => {
 
 }
 
+export const performaBulananUser = async(ctx:Context) =>{
+
+    const id_user = ctx.req.param("id_user")
+
+    try {
+
+        const user = await prisma.user.findUnique({
+            where : {
+                id : id_user
+            },select :{
+
+            }
+        })
+
+    }catch (error) {
+        return serverError(ctx)
+    }
+}
+
+export const performaBulanan = async(ctx: Context) => {
+    const { bulan, tahun } = await dateSchema.parseAsync(await ctx.req.json());
+
+    try {
+        const tanggalMulai = new Date(tahun, bulan - 1, 1);
+        const tanggalSelesai = new Date(tahun, bulan, 0, 23, 59, 59, 999);
+
+        const users = await prisma.user.findMany({
+            where: {
+                posisi: {
+                    not: "admin"
+                }
+            },
+            select: {
+                id: true,
+                nama: true,
+                email: true,
+                posisi: true,
+                user_tugas: {
+                    where: {
+                        tugas: {
+                            tanggal_dibuat: {
+                                gte: tanggalMulai,
+                                lte: tanggalSelesai
+                            }
+                        }
+                    },
+                    select: {
+                        tugas: {
+                            select: {
+                                terlambat: true
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const performa = users.map(user => {
+            const jumlahTerlambat = user.user_tugas.filter(t => t.tugas.terlambat).length;
+
+            let penilaian = "Baik";
+            if (jumlahTerlambat > 5) penilaian = "Buruk";
+            else if (jumlahTerlambat >= 2) penilaian = "Kurang";
+
+            return {
+                id: user.id,
+                nama: user.nama,
+                email: user.email,
+                posisi: user.posisi,
+                jumlah_tugas: user.user_tugas.length,
+                jumlah_terlambat: jumlahTerlambat,
+                penilaian
+            };
+        });
+
+        return responses(ctx,200,true,"Berhasil Mendapatkan Performa",performa);
+    } catch (error) {
+        console.error(error);
+        return serverError(ctx);
+    }
+};
+
 export const performaMingguan = async(ctx: Context) => {
 
     try {
@@ -160,7 +247,15 @@ export const semuaTim = async(ctx:Context) =>{
                 posisi : true,
                 _count: {
                     select: {
-                        user_tugas : true
+                        user_tugas : {
+                            where : {
+                                tugas : {
+                                    status : {
+                                        not : "Selesai"
+                                    }
+                                }
+                            }
+                        }
                     },
                 },
             }
