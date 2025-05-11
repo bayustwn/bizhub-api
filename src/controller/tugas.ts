@@ -16,6 +16,11 @@ const tugasSchema = z.object({
     )
 })
 
+const statusSchema = z.object({
+    id : z.string(),
+    status: z.enum(["Dibuat", "Dikerjakan", "Revisi", "Selesai", "Ditinjau"])
+})
+
 export const addTugas = async (ctx: Context) => {
 
     const {judul,brief,kuantitas,deadline,user_tugas} = await tugasSchema.parseAsync(await ctx.req.json())
@@ -188,3 +193,32 @@ export const semuaTugas = async (ctx: Context) => {
         return serverError(ctx);
     }
 };
+
+export const updateStatus = async (ctx:Context) =>{
+
+    const {id,status} = await statusSchema.parseAsync( await ctx.req.json())
+
+    try {
+        const tugas = await prisma.tugas.findUnique({
+            where : {
+                id : id
+            }
+        })
+
+        if (tugas){
+            const updateTugas = await prisma.tugas.update({
+                where : {
+                    id: tugas.id
+                },data : {
+                    status : status
+                }
+            })
+
+            return responses(ctx,200,true,"Status tugas diubah")
+        }else{
+            return responses(ctx,404,false,"Tugas tidak ditemukan")
+        }
+    }catch (error){
+        return serverError(ctx)
+    }
+}
