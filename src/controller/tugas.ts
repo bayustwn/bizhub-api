@@ -70,23 +70,27 @@ export const detailTugas = async(ctx:Context) => {
     try {
 
         const tugas = await prisma.tugas.findUnique({
-            where : {
-                id : tugas_id
+            where: {
+                id: tugas_id
+            },
+            include: {
+                user_tugas: {
+                    select: {
+                        user: {
+                            select: {
+                                id: true,
+                                nama: true
+                            }
+                        }
+                    }
+                }
             }
         })
 
         if (tugas){
-            const user_tugas = await prisma.user_tugas.findMany({
-                where : {
-                    id_tugas :  tugas_id
-                }, select : {
-                    id_user : true
-                }
-            })
 
-            responses(ctx,200,true,"Sukses mendapatkan detail tugas!",{
-                tugas,
-                user_tugas: user_tugas
+            return responses(ctx,200,true,"Sukses mendapatkan detail tugas!",{
+                tugas
             })
         }else{
             return responses(ctx,404,false,"Tugas tidak ditemukan!")
