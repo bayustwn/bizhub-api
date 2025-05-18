@@ -1,5 +1,5 @@
 import {Hono} from "hono";
-import {create, detailUser, performaBulanan, performaMingguan, profile, semuaTim} from "../controller/user";
+import {create, detailUser, performaBulanan, performaBulananById, performaMingguan, profile, semuaTim} from "../controller/user";
 import {verifyToken} from "../middleware/verifyToken";
 
 const user = new Hono()
@@ -10,6 +10,6 @@ user.post('/create', verifyToken(true) ,create)
 user.get('/detail',verifyToken(false),detailUser)
 user.get('/mingguan',verifyToken(true),performaMingguan)
 user.post('/bulanan',verifyToken(true),performaBulanan)
-user.get('/bulanan/:user_id',verifyToken(false),performaMingguan)
+user.post('/bulanan/:id',verifyToken(false),performaBulananById)
 
 export default user;
