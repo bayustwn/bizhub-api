@@ -238,6 +238,56 @@ export const performaBulananById = async (ctx: Context) => {
   }
 };
 
+export const performaMingguanById = async (ctx: Context) => {
+  
+  const id = ctx.req.param("id")
+  
+  try {
+    const week = new Date();
+    week.setDate(week.getDate() - 7);
+
+    const userMingguan = await prisma.user.findMany({
+      where: {
+        id : id,
+        AND : {
+          posisi : {
+            not : "admin"
+          }
+        }
+      },
+      select: {
+        nama: true,
+        email: true,
+        _count: {
+          select: {
+            user_tugas: {
+              where: {
+                tugas: {
+                  tanggal_dibuat: {
+                    gte: week,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (userMingguan) {
+      return responses(
+        ctx,
+        200,
+        true,
+        "Sukses mengambil performa mingguan",
+        userMingguan.sort((a, b) => b._count.user_tugas - a._count.user_tugas)
+      );
+    }
+  } catch (error) {
+    return serverError(ctx);
+  }
+};
+
 export const performaMingguan = async (ctx: Context) => {
   try {
     const week = new Date();

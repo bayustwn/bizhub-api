@@ -49,8 +49,9 @@ export const login = async (ctx: Context) => {
             const messages = error.errors.map(e => e.message).join(', ');
             return responses(ctx, 400, false, messages);
         }
-
+        
         return responses(ctx, 500, false, "Server Error");
+
     }
 };
 

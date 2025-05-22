@@ -4,6 +4,7 @@ import { Context } from "hono";
 import prisma from "../../prisma/prisma";
 import { status_map } from "../utils/status";
 
+
 export const tugasSchema = z.object({
   judul: z.string({ required_error: "Judul wajib diisi" }),
   brief: z.string({ required_error: "Brief wajib diisi" }),
@@ -247,6 +248,9 @@ export const semuaTugas = async (ctx: Context) => {
           },
         },
       },
+      orderBy: {
+        tanggal_diubah: "asc",
+      },
     });
 
     const hasil = tugas.map((t) => ({
@@ -265,24 +269,25 @@ export const updateStatus = async (ctx: Context) => {
 
   try {
     const tugas = await prisma.tugas.findUnique({
-      where: {
-        id: id,
+      where: { id },
+    });
+
+    if (!tugas) {
+      return responses(ctx, 404, false, "Tugas tidak ditemukan");
+    }
+
+    const updateTugas = await prisma.tugas.update({
+      where: { id },
+      data: {
+        status: status,
+        tanggal_diubah: new Date(),
       },
     });
 
-    if (tugas) {
-      const updateTugas = await prisma.tugas.update({
-        where: {
-          id: tugas.id,
-        },
-        data: {
-          status: status,
-        },
-      });
-
-      return responses(ctx, 200, true, "Status tugas diubah");
+    if (updateTugas) {
+      return responses(ctx, 200, true, "Status tugas berhasil diperbarui");
     } else {
-      return responses(ctx, 404, false, "Tugas tidak ditemukan");
+      return responses(ctx, 400, false, "Gagal memperbarui status tugas");
     }
   } catch (error) {
     return serverError(ctx);
