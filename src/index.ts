@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import auth from "./routes/auth";
 import user from "./routes/user";
 import tugas from "./routes/tugas";
+import './cron/tugasTerlambat';
 import {cors} from "hono/cors";
 
 const app = new Hono()
