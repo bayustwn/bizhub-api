@@ -1,5 +1,6 @@
 import cron from 'node-cron';
 import prisma from '../../prisma/prisma';
+import { status_map } from '../utils/status';
 
 cron.schedule('0 0 * * *', async () => {
 
@@ -13,7 +14,7 @@ cron.schedule('0 0 * * *', async () => {
                     lt: hariIni,
                 },
                 status: {
-                    not: 'Selesai', 
+                    not: status_map.selesai, 
                 },
             },
             data: {

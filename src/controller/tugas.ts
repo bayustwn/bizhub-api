@@ -4,7 +4,6 @@ import { Context } from "hono";
 import prisma from "../../prisma/prisma";
 import { status_map } from "../utils/status";
 
-
 export const tugasSchema = z.object({
   judul: z.string({ required_error: "Judul wajib diisi" }),
   brief: z.string({ required_error: "Brief wajib diisi" }),
@@ -24,6 +23,7 @@ const statusSchema = z.object({
 });
 
 export const editTugas = async (ctx: Context) => {
+  const hariIni: Date = new Date();
   const { judul, brief, kuantitas, deadline, user_tugas } =
     await tugasSchema.parseAsync(await ctx.req.json());
   const id = ctx.req.param("id");
@@ -38,7 +38,8 @@ export const editTugas = async (ctx: Context) => {
         kuantitas,
         deadline: new Date(deadline),
         id_admin: admin_id,
-        tanggal_diubah: new Date(),
+        tanggal_diubah: hariIni,
+        terlambat: new Date(deadline) < hariIni,
       },
     });
 
@@ -274,20 +275,24 @@ export const updateStatus = async (ctx: Context) => {
 
     if (!tugas) {
       return responses(ctx, 404, false, "Tugas tidak ditemukan");
-    }
-
-    const updateTugas = await prisma.tugas.update({
-      where: { id },
-      data: {
-        status: status,
-        tanggal_diubah: new Date(),
-      },
-    });
-
-    if (updateTugas) {
-      return responses(ctx, 200, true, "Status tugas berhasil diperbarui");
     } else {
-      return responses(ctx, 400, false, "Gagal memperbarui status tugas");
+
+      const hariIni :Date  = new Date();
+
+      const updateTugas = await prisma.tugas.update({
+        where: { id },
+        data: {
+          status: status,
+          tanggal_diubah: hariIni,
+          terlambat: tugas.deadline && tugas.deadline < hariIni || tugas.terlambat,
+        },
+      });
+
+      if (updateTugas) {
+        return responses(ctx, 200, true, "Status tugas berhasil diperbarui");
+      } else {
+        return responses(ctx, 400, false, "Gagal memperbarui status tugas");
+      }
     }
   } catch (error) {
     return serverError(ctx);
