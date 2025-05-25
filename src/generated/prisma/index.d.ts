@@ -38,6 +38,11 @@ export type user = $Result.DefaultSelection<Prisma.$userPayload>
  * 
  */
 export type user_tugas = $Result.DefaultSelection<Prisma.$user_tugasPayload>
+/**
+ * Model token_notifikasi
+ * 
+ */
+export type token_notifikasi = $Result.DefaultSelection<Prisma.$token_notifikasiPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -213,6 +218,16 @@ export class PrismaClient<
     * ```
     */
   get user_tugas(): Prisma.user_tugasDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.token_notifikasi`: Exposes CRUD operations for the **token_notifikasi** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Token_notifikasis
+    * const token_notifikasis = await prisma.token_notifikasi.findMany()
+    * ```
+    */
+  get token_notifikasi(): Prisma.token_notifikasiDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -657,7 +672,8 @@ export namespace Prisma {
     laporan_bulanan: 'laporan_bulanan',
     tugas: 'tugas',
     user: 'user',
-    user_tugas: 'user_tugas'
+    user_tugas: 'user_tugas',
+    token_notifikasi: 'token_notifikasi'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -676,7 +692,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "file" | "laporan_bulanan" | "tugas" | "user" | "user_tugas"
+      modelProps: "file" | "laporan_bulanan" | "tugas" | "user" | "user_tugas" | "token_notifikasi"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1010,6 +1026,72 @@ export namespace Prisma {
           }
         }
       }
+      token_notifikasi: {
+        payload: Prisma.$token_notifikasiPayload<ExtArgs>
+        fields: Prisma.token_notifikasiFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.token_notifikasiFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$token_notifikasiPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.token_notifikasiFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$token_notifikasiPayload>
+          }
+          findFirst: {
+            args: Prisma.token_notifikasiFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$token_notifikasiPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.token_notifikasiFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$token_notifikasiPayload>
+          }
+          findMany: {
+            args: Prisma.token_notifikasiFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$token_notifikasiPayload>[]
+          }
+          create: {
+            args: Prisma.token_notifikasiCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$token_notifikasiPayload>
+          }
+          createMany: {
+            args: Prisma.token_notifikasiCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.token_notifikasiDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$token_notifikasiPayload>
+          }
+          update: {
+            args: Prisma.token_notifikasiUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$token_notifikasiPayload>
+          }
+          deleteMany: {
+            args: Prisma.token_notifikasiDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.token_notifikasiUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.token_notifikasiUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$token_notifikasiPayload>
+          }
+          aggregate: {
+            args: Prisma.Token_notifikasiAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateToken_notifikasi>
+          }
+          groupBy: {
+            args: Prisma.token_notifikasiGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Token_notifikasiGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.token_notifikasiCountArgs<ExtArgs>
+            result: $Utils.Optional<Token_notifikasiCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1099,6 +1181,7 @@ export namespace Prisma {
     tugas?: tugasOmit
     user?: userOmit
     user_tugas?: user_tugasOmit
+    token_notifikasi?: token_notifikasiOmit
   }
 
   /* Types for Logging */
@@ -1234,12 +1317,14 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     laporan_bulanan: number
+    token_notifikasi: number
     tugas: number
     user_tugas: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     laporan_bulanan?: boolean | UserCountOutputTypeCountLaporan_bulananArgs
+    token_notifikasi?: boolean | UserCountOutputTypeCountToken_notifikasiArgs
     tugas?: boolean | UserCountOutputTypeCountTugasArgs
     user_tugas?: boolean | UserCountOutputTypeCountUser_tugasArgs
   }
@@ -1260,6 +1345,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountLaporan_bulananArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: laporan_bulananWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountToken_notifikasiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: token_notifikasiWhereInput
   }
 
   /**
@@ -4467,6 +4559,7 @@ export namespace Prisma {
     password?: boolean
     posisi?: boolean
     laporan_bulanan?: boolean | user$laporan_bulananArgs<ExtArgs>
+    token_notifikasi?: boolean | user$token_notifikasiArgs<ExtArgs>
     tugas?: boolean | user$tugasArgs<ExtArgs>
     user_tugas?: boolean | user$user_tugasArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -4485,6 +4578,7 @@ export namespace Prisma {
   export type userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama" | "email" | "password" | "posisi", ExtArgs["result"]["user"]>
   export type userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     laporan_bulanan?: boolean | user$laporan_bulananArgs<ExtArgs>
+    token_notifikasi?: boolean | user$token_notifikasiArgs<ExtArgs>
     tugas?: boolean | user$tugasArgs<ExtArgs>
     user_tugas?: boolean | user$user_tugasArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -4494,6 +4588,7 @@ export namespace Prisma {
     name: "user"
     objects: {
       laporan_bulanan: Prisma.$laporan_bulananPayload<ExtArgs>[]
+      token_notifikasi: Prisma.$token_notifikasiPayload<ExtArgs>[]
       tugas: Prisma.$tugasPayload<ExtArgs>[]
       user_tugas: Prisma.$user_tugasPayload<ExtArgs>[]
     }
@@ -4844,6 +4939,7 @@ export namespace Prisma {
   export interface Prisma__userClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     laporan_bulanan<T extends user$laporan_bulananArgs<ExtArgs> = {}>(args?: Subset<T, user$laporan_bulananArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$laporan_bulananPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    token_notifikasi<T extends user$token_notifikasiArgs<ExtArgs> = {}>(args?: Subset<T, user$token_notifikasiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$token_notifikasiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tugas<T extends user$tugasArgs<ExtArgs> = {}>(args?: Subset<T, user$tugasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_tugas<T extends user$user_tugasArgs<ExtArgs> = {}>(args?: Subset<T, user$user_tugasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_tugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -5244,6 +5340,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Laporan_bulananScalarFieldEnum | Laporan_bulananScalarFieldEnum[]
+  }
+
+  /**
+   * user.token_notifikasi
+   */
+  export type user$token_notifikasiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the token_notifikasi
+     */
+    select?: token_notifikasiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the token_notifikasi
+     */
+    omit?: token_notifikasiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: token_notifikasiInclude<ExtArgs> | null
+    where?: token_notifikasiWhereInput
+    orderBy?: token_notifikasiOrderByWithRelationInput | token_notifikasiOrderByWithRelationInput[]
+    cursor?: token_notifikasiWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Token_notifikasiScalarFieldEnum | Token_notifikasiScalarFieldEnum[]
   }
 
   /**
@@ -6225,6 +6345,902 @@ export namespace Prisma {
 
 
   /**
+   * Model token_notifikasi
+   */
+
+  export type AggregateToken_notifikasi = {
+    _count: Token_notifikasiCountAggregateOutputType | null
+    _min: Token_notifikasiMinAggregateOutputType | null
+    _max: Token_notifikasiMaxAggregateOutputType | null
+  }
+
+  export type Token_notifikasiMinAggregateOutputType = {
+    token: string | null
+    id_user: string | null
+  }
+
+  export type Token_notifikasiMaxAggregateOutputType = {
+    token: string | null
+    id_user: string | null
+  }
+
+  export type Token_notifikasiCountAggregateOutputType = {
+    token: number
+    id_user: number
+    _all: number
+  }
+
+
+  export type Token_notifikasiMinAggregateInputType = {
+    token?: true
+    id_user?: true
+  }
+
+  export type Token_notifikasiMaxAggregateInputType = {
+    token?: true
+    id_user?: true
+  }
+
+  export type Token_notifikasiCountAggregateInputType = {
+    token?: true
+    id_user?: true
+    _all?: true
+  }
+
+  export type Token_notifikasiAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which token_notifikasi to aggregate.
+     */
+    where?: token_notifikasiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of token_notifikasis to fetch.
+     */
+    orderBy?: token_notifikasiOrderByWithRelationInput | token_notifikasiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: token_notifikasiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` token_notifikasis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` token_notifikasis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned token_notifikasis
+    **/
+    _count?: true | Token_notifikasiCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Token_notifikasiMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Token_notifikasiMaxAggregateInputType
+  }
+
+  export type GetToken_notifikasiAggregateType<T extends Token_notifikasiAggregateArgs> = {
+        [P in keyof T & keyof AggregateToken_notifikasi]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateToken_notifikasi[P]>
+      : GetScalarType<T[P], AggregateToken_notifikasi[P]>
+  }
+
+
+
+
+  export type token_notifikasiGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: token_notifikasiWhereInput
+    orderBy?: token_notifikasiOrderByWithAggregationInput | token_notifikasiOrderByWithAggregationInput[]
+    by: Token_notifikasiScalarFieldEnum[] | Token_notifikasiScalarFieldEnum
+    having?: token_notifikasiScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Token_notifikasiCountAggregateInputType | true
+    _min?: Token_notifikasiMinAggregateInputType
+    _max?: Token_notifikasiMaxAggregateInputType
+  }
+
+  export type Token_notifikasiGroupByOutputType = {
+    token: string
+    id_user: string
+    _count: Token_notifikasiCountAggregateOutputType | null
+    _min: Token_notifikasiMinAggregateOutputType | null
+    _max: Token_notifikasiMaxAggregateOutputType | null
+  }
+
+  type GetToken_notifikasiGroupByPayload<T extends token_notifikasiGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Token_notifikasiGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Token_notifikasiGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Token_notifikasiGroupByOutputType[P]>
+            : GetScalarType<T[P], Token_notifikasiGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type token_notifikasiSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    token?: boolean
+    id_user?: boolean
+    user?: boolean | userDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["token_notifikasi"]>
+
+
+
+  export type token_notifikasiSelectScalar = {
+    token?: boolean
+    id_user?: boolean
+  }
+
+  export type token_notifikasiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"token" | "id_user", ExtArgs["result"]["token_notifikasi"]>
+  export type token_notifikasiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | userDefaultArgs<ExtArgs>
+  }
+
+  export type $token_notifikasiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "token_notifikasi"
+    objects: {
+      user: Prisma.$userPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      token: string
+      id_user: string
+    }, ExtArgs["result"]["token_notifikasi"]>
+    composites: {}
+  }
+
+  type token_notifikasiGetPayload<S extends boolean | null | undefined | token_notifikasiDefaultArgs> = $Result.GetResult<Prisma.$token_notifikasiPayload, S>
+
+  type token_notifikasiCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<token_notifikasiFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Token_notifikasiCountAggregateInputType | true
+    }
+
+  export interface token_notifikasiDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['token_notifikasi'], meta: { name: 'token_notifikasi' } }
+    /**
+     * Find zero or one Token_notifikasi that matches the filter.
+     * @param {token_notifikasiFindUniqueArgs} args - Arguments to find a Token_notifikasi
+     * @example
+     * // Get one Token_notifikasi
+     * const token_notifikasi = await prisma.token_notifikasi.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends token_notifikasiFindUniqueArgs>(args: SelectSubset<T, token_notifikasiFindUniqueArgs<ExtArgs>>): Prisma__token_notifikasiClient<$Result.GetResult<Prisma.$token_notifikasiPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Token_notifikasi that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {token_notifikasiFindUniqueOrThrowArgs} args - Arguments to find a Token_notifikasi
+     * @example
+     * // Get one Token_notifikasi
+     * const token_notifikasi = await prisma.token_notifikasi.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends token_notifikasiFindUniqueOrThrowArgs>(args: SelectSubset<T, token_notifikasiFindUniqueOrThrowArgs<ExtArgs>>): Prisma__token_notifikasiClient<$Result.GetResult<Prisma.$token_notifikasiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Token_notifikasi that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {token_notifikasiFindFirstArgs} args - Arguments to find a Token_notifikasi
+     * @example
+     * // Get one Token_notifikasi
+     * const token_notifikasi = await prisma.token_notifikasi.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends token_notifikasiFindFirstArgs>(args?: SelectSubset<T, token_notifikasiFindFirstArgs<ExtArgs>>): Prisma__token_notifikasiClient<$Result.GetResult<Prisma.$token_notifikasiPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Token_notifikasi that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {token_notifikasiFindFirstOrThrowArgs} args - Arguments to find a Token_notifikasi
+     * @example
+     * // Get one Token_notifikasi
+     * const token_notifikasi = await prisma.token_notifikasi.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends token_notifikasiFindFirstOrThrowArgs>(args?: SelectSubset<T, token_notifikasiFindFirstOrThrowArgs<ExtArgs>>): Prisma__token_notifikasiClient<$Result.GetResult<Prisma.$token_notifikasiPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Token_notifikasis that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {token_notifikasiFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Token_notifikasis
+     * const token_notifikasis = await prisma.token_notifikasi.findMany()
+     * 
+     * // Get first 10 Token_notifikasis
+     * const token_notifikasis = await prisma.token_notifikasi.findMany({ take: 10 })
+     * 
+     * // Only select the `token`
+     * const token_notifikasiWithTokenOnly = await prisma.token_notifikasi.findMany({ select: { token: true } })
+     * 
+     */
+    findMany<T extends token_notifikasiFindManyArgs>(args?: SelectSubset<T, token_notifikasiFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$token_notifikasiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Token_notifikasi.
+     * @param {token_notifikasiCreateArgs} args - Arguments to create a Token_notifikasi.
+     * @example
+     * // Create one Token_notifikasi
+     * const Token_notifikasi = await prisma.token_notifikasi.create({
+     *   data: {
+     *     // ... data to create a Token_notifikasi
+     *   }
+     * })
+     * 
+     */
+    create<T extends token_notifikasiCreateArgs>(args: SelectSubset<T, token_notifikasiCreateArgs<ExtArgs>>): Prisma__token_notifikasiClient<$Result.GetResult<Prisma.$token_notifikasiPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Token_notifikasis.
+     * @param {token_notifikasiCreateManyArgs} args - Arguments to create many Token_notifikasis.
+     * @example
+     * // Create many Token_notifikasis
+     * const token_notifikasi = await prisma.token_notifikasi.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends token_notifikasiCreateManyArgs>(args?: SelectSubset<T, token_notifikasiCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Token_notifikasi.
+     * @param {token_notifikasiDeleteArgs} args - Arguments to delete one Token_notifikasi.
+     * @example
+     * // Delete one Token_notifikasi
+     * const Token_notifikasi = await prisma.token_notifikasi.delete({
+     *   where: {
+     *     // ... filter to delete one Token_notifikasi
+     *   }
+     * })
+     * 
+     */
+    delete<T extends token_notifikasiDeleteArgs>(args: SelectSubset<T, token_notifikasiDeleteArgs<ExtArgs>>): Prisma__token_notifikasiClient<$Result.GetResult<Prisma.$token_notifikasiPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Token_notifikasi.
+     * @param {token_notifikasiUpdateArgs} args - Arguments to update one Token_notifikasi.
+     * @example
+     * // Update one Token_notifikasi
+     * const token_notifikasi = await prisma.token_notifikasi.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends token_notifikasiUpdateArgs>(args: SelectSubset<T, token_notifikasiUpdateArgs<ExtArgs>>): Prisma__token_notifikasiClient<$Result.GetResult<Prisma.$token_notifikasiPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Token_notifikasis.
+     * @param {token_notifikasiDeleteManyArgs} args - Arguments to filter Token_notifikasis to delete.
+     * @example
+     * // Delete a few Token_notifikasis
+     * const { count } = await prisma.token_notifikasi.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends token_notifikasiDeleteManyArgs>(args?: SelectSubset<T, token_notifikasiDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Token_notifikasis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {token_notifikasiUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Token_notifikasis
+     * const token_notifikasi = await prisma.token_notifikasi.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends token_notifikasiUpdateManyArgs>(args: SelectSubset<T, token_notifikasiUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Token_notifikasi.
+     * @param {token_notifikasiUpsertArgs} args - Arguments to update or create a Token_notifikasi.
+     * @example
+     * // Update or create a Token_notifikasi
+     * const token_notifikasi = await prisma.token_notifikasi.upsert({
+     *   create: {
+     *     // ... data to create a Token_notifikasi
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Token_notifikasi we want to update
+     *   }
+     * })
+     */
+    upsert<T extends token_notifikasiUpsertArgs>(args: SelectSubset<T, token_notifikasiUpsertArgs<ExtArgs>>): Prisma__token_notifikasiClient<$Result.GetResult<Prisma.$token_notifikasiPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Token_notifikasis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {token_notifikasiCountArgs} args - Arguments to filter Token_notifikasis to count.
+     * @example
+     * // Count the number of Token_notifikasis
+     * const count = await prisma.token_notifikasi.count({
+     *   where: {
+     *     // ... the filter for the Token_notifikasis we want to count
+     *   }
+     * })
+    **/
+    count<T extends token_notifikasiCountArgs>(
+      args?: Subset<T, token_notifikasiCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Token_notifikasiCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Token_notifikasi.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Token_notifikasiAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Token_notifikasiAggregateArgs>(args: Subset<T, Token_notifikasiAggregateArgs>): Prisma.PrismaPromise<GetToken_notifikasiAggregateType<T>>
+
+    /**
+     * Group by Token_notifikasi.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {token_notifikasiGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends token_notifikasiGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: token_notifikasiGroupByArgs['orderBy'] }
+        : { orderBy?: token_notifikasiGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, token_notifikasiGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetToken_notifikasiGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the token_notifikasi model
+   */
+  readonly fields: token_notifikasiFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for token_notifikasi.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__token_notifikasiClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends userDefaultArgs<ExtArgs> = {}>(args?: Subset<T, userDefaultArgs<ExtArgs>>): Prisma__userClient<$Result.GetResult<Prisma.$userPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the token_notifikasi model
+   */
+  interface token_notifikasiFieldRefs {
+    readonly token: FieldRef<"token_notifikasi", 'String'>
+    readonly id_user: FieldRef<"token_notifikasi", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * token_notifikasi findUnique
+   */
+  export type token_notifikasiFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the token_notifikasi
+     */
+    select?: token_notifikasiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the token_notifikasi
+     */
+    omit?: token_notifikasiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: token_notifikasiInclude<ExtArgs> | null
+    /**
+     * Filter, which token_notifikasi to fetch.
+     */
+    where: token_notifikasiWhereUniqueInput
+  }
+
+  /**
+   * token_notifikasi findUniqueOrThrow
+   */
+  export type token_notifikasiFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the token_notifikasi
+     */
+    select?: token_notifikasiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the token_notifikasi
+     */
+    omit?: token_notifikasiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: token_notifikasiInclude<ExtArgs> | null
+    /**
+     * Filter, which token_notifikasi to fetch.
+     */
+    where: token_notifikasiWhereUniqueInput
+  }
+
+  /**
+   * token_notifikasi findFirst
+   */
+  export type token_notifikasiFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the token_notifikasi
+     */
+    select?: token_notifikasiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the token_notifikasi
+     */
+    omit?: token_notifikasiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: token_notifikasiInclude<ExtArgs> | null
+    /**
+     * Filter, which token_notifikasi to fetch.
+     */
+    where?: token_notifikasiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of token_notifikasis to fetch.
+     */
+    orderBy?: token_notifikasiOrderByWithRelationInput | token_notifikasiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for token_notifikasis.
+     */
+    cursor?: token_notifikasiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` token_notifikasis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` token_notifikasis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of token_notifikasis.
+     */
+    distinct?: Token_notifikasiScalarFieldEnum | Token_notifikasiScalarFieldEnum[]
+  }
+
+  /**
+   * token_notifikasi findFirstOrThrow
+   */
+  export type token_notifikasiFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the token_notifikasi
+     */
+    select?: token_notifikasiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the token_notifikasi
+     */
+    omit?: token_notifikasiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: token_notifikasiInclude<ExtArgs> | null
+    /**
+     * Filter, which token_notifikasi to fetch.
+     */
+    where?: token_notifikasiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of token_notifikasis to fetch.
+     */
+    orderBy?: token_notifikasiOrderByWithRelationInput | token_notifikasiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for token_notifikasis.
+     */
+    cursor?: token_notifikasiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` token_notifikasis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` token_notifikasis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of token_notifikasis.
+     */
+    distinct?: Token_notifikasiScalarFieldEnum | Token_notifikasiScalarFieldEnum[]
+  }
+
+  /**
+   * token_notifikasi findMany
+   */
+  export type token_notifikasiFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the token_notifikasi
+     */
+    select?: token_notifikasiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the token_notifikasi
+     */
+    omit?: token_notifikasiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: token_notifikasiInclude<ExtArgs> | null
+    /**
+     * Filter, which token_notifikasis to fetch.
+     */
+    where?: token_notifikasiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of token_notifikasis to fetch.
+     */
+    orderBy?: token_notifikasiOrderByWithRelationInput | token_notifikasiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing token_notifikasis.
+     */
+    cursor?: token_notifikasiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` token_notifikasis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` token_notifikasis.
+     */
+    skip?: number
+    distinct?: Token_notifikasiScalarFieldEnum | Token_notifikasiScalarFieldEnum[]
+  }
+
+  /**
+   * token_notifikasi create
+   */
+  export type token_notifikasiCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the token_notifikasi
+     */
+    select?: token_notifikasiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the token_notifikasi
+     */
+    omit?: token_notifikasiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: token_notifikasiInclude<ExtArgs> | null
+    /**
+     * The data needed to create a token_notifikasi.
+     */
+    data: XOR<token_notifikasiCreateInput, token_notifikasiUncheckedCreateInput>
+  }
+
+  /**
+   * token_notifikasi createMany
+   */
+  export type token_notifikasiCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many token_notifikasis.
+     */
+    data: token_notifikasiCreateManyInput | token_notifikasiCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * token_notifikasi update
+   */
+  export type token_notifikasiUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the token_notifikasi
+     */
+    select?: token_notifikasiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the token_notifikasi
+     */
+    omit?: token_notifikasiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: token_notifikasiInclude<ExtArgs> | null
+    /**
+     * The data needed to update a token_notifikasi.
+     */
+    data: XOR<token_notifikasiUpdateInput, token_notifikasiUncheckedUpdateInput>
+    /**
+     * Choose, which token_notifikasi to update.
+     */
+    where: token_notifikasiWhereUniqueInput
+  }
+
+  /**
+   * token_notifikasi updateMany
+   */
+  export type token_notifikasiUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update token_notifikasis.
+     */
+    data: XOR<token_notifikasiUpdateManyMutationInput, token_notifikasiUncheckedUpdateManyInput>
+    /**
+     * Filter which token_notifikasis to update
+     */
+    where?: token_notifikasiWhereInput
+    /**
+     * Limit how many token_notifikasis to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * token_notifikasi upsert
+   */
+  export type token_notifikasiUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the token_notifikasi
+     */
+    select?: token_notifikasiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the token_notifikasi
+     */
+    omit?: token_notifikasiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: token_notifikasiInclude<ExtArgs> | null
+    /**
+     * The filter to search for the token_notifikasi to update in case it exists.
+     */
+    where: token_notifikasiWhereUniqueInput
+    /**
+     * In case the token_notifikasi found by the `where` argument doesn't exist, create a new token_notifikasi with this data.
+     */
+    create: XOR<token_notifikasiCreateInput, token_notifikasiUncheckedCreateInput>
+    /**
+     * In case the token_notifikasi was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<token_notifikasiUpdateInput, token_notifikasiUncheckedUpdateInput>
+  }
+
+  /**
+   * token_notifikasi delete
+   */
+  export type token_notifikasiDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the token_notifikasi
+     */
+    select?: token_notifikasiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the token_notifikasi
+     */
+    omit?: token_notifikasiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: token_notifikasiInclude<ExtArgs> | null
+    /**
+     * Filter which token_notifikasi to delete.
+     */
+    where: token_notifikasiWhereUniqueInput
+  }
+
+  /**
+   * token_notifikasi deleteMany
+   */
+  export type token_notifikasiDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which token_notifikasis to delete
+     */
+    where?: token_notifikasiWhereInput
+    /**
+     * Limit how many token_notifikasis to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * token_notifikasi without action
+   */
+  export type token_notifikasiDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the token_notifikasi
+     */
+    select?: token_notifikasiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the token_notifikasi
+     */
+    omit?: token_notifikasiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: token_notifikasiInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6298,6 +7314,14 @@ export namespace Prisma {
   export type User_tugasScalarFieldEnum = (typeof User_tugasScalarFieldEnum)[keyof typeof User_tugasScalarFieldEnum]
 
 
+  export const Token_notifikasiScalarFieldEnum: {
+    token: 'token',
+    id_user: 'id_user'
+  };
+
+  export type Token_notifikasiScalarFieldEnum = (typeof Token_notifikasiScalarFieldEnum)[keyof typeof Token_notifikasiScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -6362,6 +7386,14 @@ export namespace Prisma {
   };
 
   export type user_tugasOrderByRelevanceFieldEnum = (typeof user_tugasOrderByRelevanceFieldEnum)[keyof typeof user_tugasOrderByRelevanceFieldEnum]
+
+
+  export const token_notifikasiOrderByRelevanceFieldEnum: {
+    token: 'token',
+    id_user: 'id_user'
+  };
+
+  export type token_notifikasiOrderByRelevanceFieldEnum = (typeof token_notifikasiOrderByRelevanceFieldEnum)[keyof typeof token_notifikasiOrderByRelevanceFieldEnum]
 
 
   /**
@@ -6630,6 +7662,7 @@ export namespace Prisma {
     password?: StringFilter<"user"> | string
     posisi?: StringFilter<"user"> | string
     laporan_bulanan?: Laporan_bulananListRelationFilter
+    token_notifikasi?: Token_notifikasiListRelationFilter
     tugas?: TugasListRelationFilter
     user_tugas?: User_tugasListRelationFilter
   }
@@ -6641,6 +7674,7 @@ export namespace Prisma {
     password?: SortOrder
     posisi?: SortOrder
     laporan_bulanan?: laporan_bulananOrderByRelationAggregateInput
+    token_notifikasi?: token_notifikasiOrderByRelationAggregateInput
     tugas?: tugasOrderByRelationAggregateInput
     user_tugas?: user_tugasOrderByRelationAggregateInput
     _relevance?: userOrderByRelevanceInput
@@ -6656,6 +7690,7 @@ export namespace Prisma {
     password?: StringFilter<"user"> | string
     posisi?: StringFilter<"user"> | string
     laporan_bulanan?: Laporan_bulananListRelationFilter
+    token_notifikasi?: Token_notifikasiListRelationFilter
     tugas?: TugasListRelationFilter
     user_tugas?: User_tugasListRelationFilter
   }, "id" | "email">
@@ -6729,6 +7764,47 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"user_tugas"> | string
     id_user?: StringWithAggregatesFilter<"user_tugas"> | string
     id_tugas?: StringWithAggregatesFilter<"user_tugas"> | string
+  }
+
+  export type token_notifikasiWhereInput = {
+    AND?: token_notifikasiWhereInput | token_notifikasiWhereInput[]
+    OR?: token_notifikasiWhereInput[]
+    NOT?: token_notifikasiWhereInput | token_notifikasiWhereInput[]
+    token?: StringFilter<"token_notifikasi"> | string
+    id_user?: StringFilter<"token_notifikasi"> | string
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
+  }
+
+  export type token_notifikasiOrderByWithRelationInput = {
+    token?: SortOrder
+    id_user?: SortOrder
+    user?: userOrderByWithRelationInput
+    _relevance?: token_notifikasiOrderByRelevanceInput
+  }
+
+  export type token_notifikasiWhereUniqueInput = Prisma.AtLeast<{
+    token?: string
+    AND?: token_notifikasiWhereInput | token_notifikasiWhereInput[]
+    OR?: token_notifikasiWhereInput[]
+    NOT?: token_notifikasiWhereInput | token_notifikasiWhereInput[]
+    id_user?: StringFilter<"token_notifikasi"> | string
+    user?: XOR<UserScalarRelationFilter, userWhereInput>
+  }, "token">
+
+  export type token_notifikasiOrderByWithAggregationInput = {
+    token?: SortOrder
+    id_user?: SortOrder
+    _count?: token_notifikasiCountOrderByAggregateInput
+    _max?: token_notifikasiMaxOrderByAggregateInput
+    _min?: token_notifikasiMinOrderByAggregateInput
+  }
+
+  export type token_notifikasiScalarWhereWithAggregatesInput = {
+    AND?: token_notifikasiScalarWhereWithAggregatesInput | token_notifikasiScalarWhereWithAggregatesInput[]
+    OR?: token_notifikasiScalarWhereWithAggregatesInput[]
+    NOT?: token_notifikasiScalarWhereWithAggregatesInput | token_notifikasiScalarWhereWithAggregatesInput[]
+    token?: StringWithAggregatesFilter<"token_notifikasi"> | string
+    id_user?: StringWithAggregatesFilter<"token_notifikasi"> | string
   }
 
   export type fileCreateInput = {
@@ -6960,6 +8036,7 @@ export namespace Prisma {
     password: string
     posisi: string
     laporan_bulanan?: laporan_bulananCreateNestedManyWithoutUserInput
+    token_notifikasi?: token_notifikasiCreateNestedManyWithoutUserInput
     tugas?: tugasCreateNestedManyWithoutUserInput
     user_tugas?: user_tugasCreateNestedManyWithoutUserInput
   }
@@ -6971,6 +8048,7 @@ export namespace Prisma {
     password: string
     posisi: string
     laporan_bulanan?: laporan_bulananUncheckedCreateNestedManyWithoutUserInput
+    token_notifikasi?: token_notifikasiUncheckedCreateNestedManyWithoutUserInput
     tugas?: tugasUncheckedCreateNestedManyWithoutUserInput
     user_tugas?: user_tugasUncheckedCreateNestedManyWithoutUserInput
   }
@@ -6982,6 +8060,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUpdateManyWithoutUserNestedInput
+    token_notifikasi?: token_notifikasiUpdateManyWithoutUserNestedInput
     tugas?: tugasUpdateManyWithoutUserNestedInput
     user_tugas?: user_tugasUpdateManyWithoutUserNestedInput
   }
@@ -6993,6 +8072,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUncheckedUpdateManyWithoutUserNestedInput
+    token_notifikasi?: token_notifikasiUncheckedUpdateManyWithoutUserNestedInput
     tugas?: tugasUncheckedUpdateManyWithoutUserNestedInput
     user_tugas?: user_tugasUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -7059,6 +8139,40 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     id_user?: StringFieldUpdateOperationsInput | string
     id_tugas?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type token_notifikasiCreateInput = {
+    token: string
+    user: userCreateNestedOneWithoutToken_notifikasiInput
+  }
+
+  export type token_notifikasiUncheckedCreateInput = {
+    token: string
+    id_user: string
+  }
+
+  export type token_notifikasiUpdateInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    user?: userUpdateOneRequiredWithoutToken_notifikasiNestedInput
+  }
+
+  export type token_notifikasiUncheckedUpdateInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    id_user?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type token_notifikasiCreateManyInput = {
+    token: string
+    id_user: string
+  }
+
+  export type token_notifikasiUpdateManyMutationInput = {
+    token?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type token_notifikasiUncheckedUpdateManyInput = {
+    token?: StringFieldUpdateOperationsInput | string
+    id_user?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7423,6 +8537,12 @@ export namespace Prisma {
     none?: laporan_bulananWhereInput
   }
 
+  export type Token_notifikasiListRelationFilter = {
+    every?: token_notifikasiWhereInput
+    some?: token_notifikasiWhereInput
+    none?: token_notifikasiWhereInput
+  }
+
   export type TugasListRelationFilter = {
     every?: tugasWhereInput
     some?: tugasWhereInput
@@ -7430,6 +8550,10 @@ export namespace Prisma {
   }
 
   export type laporan_bulananOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type token_notifikasiOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7489,6 +8613,27 @@ export namespace Prisma {
     id?: SortOrder
     id_user?: SortOrder
     id_tugas?: SortOrder
+  }
+
+  export type token_notifikasiOrderByRelevanceInput = {
+    fields: token_notifikasiOrderByRelevanceFieldEnum | token_notifikasiOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type token_notifikasiCountOrderByAggregateInput = {
+    token?: SortOrder
+    id_user?: SortOrder
+  }
+
+  export type token_notifikasiMaxOrderByAggregateInput = {
+    token?: SortOrder
+    id_user?: SortOrder
+  }
+
+  export type token_notifikasiMinOrderByAggregateInput = {
+    token?: SortOrder
+    id_user?: SortOrder
   }
 
   export type tugasCreateNestedOneWithoutFileInput = {
@@ -7662,6 +8807,13 @@ export namespace Prisma {
     connect?: laporan_bulananWhereUniqueInput | laporan_bulananWhereUniqueInput[]
   }
 
+  export type token_notifikasiCreateNestedManyWithoutUserInput = {
+    create?: XOR<token_notifikasiCreateWithoutUserInput, token_notifikasiUncheckedCreateWithoutUserInput> | token_notifikasiCreateWithoutUserInput[] | token_notifikasiUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: token_notifikasiCreateOrConnectWithoutUserInput | token_notifikasiCreateOrConnectWithoutUserInput[]
+    createMany?: token_notifikasiCreateManyUserInputEnvelope
+    connect?: token_notifikasiWhereUniqueInput | token_notifikasiWhereUniqueInput[]
+  }
+
   export type tugasCreateNestedManyWithoutUserInput = {
     create?: XOR<tugasCreateWithoutUserInput, tugasUncheckedCreateWithoutUserInput> | tugasCreateWithoutUserInput[] | tugasUncheckedCreateWithoutUserInput[]
     connectOrCreate?: tugasCreateOrConnectWithoutUserInput | tugasCreateOrConnectWithoutUserInput[]
@@ -7681,6 +8833,13 @@ export namespace Prisma {
     connectOrCreate?: laporan_bulananCreateOrConnectWithoutUserInput | laporan_bulananCreateOrConnectWithoutUserInput[]
     createMany?: laporan_bulananCreateManyUserInputEnvelope
     connect?: laporan_bulananWhereUniqueInput | laporan_bulananWhereUniqueInput[]
+  }
+
+  export type token_notifikasiUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<token_notifikasiCreateWithoutUserInput, token_notifikasiUncheckedCreateWithoutUserInput> | token_notifikasiCreateWithoutUserInput[] | token_notifikasiUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: token_notifikasiCreateOrConnectWithoutUserInput | token_notifikasiCreateOrConnectWithoutUserInput[]
+    createMany?: token_notifikasiCreateManyUserInputEnvelope
+    connect?: token_notifikasiWhereUniqueInput | token_notifikasiWhereUniqueInput[]
   }
 
   export type tugasUncheckedCreateNestedManyWithoutUserInput = {
@@ -7709,6 +8868,20 @@ export namespace Prisma {
     update?: laporan_bulananUpdateWithWhereUniqueWithoutUserInput | laporan_bulananUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: laporan_bulananUpdateManyWithWhereWithoutUserInput | laporan_bulananUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: laporan_bulananScalarWhereInput | laporan_bulananScalarWhereInput[]
+  }
+
+  export type token_notifikasiUpdateManyWithoutUserNestedInput = {
+    create?: XOR<token_notifikasiCreateWithoutUserInput, token_notifikasiUncheckedCreateWithoutUserInput> | token_notifikasiCreateWithoutUserInput[] | token_notifikasiUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: token_notifikasiCreateOrConnectWithoutUserInput | token_notifikasiCreateOrConnectWithoutUserInput[]
+    upsert?: token_notifikasiUpsertWithWhereUniqueWithoutUserInput | token_notifikasiUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: token_notifikasiCreateManyUserInputEnvelope
+    set?: token_notifikasiWhereUniqueInput | token_notifikasiWhereUniqueInput[]
+    disconnect?: token_notifikasiWhereUniqueInput | token_notifikasiWhereUniqueInput[]
+    delete?: token_notifikasiWhereUniqueInput | token_notifikasiWhereUniqueInput[]
+    connect?: token_notifikasiWhereUniqueInput | token_notifikasiWhereUniqueInput[]
+    update?: token_notifikasiUpdateWithWhereUniqueWithoutUserInput | token_notifikasiUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: token_notifikasiUpdateManyWithWhereWithoutUserInput | token_notifikasiUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: token_notifikasiScalarWhereInput | token_notifikasiScalarWhereInput[]
   }
 
   export type tugasUpdateManyWithoutUserNestedInput = {
@@ -7751,6 +8924,20 @@ export namespace Prisma {
     update?: laporan_bulananUpdateWithWhereUniqueWithoutUserInput | laporan_bulananUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: laporan_bulananUpdateManyWithWhereWithoutUserInput | laporan_bulananUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: laporan_bulananScalarWhereInput | laporan_bulananScalarWhereInput[]
+  }
+
+  export type token_notifikasiUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<token_notifikasiCreateWithoutUserInput, token_notifikasiUncheckedCreateWithoutUserInput> | token_notifikasiCreateWithoutUserInput[] | token_notifikasiUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: token_notifikasiCreateOrConnectWithoutUserInput | token_notifikasiCreateOrConnectWithoutUserInput[]
+    upsert?: token_notifikasiUpsertWithWhereUniqueWithoutUserInput | token_notifikasiUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: token_notifikasiCreateManyUserInputEnvelope
+    set?: token_notifikasiWhereUniqueInput | token_notifikasiWhereUniqueInput[]
+    disconnect?: token_notifikasiWhereUniqueInput | token_notifikasiWhereUniqueInput[]
+    delete?: token_notifikasiWhereUniqueInput | token_notifikasiWhereUniqueInput[]
+    connect?: token_notifikasiWhereUniqueInput | token_notifikasiWhereUniqueInput[]
+    update?: token_notifikasiUpdateWithWhereUniqueWithoutUserInput | token_notifikasiUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: token_notifikasiUpdateManyWithWhereWithoutUserInput | token_notifikasiUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: token_notifikasiScalarWhereInput | token_notifikasiScalarWhereInput[]
   }
 
   export type tugasUncheckedUpdateManyWithoutUserNestedInput = {
@@ -7807,6 +8994,20 @@ export namespace Prisma {
     upsert?: tugasUpsertWithoutUser_tugasInput
     connect?: tugasWhereUniqueInput
     update?: XOR<XOR<tugasUpdateToOneWithWhereWithoutUser_tugasInput, tugasUpdateWithoutUser_tugasInput>, tugasUncheckedUpdateWithoutUser_tugasInput>
+  }
+
+  export type userCreateNestedOneWithoutToken_notifikasiInput = {
+    create?: XOR<userCreateWithoutToken_notifikasiInput, userUncheckedCreateWithoutToken_notifikasiInput>
+    connectOrCreate?: userCreateOrConnectWithoutToken_notifikasiInput
+    connect?: userWhereUniqueInput
+  }
+
+  export type userUpdateOneRequiredWithoutToken_notifikasiNestedInput = {
+    create?: XOR<userCreateWithoutToken_notifikasiInput, userUncheckedCreateWithoutToken_notifikasiInput>
+    connectOrCreate?: userCreateOrConnectWithoutToken_notifikasiInput
+    upsert?: userUpsertWithoutToken_notifikasiInput
+    connect?: userWhereUniqueInput
+    update?: XOR<XOR<userUpdateToOneWithWhereWithoutToken_notifikasiInput, userUpdateWithoutToken_notifikasiInput>, userUncheckedUpdateWithoutToken_notifikasiInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8092,6 +9293,7 @@ export namespace Prisma {
     email: string
     password: string
     posisi: string
+    token_notifikasi?: token_notifikasiCreateNestedManyWithoutUserInput
     tugas?: tugasCreateNestedManyWithoutUserInput
     user_tugas?: user_tugasCreateNestedManyWithoutUserInput
   }
@@ -8102,6 +9304,7 @@ export namespace Prisma {
     email: string
     password: string
     posisi: string
+    token_notifikasi?: token_notifikasiUncheckedCreateNestedManyWithoutUserInput
     tugas?: tugasUncheckedCreateNestedManyWithoutUserInput
     user_tugas?: user_tugasUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8128,6 +9331,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    token_notifikasi?: token_notifikasiUpdateManyWithoutUserNestedInput
     tugas?: tugasUpdateManyWithoutUserNestedInput
     user_tugas?: user_tugasUpdateManyWithoutUserNestedInput
   }
@@ -8138,6 +9342,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    token_notifikasi?: token_notifikasiUncheckedUpdateManyWithoutUserNestedInput
     tugas?: tugasUncheckedUpdateManyWithoutUserNestedInput
     user_tugas?: user_tugasUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -8173,6 +9378,7 @@ export namespace Prisma {
     password: string
     posisi: string
     laporan_bulanan?: laporan_bulananCreateNestedManyWithoutUserInput
+    token_notifikasi?: token_notifikasiCreateNestedManyWithoutUserInput
     user_tugas?: user_tugasCreateNestedManyWithoutUserInput
   }
 
@@ -8183,6 +9389,7 @@ export namespace Prisma {
     password: string
     posisi: string
     laporan_bulanan?: laporan_bulananUncheckedCreateNestedManyWithoutUserInput
+    token_notifikasi?: token_notifikasiUncheckedCreateNestedManyWithoutUserInput
     user_tugas?: user_tugasUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -8256,6 +9463,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUpdateManyWithoutUserNestedInput
+    token_notifikasi?: token_notifikasiUpdateManyWithoutUserNestedInput
     user_tugas?: user_tugasUpdateManyWithoutUserNestedInput
   }
 
@@ -8266,6 +9474,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUncheckedUpdateManyWithoutUserNestedInput
+    token_notifikasi?: token_notifikasiUncheckedUpdateManyWithoutUserNestedInput
     user_tugas?: user_tugasUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -8319,6 +9528,24 @@ export namespace Prisma {
 
   export type laporan_bulananCreateManyUserInputEnvelope = {
     data: laporan_bulananCreateManyUserInput | laporan_bulananCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type token_notifikasiCreateWithoutUserInput = {
+    token: string
+  }
+
+  export type token_notifikasiUncheckedCreateWithoutUserInput = {
+    token: string
+  }
+
+  export type token_notifikasiCreateOrConnectWithoutUserInput = {
+    where: token_notifikasiWhereUniqueInput
+    create: XOR<token_notifikasiCreateWithoutUserInput, token_notifikasiUncheckedCreateWithoutUserInput>
+  }
+
+  export type token_notifikasiCreateManyUserInputEnvelope = {
+    data: token_notifikasiCreateManyUserInput | token_notifikasiCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -8409,6 +9636,30 @@ export namespace Prisma {
     tugas_terlambat?: IntFilter<"laporan_bulanan"> | number
   }
 
+  export type token_notifikasiUpsertWithWhereUniqueWithoutUserInput = {
+    where: token_notifikasiWhereUniqueInput
+    update: XOR<token_notifikasiUpdateWithoutUserInput, token_notifikasiUncheckedUpdateWithoutUserInput>
+    create: XOR<token_notifikasiCreateWithoutUserInput, token_notifikasiUncheckedCreateWithoutUserInput>
+  }
+
+  export type token_notifikasiUpdateWithWhereUniqueWithoutUserInput = {
+    where: token_notifikasiWhereUniqueInput
+    data: XOR<token_notifikasiUpdateWithoutUserInput, token_notifikasiUncheckedUpdateWithoutUserInput>
+  }
+
+  export type token_notifikasiUpdateManyWithWhereWithoutUserInput = {
+    where: token_notifikasiScalarWhereInput
+    data: XOR<token_notifikasiUpdateManyMutationInput, token_notifikasiUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type token_notifikasiScalarWhereInput = {
+    AND?: token_notifikasiScalarWhereInput | token_notifikasiScalarWhereInput[]
+    OR?: token_notifikasiScalarWhereInput[]
+    NOT?: token_notifikasiScalarWhereInput | token_notifikasiScalarWhereInput[]
+    token?: StringFilter<"token_notifikasi"> | string
+    id_user?: StringFilter<"token_notifikasi"> | string
+  }
+
   export type tugasUpsertWithWhereUniqueWithoutUserInput = {
     where: tugasWhereUniqueInput
     update: XOR<tugasUpdateWithoutUserInput, tugasUncheckedUpdateWithoutUserInput>
@@ -8464,6 +9715,7 @@ export namespace Prisma {
     password: string
     posisi: string
     laporan_bulanan?: laporan_bulananCreateNestedManyWithoutUserInput
+    token_notifikasi?: token_notifikasiCreateNestedManyWithoutUserInput
     tugas?: tugasCreateNestedManyWithoutUserInput
   }
 
@@ -8474,6 +9726,7 @@ export namespace Prisma {
     password: string
     posisi: string
     laporan_bulanan?: laporan_bulananUncheckedCreateNestedManyWithoutUserInput
+    token_notifikasi?: token_notifikasiUncheckedCreateNestedManyWithoutUserInput
     tugas?: tugasUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -8533,6 +9786,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUpdateManyWithoutUserNestedInput
+    token_notifikasi?: token_notifikasiUpdateManyWithoutUserNestedInput
     tugas?: tugasUpdateManyWithoutUserNestedInput
   }
 
@@ -8543,6 +9797,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUncheckedUpdateManyWithoutUserNestedInput
+    token_notifikasi?: token_notifikasiUncheckedUpdateManyWithoutUserNestedInput
     tugas?: tugasUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -8583,6 +9838,66 @@ export namespace Prisma {
     tanggal_dibuat?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tanggal_diubah?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     file?: fileUncheckedUpdateManyWithoutTugasNestedInput
+  }
+
+  export type userCreateWithoutToken_notifikasiInput = {
+    id: string
+    nama: string
+    email: string
+    password: string
+    posisi: string
+    laporan_bulanan?: laporan_bulananCreateNestedManyWithoutUserInput
+    tugas?: tugasCreateNestedManyWithoutUserInput
+    user_tugas?: user_tugasCreateNestedManyWithoutUserInput
+  }
+
+  export type userUncheckedCreateWithoutToken_notifikasiInput = {
+    id: string
+    nama: string
+    email: string
+    password: string
+    posisi: string
+    laporan_bulanan?: laporan_bulananUncheckedCreateNestedManyWithoutUserInput
+    tugas?: tugasUncheckedCreateNestedManyWithoutUserInput
+    user_tugas?: user_tugasUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type userCreateOrConnectWithoutToken_notifikasiInput = {
+    where: userWhereUniqueInput
+    create: XOR<userCreateWithoutToken_notifikasiInput, userUncheckedCreateWithoutToken_notifikasiInput>
+  }
+
+  export type userUpsertWithoutToken_notifikasiInput = {
+    update: XOR<userUpdateWithoutToken_notifikasiInput, userUncheckedUpdateWithoutToken_notifikasiInput>
+    create: XOR<userCreateWithoutToken_notifikasiInput, userUncheckedCreateWithoutToken_notifikasiInput>
+    where?: userWhereInput
+  }
+
+  export type userUpdateToOneWithWhereWithoutToken_notifikasiInput = {
+    where?: userWhereInput
+    data: XOR<userUpdateWithoutToken_notifikasiInput, userUncheckedUpdateWithoutToken_notifikasiInput>
+  }
+
+  export type userUpdateWithoutToken_notifikasiInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    posisi?: StringFieldUpdateOperationsInput | string
+    laporan_bulanan?: laporan_bulananUpdateManyWithoutUserNestedInput
+    tugas?: tugasUpdateManyWithoutUserNestedInput
+    user_tugas?: user_tugasUpdateManyWithoutUserNestedInput
+  }
+
+  export type userUncheckedUpdateWithoutToken_notifikasiInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    posisi?: StringFieldUpdateOperationsInput | string
+    laporan_bulanan?: laporan_bulananUncheckedUpdateManyWithoutUserNestedInput
+    tugas?: tugasUncheckedUpdateManyWithoutUserNestedInput
+    user_tugas?: user_tugasUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type fileCreateManyTugasInput = {
@@ -8642,6 +9957,10 @@ export namespace Prisma {
     tugas_terlambat: number
   }
 
+  export type token_notifikasiCreateManyUserInput = {
+    token: string
+  }
+
   export type tugasCreateManyUserInput = {
     id: string
     judul: string
@@ -8684,6 +10003,18 @@ export namespace Prisma {
     total_tugas?: IntFieldUpdateOperationsInput | number
     tugas_selesai?: IntFieldUpdateOperationsInput | number
     tugas_terlambat?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type token_notifikasiUpdateWithoutUserInput = {
+    token?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type token_notifikasiUncheckedUpdateWithoutUserInput = {
+    token?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type token_notifikasiUncheckedUpdateManyWithoutUserInput = {
+    token?: StringFieldUpdateOperationsInput | string
   }
 
   export type tugasUpdateWithoutUserInput = {

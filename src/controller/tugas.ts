@@ -114,6 +114,13 @@ export const detailTugas = async (ctx: Context) => {
         id: tugas_id,
       },
       include: {
+        file: {
+          select : {
+            id: true,
+            nama_file: true,
+            url: true,
+          }
+        },
         user_tugas: {
           select: {
             user: {
