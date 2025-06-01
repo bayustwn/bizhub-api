@@ -119,6 +119,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.FileScalarFieldEnum = {
   id: 'id',
+  nama: 'nama',
   nama_file: 'nama_file',
   url: 'url',
   id_tugas: 'id_tugas',
@@ -174,6 +175,7 @@ exports.Prisma.SortOrder = {
 
 exports.Prisma.fileOrderByRelevanceFieldEnum = {
   id: 'id',
+  nama: 'nama',
   nama_file: 'nama_file',
   url: 'url',
   id_tugas: 'id_tugas'

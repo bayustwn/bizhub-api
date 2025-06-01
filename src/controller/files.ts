@@ -10,9 +10,9 @@ const supabase = createClient(
 
 export const upload = async (ctx: Context) => {
   const bucket = Bun.env.SUPABASE_BUCKET || "";
-  const formData = await ctx.req.formData();
-  const files = formData.getAll("file") as File[];
-  const id_tugas = formData.get("id_tugas") as string;
+  const body = await ctx.req.parseBody();
+  const files = Array.isArray(body['file']) ? body['file'] as File[] : [body['file'] as File];
+  const id_tugas = body['id_tugas'] as string; 
 
   if (!files || files.length === 0) {
     return responses(ctx, 400, false, "File tidak ada!");
@@ -41,20 +41,21 @@ export const upload = async (ctx: Context) => {
         .from(bucket)
         .getPublicUrl(filename);
 
-      const fileRecord = await prisma.file.create({
+      const unggahFile = await prisma.file.create({
         data: {
           id: crypto.randomUUID(),
+          nama: file.name,
           nama_file: filename,
           url: urlData.publicUrl,
           tanggal_upload: new Date(),
-          id_tugas: id_tugas,
+          id_tugas: id_tugas
         },
         select: {
           nama_file: true,
         },
       });
 
-      uploadedFiles.push(fileRecord);
+      uploadedFiles.push(unggahFile);
     }
 
     return responses(ctx, 200, true, "File berhasil diupload", uploadedFiles);
@@ -69,7 +70,7 @@ export const remove = async (ctx: Context) => {
   const id_tugas = ctx.req.param("id");
 
   if (!Array.isArray(files) || files.length === 0) {
-    return responses(ctx, 400, false, "Daftar nama file tidak ada!");
+    return responses(ctx, 400, false, "file tidak ada!");
   }
 
   try {

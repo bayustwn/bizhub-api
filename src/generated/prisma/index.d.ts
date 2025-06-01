@@ -1385,6 +1385,7 @@ export namespace Prisma {
 
   export type FileMinAggregateOutputType = {
     id: string | null
+    nama: string | null
     nama_file: string | null
     url: string | null
     id_tugas: string | null
@@ -1393,6 +1394,7 @@ export namespace Prisma {
 
   export type FileMaxAggregateOutputType = {
     id: string | null
+    nama: string | null
     nama_file: string | null
     url: string | null
     id_tugas: string | null
@@ -1401,6 +1403,7 @@ export namespace Prisma {
 
   export type FileCountAggregateOutputType = {
     id: number
+    nama: number
     nama_file: number
     url: number
     id_tugas: number
@@ -1411,6 +1414,7 @@ export namespace Prisma {
 
   export type FileMinAggregateInputType = {
     id?: true
+    nama?: true
     nama_file?: true
     url?: true
     id_tugas?: true
@@ -1419,6 +1423,7 @@ export namespace Prisma {
 
   export type FileMaxAggregateInputType = {
     id?: true
+    nama?: true
     nama_file?: true
     url?: true
     id_tugas?: true
@@ -1427,6 +1432,7 @@ export namespace Prisma {
 
   export type FileCountAggregateInputType = {
     id?: true
+    nama?: true
     nama_file?: true
     url?: true
     id_tugas?: true
@@ -1508,6 +1514,7 @@ export namespace Prisma {
 
   export type FileGroupByOutputType = {
     id: string
+    nama: string
     nama_file: string
     url: string
     id_tugas: string
@@ -1533,6 +1540,7 @@ export namespace Prisma {
 
   export type fileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    nama?: boolean
     nama_file?: boolean
     url?: boolean
     id_tugas?: boolean
@@ -1544,13 +1552,14 @@ export namespace Prisma {
 
   export type fileSelectScalar = {
     id?: boolean
+    nama?: boolean
     nama_file?: boolean
     url?: boolean
     id_tugas?: boolean
     tanggal_upload?: boolean
   }
 
-  export type fileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama_file" | "url" | "id_tugas" | "tanggal_upload", ExtArgs["result"]["file"]>
+  export type fileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama" | "nama_file" | "url" | "id_tugas" | "tanggal_upload", ExtArgs["result"]["file"]>
   export type fileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tugas?: boolean | tugasDefaultArgs<ExtArgs>
   }
@@ -1562,6 +1571,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      nama: string
       nama_file: string
       url: string
       id_tugas: string
@@ -1937,6 +1947,7 @@ export namespace Prisma {
    */
   interface fileFieldRefs {
     readonly id: FieldRef<"file", 'String'>
+    readonly nama: FieldRef<"file", 'String'>
     readonly nama_file: FieldRef<"file", 'String'>
     readonly url: FieldRef<"file", 'String'>
     readonly id_tugas: FieldRef<"file", 'String'>
@@ -7256,6 +7267,7 @@ export namespace Prisma {
 
   export const FileScalarFieldEnum: {
     id: 'id',
+    nama: 'nama',
     nama_file: 'nama_file',
     url: 'url',
     id_tugas: 'id_tugas',
@@ -7332,6 +7344,7 @@ export namespace Prisma {
 
   export const fileOrderByRelevanceFieldEnum: {
     id: 'id',
+    nama: 'nama',
     nama_file: 'nama_file',
     url: 'url',
     id_tugas: 'id_tugas'
@@ -7444,6 +7457,7 @@ export namespace Prisma {
     OR?: fileWhereInput[]
     NOT?: fileWhereInput | fileWhereInput[]
     id?: StringFilter<"file"> | string
+    nama?: StringFilter<"file"> | string
     nama_file?: StringFilter<"file"> | string
     url?: StringFilter<"file"> | string
     id_tugas?: StringFilter<"file"> | string
@@ -7453,6 +7467,7 @@ export namespace Prisma {
 
   export type fileOrderByWithRelationInput = {
     id?: SortOrder
+    nama?: SortOrder
     nama_file?: SortOrder
     url?: SortOrder
     id_tugas?: SortOrder
@@ -7466,6 +7481,7 @@ export namespace Prisma {
     AND?: fileWhereInput | fileWhereInput[]
     OR?: fileWhereInput[]
     NOT?: fileWhereInput | fileWhereInput[]
+    nama?: StringFilter<"file"> | string
     nama_file?: StringFilter<"file"> | string
     url?: StringFilter<"file"> | string
     id_tugas?: StringFilter<"file"> | string
@@ -7475,6 +7491,7 @@ export namespace Prisma {
 
   export type fileOrderByWithAggregationInput = {
     id?: SortOrder
+    nama?: SortOrder
     nama_file?: SortOrder
     url?: SortOrder
     id_tugas?: SortOrder
@@ -7489,6 +7506,7 @@ export namespace Prisma {
     OR?: fileScalarWhereWithAggregatesInput[]
     NOT?: fileScalarWhereWithAggregatesInput | fileScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"file"> | string
+    nama?: StringWithAggregatesFilter<"file"> | string
     nama_file?: StringWithAggregatesFilter<"file"> | string
     url?: StringWithAggregatesFilter<"file"> | string
     id_tugas?: StringWithAggregatesFilter<"file"> | string
@@ -7809,6 +7827,7 @@ export namespace Prisma {
 
   export type fileCreateInput = {
     id: string
+    nama: string
     nama_file: string
     url: string
     tanggal_upload?: Date | string
@@ -7817,6 +7836,7 @@ export namespace Prisma {
 
   export type fileUncheckedCreateInput = {
     id: string
+    nama: string
     nama_file: string
     url: string
     id_tugas: string
@@ -7825,6 +7845,7 @@ export namespace Prisma {
 
   export type fileUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
     nama_file?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     tanggal_upload?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7833,6 +7854,7 @@ export namespace Prisma {
 
   export type fileUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
     nama_file?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     id_tugas?: StringFieldUpdateOperationsInput | string
@@ -7841,6 +7863,7 @@ export namespace Prisma {
 
   export type fileCreateManyInput = {
     id: string
+    nama: string
     nama_file: string
     url: string
     id_tugas: string
@@ -7849,6 +7872,7 @@ export namespace Prisma {
 
   export type fileUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
     nama_file?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     tanggal_upload?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7856,6 +7880,7 @@ export namespace Prisma {
 
   export type fileUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
     nama_file?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     id_tugas?: StringFieldUpdateOperationsInput | string
@@ -8214,6 +8239,7 @@ export namespace Prisma {
 
   export type fileCountOrderByAggregateInput = {
     id?: SortOrder
+    nama?: SortOrder
     nama_file?: SortOrder
     url?: SortOrder
     id_tugas?: SortOrder
@@ -8222,6 +8248,7 @@ export namespace Prisma {
 
   export type fileMaxOrderByAggregateInput = {
     id?: SortOrder
+    nama?: SortOrder
     nama_file?: SortOrder
     url?: SortOrder
     id_tugas?: SortOrder
@@ -8230,6 +8257,7 @@ export namespace Prisma {
 
   export type fileMinOrderByAggregateInput = {
     id?: SortOrder
+    nama?: SortOrder
     nama_file?: SortOrder
     url?: SortOrder
     id_tugas?: SortOrder
@@ -9349,6 +9377,7 @@ export namespace Prisma {
 
   export type fileCreateWithoutTugasInput = {
     id: string
+    nama: string
     nama_file: string
     url: string
     tanggal_upload?: Date | string
@@ -9356,6 +9385,7 @@ export namespace Prisma {
 
   export type fileUncheckedCreateWithoutTugasInput = {
     id: string
+    nama: string
     nama_file: string
     url: string
     tanggal_upload?: Date | string
@@ -9439,6 +9469,7 @@ export namespace Prisma {
     OR?: fileScalarWhereInput[]
     NOT?: fileScalarWhereInput | fileScalarWhereInput[]
     id?: StringFilter<"file"> | string
+    nama?: StringFilter<"file"> | string
     nama_file?: StringFilter<"file"> | string
     url?: StringFilter<"file"> | string
     id_tugas?: StringFilter<"file"> | string
@@ -9902,6 +9933,7 @@ export namespace Prisma {
 
   export type fileCreateManyTugasInput = {
     id: string
+    nama: string
     nama_file: string
     url: string
     tanggal_upload?: Date | string
@@ -9914,6 +9946,7 @@ export namespace Prisma {
 
   export type fileUpdateWithoutTugasInput = {
     id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
     nama_file?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     tanggal_upload?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9921,6 +9954,7 @@ export namespace Prisma {
 
   export type fileUncheckedUpdateWithoutTugasInput = {
     id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
     nama_file?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     tanggal_upload?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9928,6 +9962,7 @@ export namespace Prisma {
 
   export type fileUncheckedUpdateManyWithoutTugasInput = {
     id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
     nama_file?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     tanggal_upload?: DateTimeFieldUpdateOperationsInput | Date | string

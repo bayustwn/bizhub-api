@@ -166,6 +166,7 @@ export const detailTugas = async (ctx: Context) => {
         file: {
           select: {
             id: true,
+            nama: true,
             nama_file: true,
             url: true,
           },
@@ -394,7 +395,7 @@ export const updateStatus = async (ctx: Context) => {
           token_notifikasi.map(async (token) => {
             const message = {
               notification: {
-                title: `Status Tugas Diperbarui ( ${tugas.status} )`,
+                title: `Status Tugas Diperbarui ( ${status} )`,
                 body: `${tugas.kuantitas} ${tugas.judul}`,
               },
               token: token.token,

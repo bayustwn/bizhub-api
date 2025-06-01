@@ -10,6 +10,7 @@ datasource db {
 
 model file {
   id             String   @id @db.VarChar(50)
+  nama           String   @db.VarChar(255)
   nama_file      String   @db.VarChar(255)
   url            String   @db.Text
   id_tugas       String   @db.VarChar(50)
