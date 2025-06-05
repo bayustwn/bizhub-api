@@ -153,8 +153,8 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   nama: 'nama',
   email: 'email',
-  password: 'password',
-  posisi: 'posisi'
+  posisi: 'posisi',
+  password: 'password'
 };
 
 exports.Prisma.User_tugasScalarFieldEnum = {
@@ -166,6 +166,11 @@ exports.Prisma.User_tugasScalarFieldEnum = {
 exports.Prisma.Token_notifikasiScalarFieldEnum = {
   token: 'token',
   id_user: 'id_user'
+};
+
+exports.Prisma.PosisiScalarFieldEnum = {
+  id: 'id',
+  posisi: 'posisi'
 };
 
 exports.Prisma.SortOrder = {
@@ -204,8 +209,8 @@ exports.Prisma.userOrderByRelevanceFieldEnum = {
   id: 'id',
   nama: 'nama',
   email: 'email',
-  password: 'password',
-  posisi: 'posisi'
+  posisi: 'posisi',
+  password: 'password'
 };
 
 exports.Prisma.user_tugasOrderByRelevanceFieldEnum = {
@@ -219,6 +224,11 @@ exports.Prisma.token_notifikasiOrderByRelevanceFieldEnum = {
   id_user: 'id_user'
 };
 
+exports.Prisma.posisiOrderByRelevanceFieldEnum = {
+  id: 'id',
+  posisi: 'posisi'
+};
+
 
 exports.Prisma.ModelName = {
   file: 'file',
@@ -226,7 +236,8 @@ exports.Prisma.ModelName = {
   tugas: 'tugas',
   user: 'user',
   user_tugas: 'user_tugas',
-  token_notifikasi: 'token_notifikasi'
+  token_notifikasi: 'token_notifikasi',
+  posisi: 'posisi'
 };
 
 /**

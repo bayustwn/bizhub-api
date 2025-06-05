@@ -11,7 +11,7 @@ const supabase = createClient(
 export const upload = async (ctx: Context) => {
   const bucket = Bun.env.SUPABASE_BUCKET || "";
   const body = await ctx.req.parseBody();
-  const files = Array.isArray(body['file']) ? body['file'] as File[] : [body['file'] as File];
+  const files = Array.isArray(body['file[]']) ? body['file[]'] as File[] : [body['file[]'] as File];
   const id_tugas = body['id_tugas'] as string; 
 
   if (!files || files.length === 0) {
@@ -60,6 +60,7 @@ export const upload = async (ctx: Context) => {
 
     return responses(ctx, 200, true, "File berhasil diupload", uploadedFiles);
   } catch (error) {
+    console.log(error)
     return serverError(ctx);
   }
 };

@@ -43,6 +43,11 @@ export type user_tugas = $Result.DefaultSelection<Prisma.$user_tugasPayload>
  * 
  */
 export type token_notifikasi = $Result.DefaultSelection<Prisma.$token_notifikasiPayload>
+/**
+ * Model posisi
+ * 
+ */
+export type posisi = $Result.DefaultSelection<Prisma.$posisiPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -228,6 +233,16 @@ export class PrismaClient<
     * ```
     */
   get token_notifikasi(): Prisma.token_notifikasiDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.posisi`: Exposes CRUD operations for the **posisi** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Posisis
+    * const posisis = await prisma.posisi.findMany()
+    * ```
+    */
+  get posisi(): Prisma.posisiDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -673,7 +688,8 @@ export namespace Prisma {
     tugas: 'tugas',
     user: 'user',
     user_tugas: 'user_tugas',
-    token_notifikasi: 'token_notifikasi'
+    token_notifikasi: 'token_notifikasi',
+    posisi: 'posisi'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -692,7 +708,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "file" | "laporan_bulanan" | "tugas" | "user" | "user_tugas" | "token_notifikasi"
+      modelProps: "file" | "laporan_bulanan" | "tugas" | "user" | "user_tugas" | "token_notifikasi" | "posisi"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1092,6 +1108,72 @@ export namespace Prisma {
           }
         }
       }
+      posisi: {
+        payload: Prisma.$posisiPayload<ExtArgs>
+        fields: Prisma.posisiFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.posisiFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$posisiPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.posisiFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$posisiPayload>
+          }
+          findFirst: {
+            args: Prisma.posisiFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$posisiPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.posisiFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$posisiPayload>
+          }
+          findMany: {
+            args: Prisma.posisiFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$posisiPayload>[]
+          }
+          create: {
+            args: Prisma.posisiCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$posisiPayload>
+          }
+          createMany: {
+            args: Prisma.posisiCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.posisiDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$posisiPayload>
+          }
+          update: {
+            args: Prisma.posisiUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$posisiPayload>
+          }
+          deleteMany: {
+            args: Prisma.posisiDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.posisiUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.posisiUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$posisiPayload>
+          }
+          aggregate: {
+            args: Prisma.PosisiAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePosisi>
+          }
+          groupBy: {
+            args: Prisma.posisiGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PosisiGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.posisiCountArgs<ExtArgs>
+            result: $Utils.Optional<PosisiCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1182,6 +1264,7 @@ export namespace Prisma {
     user?: userOmit
     user_tugas?: user_tugasOmit
     token_notifikasi?: token_notifikasiOmit
+    posisi?: posisiOmit
   }
 
   /* Types for Logging */
@@ -4419,24 +4502,24 @@ export namespace Prisma {
     id: string | null
     nama: string | null
     email: string | null
-    password: string | null
     posisi: string | null
+    password: string | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
     nama: string | null
     email: string | null
-    password: string | null
     posisi: string | null
+    password: string | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
     nama: number
     email: number
-    password: number
     posisi: number
+    password: number
     _all: number
   }
 
@@ -4445,24 +4528,24 @@ export namespace Prisma {
     id?: true
     nama?: true
     email?: true
-    password?: true
     posisi?: true
+    password?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
     nama?: true
     email?: true
-    password?: true
     posisi?: true
+    password?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
     nama?: true
     email?: true
-    password?: true
     posisi?: true
+    password?: true
     _all?: true
   }
 
@@ -4542,8 +4625,8 @@ export namespace Prisma {
     id: string
     nama: string
     email: string
-    password: string
     posisi: string
+    password: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -4567,8 +4650,8 @@ export namespace Prisma {
     id?: boolean
     nama?: boolean
     email?: boolean
-    password?: boolean
     posisi?: boolean
+    password?: boolean
     laporan_bulanan?: boolean | user$laporan_bulananArgs<ExtArgs>
     token_notifikasi?: boolean | user$token_notifikasiArgs<ExtArgs>
     tugas?: boolean | user$tugasArgs<ExtArgs>
@@ -4582,11 +4665,11 @@ export namespace Prisma {
     id?: boolean
     nama?: boolean
     email?: boolean
-    password?: boolean
     posisi?: boolean
+    password?: boolean
   }
 
-  export type userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama" | "email" | "password" | "posisi", ExtArgs["result"]["user"]>
+  export type userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama" | "email" | "posisi" | "password", ExtArgs["result"]["user"]>
   export type userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     laporan_bulanan?: boolean | user$laporan_bulananArgs<ExtArgs>
     token_notifikasi?: boolean | user$token_notifikasiArgs<ExtArgs>
@@ -4607,8 +4690,8 @@ export namespace Prisma {
       id: string
       nama: string
       email: string
-      password: string
       posisi: string
+      password: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4985,8 +5068,8 @@ export namespace Prisma {
     readonly id: FieldRef<"user", 'String'>
     readonly nama: FieldRef<"user", 'String'>
     readonly email: FieldRef<"user", 'String'>
-    readonly password: FieldRef<"user", 'String'>
     readonly posisi: FieldRef<"user", 'String'>
+    readonly password: FieldRef<"user", 'String'>
   }
     
 
@@ -7252,6 +7335,855 @@ export namespace Prisma {
 
 
   /**
+   * Model posisi
+   */
+
+  export type AggregatePosisi = {
+    _count: PosisiCountAggregateOutputType | null
+    _min: PosisiMinAggregateOutputType | null
+    _max: PosisiMaxAggregateOutputType | null
+  }
+
+  export type PosisiMinAggregateOutputType = {
+    id: string | null
+    posisi: string | null
+  }
+
+  export type PosisiMaxAggregateOutputType = {
+    id: string | null
+    posisi: string | null
+  }
+
+  export type PosisiCountAggregateOutputType = {
+    id: number
+    posisi: number
+    _all: number
+  }
+
+
+  export type PosisiMinAggregateInputType = {
+    id?: true
+    posisi?: true
+  }
+
+  export type PosisiMaxAggregateInputType = {
+    id?: true
+    posisi?: true
+  }
+
+  export type PosisiCountAggregateInputType = {
+    id?: true
+    posisi?: true
+    _all?: true
+  }
+
+  export type PosisiAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which posisi to aggregate.
+     */
+    where?: posisiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of posisis to fetch.
+     */
+    orderBy?: posisiOrderByWithRelationInput | posisiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: posisiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` posisis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` posisis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned posisis
+    **/
+    _count?: true | PosisiCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PosisiMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PosisiMaxAggregateInputType
+  }
+
+  export type GetPosisiAggregateType<T extends PosisiAggregateArgs> = {
+        [P in keyof T & keyof AggregatePosisi]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePosisi[P]>
+      : GetScalarType<T[P], AggregatePosisi[P]>
+  }
+
+
+
+
+  export type posisiGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: posisiWhereInput
+    orderBy?: posisiOrderByWithAggregationInput | posisiOrderByWithAggregationInput[]
+    by: PosisiScalarFieldEnum[] | PosisiScalarFieldEnum
+    having?: posisiScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PosisiCountAggregateInputType | true
+    _min?: PosisiMinAggregateInputType
+    _max?: PosisiMaxAggregateInputType
+  }
+
+  export type PosisiGroupByOutputType = {
+    id: string
+    posisi: string
+    _count: PosisiCountAggregateOutputType | null
+    _min: PosisiMinAggregateOutputType | null
+    _max: PosisiMaxAggregateOutputType | null
+  }
+
+  type GetPosisiGroupByPayload<T extends posisiGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PosisiGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PosisiGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PosisiGroupByOutputType[P]>
+            : GetScalarType<T[P], PosisiGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type posisiSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    posisi?: boolean
+  }, ExtArgs["result"]["posisi"]>
+
+
+
+  export type posisiSelectScalar = {
+    id?: boolean
+    posisi?: boolean
+  }
+
+  export type posisiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "posisi", ExtArgs["result"]["posisi"]>
+
+  export type $posisiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "posisi"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      posisi: string
+    }, ExtArgs["result"]["posisi"]>
+    composites: {}
+  }
+
+  type posisiGetPayload<S extends boolean | null | undefined | posisiDefaultArgs> = $Result.GetResult<Prisma.$posisiPayload, S>
+
+  type posisiCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<posisiFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PosisiCountAggregateInputType | true
+    }
+
+  export interface posisiDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['posisi'], meta: { name: 'posisi' } }
+    /**
+     * Find zero or one Posisi that matches the filter.
+     * @param {posisiFindUniqueArgs} args - Arguments to find a Posisi
+     * @example
+     * // Get one Posisi
+     * const posisi = await prisma.posisi.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends posisiFindUniqueArgs>(args: SelectSubset<T, posisiFindUniqueArgs<ExtArgs>>): Prisma__posisiClient<$Result.GetResult<Prisma.$posisiPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Posisi that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {posisiFindUniqueOrThrowArgs} args - Arguments to find a Posisi
+     * @example
+     * // Get one Posisi
+     * const posisi = await prisma.posisi.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends posisiFindUniqueOrThrowArgs>(args: SelectSubset<T, posisiFindUniqueOrThrowArgs<ExtArgs>>): Prisma__posisiClient<$Result.GetResult<Prisma.$posisiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Posisi that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {posisiFindFirstArgs} args - Arguments to find a Posisi
+     * @example
+     * // Get one Posisi
+     * const posisi = await prisma.posisi.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends posisiFindFirstArgs>(args?: SelectSubset<T, posisiFindFirstArgs<ExtArgs>>): Prisma__posisiClient<$Result.GetResult<Prisma.$posisiPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Posisi that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {posisiFindFirstOrThrowArgs} args - Arguments to find a Posisi
+     * @example
+     * // Get one Posisi
+     * const posisi = await prisma.posisi.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends posisiFindFirstOrThrowArgs>(args?: SelectSubset<T, posisiFindFirstOrThrowArgs<ExtArgs>>): Prisma__posisiClient<$Result.GetResult<Prisma.$posisiPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Posisis that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {posisiFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Posisis
+     * const posisis = await prisma.posisi.findMany()
+     * 
+     * // Get first 10 Posisis
+     * const posisis = await prisma.posisi.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const posisiWithIdOnly = await prisma.posisi.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends posisiFindManyArgs>(args?: SelectSubset<T, posisiFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$posisiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Posisi.
+     * @param {posisiCreateArgs} args - Arguments to create a Posisi.
+     * @example
+     * // Create one Posisi
+     * const Posisi = await prisma.posisi.create({
+     *   data: {
+     *     // ... data to create a Posisi
+     *   }
+     * })
+     * 
+     */
+    create<T extends posisiCreateArgs>(args: SelectSubset<T, posisiCreateArgs<ExtArgs>>): Prisma__posisiClient<$Result.GetResult<Prisma.$posisiPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Posisis.
+     * @param {posisiCreateManyArgs} args - Arguments to create many Posisis.
+     * @example
+     * // Create many Posisis
+     * const posisi = await prisma.posisi.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends posisiCreateManyArgs>(args?: SelectSubset<T, posisiCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Posisi.
+     * @param {posisiDeleteArgs} args - Arguments to delete one Posisi.
+     * @example
+     * // Delete one Posisi
+     * const Posisi = await prisma.posisi.delete({
+     *   where: {
+     *     // ... filter to delete one Posisi
+     *   }
+     * })
+     * 
+     */
+    delete<T extends posisiDeleteArgs>(args: SelectSubset<T, posisiDeleteArgs<ExtArgs>>): Prisma__posisiClient<$Result.GetResult<Prisma.$posisiPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Posisi.
+     * @param {posisiUpdateArgs} args - Arguments to update one Posisi.
+     * @example
+     * // Update one Posisi
+     * const posisi = await prisma.posisi.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends posisiUpdateArgs>(args: SelectSubset<T, posisiUpdateArgs<ExtArgs>>): Prisma__posisiClient<$Result.GetResult<Prisma.$posisiPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Posisis.
+     * @param {posisiDeleteManyArgs} args - Arguments to filter Posisis to delete.
+     * @example
+     * // Delete a few Posisis
+     * const { count } = await prisma.posisi.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends posisiDeleteManyArgs>(args?: SelectSubset<T, posisiDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Posisis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {posisiUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Posisis
+     * const posisi = await prisma.posisi.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends posisiUpdateManyArgs>(args: SelectSubset<T, posisiUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Posisi.
+     * @param {posisiUpsertArgs} args - Arguments to update or create a Posisi.
+     * @example
+     * // Update or create a Posisi
+     * const posisi = await prisma.posisi.upsert({
+     *   create: {
+     *     // ... data to create a Posisi
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Posisi we want to update
+     *   }
+     * })
+     */
+    upsert<T extends posisiUpsertArgs>(args: SelectSubset<T, posisiUpsertArgs<ExtArgs>>): Prisma__posisiClient<$Result.GetResult<Prisma.$posisiPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Posisis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {posisiCountArgs} args - Arguments to filter Posisis to count.
+     * @example
+     * // Count the number of Posisis
+     * const count = await prisma.posisi.count({
+     *   where: {
+     *     // ... the filter for the Posisis we want to count
+     *   }
+     * })
+    **/
+    count<T extends posisiCountArgs>(
+      args?: Subset<T, posisiCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PosisiCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Posisi.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PosisiAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PosisiAggregateArgs>(args: Subset<T, PosisiAggregateArgs>): Prisma.PrismaPromise<GetPosisiAggregateType<T>>
+
+    /**
+     * Group by Posisi.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {posisiGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends posisiGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: posisiGroupByArgs['orderBy'] }
+        : { orderBy?: posisiGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, posisiGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPosisiGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the posisi model
+   */
+  readonly fields: posisiFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for posisi.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__posisiClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the posisi model
+   */
+  interface posisiFieldRefs {
+    readonly id: FieldRef<"posisi", 'String'>
+    readonly posisi: FieldRef<"posisi", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * posisi findUnique
+   */
+  export type posisiFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the posisi
+     */
+    select?: posisiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the posisi
+     */
+    omit?: posisiOmit<ExtArgs> | null
+    /**
+     * Filter, which posisi to fetch.
+     */
+    where: posisiWhereUniqueInput
+  }
+
+  /**
+   * posisi findUniqueOrThrow
+   */
+  export type posisiFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the posisi
+     */
+    select?: posisiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the posisi
+     */
+    omit?: posisiOmit<ExtArgs> | null
+    /**
+     * Filter, which posisi to fetch.
+     */
+    where: posisiWhereUniqueInput
+  }
+
+  /**
+   * posisi findFirst
+   */
+  export type posisiFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the posisi
+     */
+    select?: posisiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the posisi
+     */
+    omit?: posisiOmit<ExtArgs> | null
+    /**
+     * Filter, which posisi to fetch.
+     */
+    where?: posisiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of posisis to fetch.
+     */
+    orderBy?: posisiOrderByWithRelationInput | posisiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for posisis.
+     */
+    cursor?: posisiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` posisis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` posisis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of posisis.
+     */
+    distinct?: PosisiScalarFieldEnum | PosisiScalarFieldEnum[]
+  }
+
+  /**
+   * posisi findFirstOrThrow
+   */
+  export type posisiFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the posisi
+     */
+    select?: posisiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the posisi
+     */
+    omit?: posisiOmit<ExtArgs> | null
+    /**
+     * Filter, which posisi to fetch.
+     */
+    where?: posisiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of posisis to fetch.
+     */
+    orderBy?: posisiOrderByWithRelationInput | posisiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for posisis.
+     */
+    cursor?: posisiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` posisis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` posisis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of posisis.
+     */
+    distinct?: PosisiScalarFieldEnum | PosisiScalarFieldEnum[]
+  }
+
+  /**
+   * posisi findMany
+   */
+  export type posisiFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the posisi
+     */
+    select?: posisiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the posisi
+     */
+    omit?: posisiOmit<ExtArgs> | null
+    /**
+     * Filter, which posisis to fetch.
+     */
+    where?: posisiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of posisis to fetch.
+     */
+    orderBy?: posisiOrderByWithRelationInput | posisiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing posisis.
+     */
+    cursor?: posisiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` posisis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` posisis.
+     */
+    skip?: number
+    distinct?: PosisiScalarFieldEnum | PosisiScalarFieldEnum[]
+  }
+
+  /**
+   * posisi create
+   */
+  export type posisiCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the posisi
+     */
+    select?: posisiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the posisi
+     */
+    omit?: posisiOmit<ExtArgs> | null
+    /**
+     * The data needed to create a posisi.
+     */
+    data: XOR<posisiCreateInput, posisiUncheckedCreateInput>
+  }
+
+  /**
+   * posisi createMany
+   */
+  export type posisiCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many posisis.
+     */
+    data: posisiCreateManyInput | posisiCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * posisi update
+   */
+  export type posisiUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the posisi
+     */
+    select?: posisiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the posisi
+     */
+    omit?: posisiOmit<ExtArgs> | null
+    /**
+     * The data needed to update a posisi.
+     */
+    data: XOR<posisiUpdateInput, posisiUncheckedUpdateInput>
+    /**
+     * Choose, which posisi to update.
+     */
+    where: posisiWhereUniqueInput
+  }
+
+  /**
+   * posisi updateMany
+   */
+  export type posisiUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update posisis.
+     */
+    data: XOR<posisiUpdateManyMutationInput, posisiUncheckedUpdateManyInput>
+    /**
+     * Filter which posisis to update
+     */
+    where?: posisiWhereInput
+    /**
+     * Limit how many posisis to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * posisi upsert
+   */
+  export type posisiUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the posisi
+     */
+    select?: posisiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the posisi
+     */
+    omit?: posisiOmit<ExtArgs> | null
+    /**
+     * The filter to search for the posisi to update in case it exists.
+     */
+    where: posisiWhereUniqueInput
+    /**
+     * In case the posisi found by the `where` argument doesn't exist, create a new posisi with this data.
+     */
+    create: XOR<posisiCreateInput, posisiUncheckedCreateInput>
+    /**
+     * In case the posisi was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<posisiUpdateInput, posisiUncheckedUpdateInput>
+  }
+
+  /**
+   * posisi delete
+   */
+  export type posisiDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the posisi
+     */
+    select?: posisiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the posisi
+     */
+    omit?: posisiOmit<ExtArgs> | null
+    /**
+     * Filter which posisi to delete.
+     */
+    where: posisiWhereUniqueInput
+  }
+
+  /**
+   * posisi deleteMany
+   */
+  export type posisiDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which posisis to delete
+     */
+    where?: posisiWhereInput
+    /**
+     * Limit how many posisis to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * posisi without action
+   */
+  export type posisiDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the posisi
+     */
+    select?: posisiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the posisi
+     */
+    omit?: posisiOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -7310,8 +8242,8 @@ export namespace Prisma {
     id: 'id',
     nama: 'nama',
     email: 'email',
-    password: 'password',
-    posisi: 'posisi'
+    posisi: 'posisi',
+    password: 'password'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -7332,6 +8264,14 @@ export namespace Prisma {
   };
 
   export type Token_notifikasiScalarFieldEnum = (typeof Token_notifikasiScalarFieldEnum)[keyof typeof Token_notifikasiScalarFieldEnum]
+
+
+  export const PosisiScalarFieldEnum: {
+    id: 'id',
+    posisi: 'posisi'
+  };
+
+  export type PosisiScalarFieldEnum = (typeof PosisiScalarFieldEnum)[keyof typeof PosisiScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7385,8 +8325,8 @@ export namespace Prisma {
     id: 'id',
     nama: 'nama',
     email: 'email',
-    password: 'password',
-    posisi: 'posisi'
+    posisi: 'posisi',
+    password: 'password'
   };
 
   export type userOrderByRelevanceFieldEnum = (typeof userOrderByRelevanceFieldEnum)[keyof typeof userOrderByRelevanceFieldEnum]
@@ -7407,6 +8347,14 @@ export namespace Prisma {
   };
 
   export type token_notifikasiOrderByRelevanceFieldEnum = (typeof token_notifikasiOrderByRelevanceFieldEnum)[keyof typeof token_notifikasiOrderByRelevanceFieldEnum]
+
+
+  export const posisiOrderByRelevanceFieldEnum: {
+    id: 'id',
+    posisi: 'posisi'
+  };
+
+  export type posisiOrderByRelevanceFieldEnum = (typeof posisiOrderByRelevanceFieldEnum)[keyof typeof posisiOrderByRelevanceFieldEnum]
 
 
   /**
@@ -7677,8 +8625,8 @@ export namespace Prisma {
     id?: StringFilter<"user"> | string
     nama?: StringFilter<"user"> | string
     email?: StringFilter<"user"> | string
-    password?: StringFilter<"user"> | string
     posisi?: StringFilter<"user"> | string
+    password?: StringFilter<"user"> | string
     laporan_bulanan?: Laporan_bulananListRelationFilter
     token_notifikasi?: Token_notifikasiListRelationFilter
     tugas?: TugasListRelationFilter
@@ -7689,8 +8637,8 @@ export namespace Prisma {
     id?: SortOrder
     nama?: SortOrder
     email?: SortOrder
-    password?: SortOrder
     posisi?: SortOrder
+    password?: SortOrder
     laporan_bulanan?: laporan_bulananOrderByRelationAggregateInput
     token_notifikasi?: token_notifikasiOrderByRelationAggregateInput
     tugas?: tugasOrderByRelationAggregateInput
@@ -7705,8 +8653,8 @@ export namespace Prisma {
     OR?: userWhereInput[]
     NOT?: userWhereInput | userWhereInput[]
     nama?: StringFilter<"user"> | string
-    password?: StringFilter<"user"> | string
     posisi?: StringFilter<"user"> | string
+    password?: StringFilter<"user"> | string
     laporan_bulanan?: Laporan_bulananListRelationFilter
     token_notifikasi?: Token_notifikasiListRelationFilter
     tugas?: TugasListRelationFilter
@@ -7717,8 +8665,8 @@ export namespace Prisma {
     id?: SortOrder
     nama?: SortOrder
     email?: SortOrder
-    password?: SortOrder
     posisi?: SortOrder
+    password?: SortOrder
     _count?: userCountOrderByAggregateInput
     _max?: userMaxOrderByAggregateInput
     _min?: userMinOrderByAggregateInput
@@ -7731,8 +8679,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"user"> | string
     nama?: StringWithAggregatesFilter<"user"> | string
     email?: StringWithAggregatesFilter<"user"> | string
-    password?: StringWithAggregatesFilter<"user"> | string
     posisi?: StringWithAggregatesFilter<"user"> | string
+    password?: StringWithAggregatesFilter<"user"> | string
   }
 
   export type user_tugasWhereInput = {
@@ -7823,6 +8771,44 @@ export namespace Prisma {
     NOT?: token_notifikasiScalarWhereWithAggregatesInput | token_notifikasiScalarWhereWithAggregatesInput[]
     token?: StringWithAggregatesFilter<"token_notifikasi"> | string
     id_user?: StringWithAggregatesFilter<"token_notifikasi"> | string
+  }
+
+  export type posisiWhereInput = {
+    AND?: posisiWhereInput | posisiWhereInput[]
+    OR?: posisiWhereInput[]
+    NOT?: posisiWhereInput | posisiWhereInput[]
+    id?: StringFilter<"posisi"> | string
+    posisi?: StringFilter<"posisi"> | string
+  }
+
+  export type posisiOrderByWithRelationInput = {
+    id?: SortOrder
+    posisi?: SortOrder
+    _relevance?: posisiOrderByRelevanceInput
+  }
+
+  export type posisiWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: posisiWhereInput | posisiWhereInput[]
+    OR?: posisiWhereInput[]
+    NOT?: posisiWhereInput | posisiWhereInput[]
+    posisi?: StringFilter<"posisi"> | string
+  }, "id">
+
+  export type posisiOrderByWithAggregationInput = {
+    id?: SortOrder
+    posisi?: SortOrder
+    _count?: posisiCountOrderByAggregateInput
+    _max?: posisiMaxOrderByAggregateInput
+    _min?: posisiMinOrderByAggregateInput
+  }
+
+  export type posisiScalarWhereWithAggregatesInput = {
+    AND?: posisiScalarWhereWithAggregatesInput | posisiScalarWhereWithAggregatesInput[]
+    OR?: posisiScalarWhereWithAggregatesInput[]
+    NOT?: posisiScalarWhereWithAggregatesInput | posisiScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"posisi"> | string
+    posisi?: StringWithAggregatesFilter<"posisi"> | string
   }
 
   export type fileCreateInput = {
@@ -8058,8 +9044,8 @@ export namespace Prisma {
     id: string
     nama: string
     email: string
-    password: string
     posisi: string
+    password: string
     laporan_bulanan?: laporan_bulananCreateNestedManyWithoutUserInput
     token_notifikasi?: token_notifikasiCreateNestedManyWithoutUserInput
     tugas?: tugasCreateNestedManyWithoutUserInput
@@ -8070,8 +9056,8 @@ export namespace Prisma {
     id: string
     nama: string
     email: string
-    password: string
     posisi: string
+    password: string
     laporan_bulanan?: laporan_bulananUncheckedCreateNestedManyWithoutUserInput
     token_notifikasi?: token_notifikasiUncheckedCreateNestedManyWithoutUserInput
     tugas?: tugasUncheckedCreateNestedManyWithoutUserInput
@@ -8082,8 +9068,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUpdateManyWithoutUserNestedInput
     token_notifikasi?: token_notifikasiUpdateManyWithoutUserNestedInput
     tugas?: tugasUpdateManyWithoutUserNestedInput
@@ -8094,8 +9080,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUncheckedUpdateManyWithoutUserNestedInput
     token_notifikasi?: token_notifikasiUncheckedUpdateManyWithoutUserNestedInput
     tugas?: tugasUncheckedUpdateManyWithoutUserNestedInput
@@ -8106,24 +9092,24 @@ export namespace Prisma {
     id: string
     nama: string
     email: string
-    password: string
     posisi: string
+    password: string
   }
 
   export type userUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
   }
 
   export type userUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
   }
 
   export type user_tugasCreateInput = {
@@ -8198,6 +9184,41 @@ export namespace Prisma {
   export type token_notifikasiUncheckedUpdateManyInput = {
     token?: StringFieldUpdateOperationsInput | string
     id_user?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type posisiCreateInput = {
+    id: string
+    posisi: string
+  }
+
+  export type posisiUncheckedCreateInput = {
+    id: string
+    posisi: string
+  }
+
+  export type posisiUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    posisi?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type posisiUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    posisi?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type posisiCreateManyInput = {
+    id: string
+    posisi: string
+  }
+
+  export type posisiUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    posisi?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type posisiUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    posisi?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -8599,24 +9620,24 @@ export namespace Prisma {
     id?: SortOrder
     nama?: SortOrder
     email?: SortOrder
-    password?: SortOrder
     posisi?: SortOrder
+    password?: SortOrder
   }
 
   export type userMaxOrderByAggregateInput = {
     id?: SortOrder
     nama?: SortOrder
     email?: SortOrder
-    password?: SortOrder
     posisi?: SortOrder
+    password?: SortOrder
   }
 
   export type userMinOrderByAggregateInput = {
     id?: SortOrder
     nama?: SortOrder
     email?: SortOrder
-    password?: SortOrder
     posisi?: SortOrder
+    password?: SortOrder
   }
 
   export type user_tugasOrderByRelevanceInput = {
@@ -8662,6 +9683,27 @@ export namespace Prisma {
   export type token_notifikasiMinOrderByAggregateInput = {
     token?: SortOrder
     id_user?: SortOrder
+  }
+
+  export type posisiOrderByRelevanceInput = {
+    fields: posisiOrderByRelevanceFieldEnum | posisiOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type posisiCountOrderByAggregateInput = {
+    id?: SortOrder
+    posisi?: SortOrder
+  }
+
+  export type posisiMaxOrderByAggregateInput = {
+    id?: SortOrder
+    posisi?: SortOrder
+  }
+
+  export type posisiMinOrderByAggregateInput = {
+    id?: SortOrder
+    posisi?: SortOrder
   }
 
   export type tugasCreateNestedOneWithoutFileInput = {
@@ -9319,8 +10361,8 @@ export namespace Prisma {
     id: string
     nama: string
     email: string
-    password: string
     posisi: string
+    password: string
     token_notifikasi?: token_notifikasiCreateNestedManyWithoutUserInput
     tugas?: tugasCreateNestedManyWithoutUserInput
     user_tugas?: user_tugasCreateNestedManyWithoutUserInput
@@ -9330,8 +10372,8 @@ export namespace Prisma {
     id: string
     nama: string
     email: string
-    password: string
     posisi: string
+    password: string
     token_notifikasi?: token_notifikasiUncheckedCreateNestedManyWithoutUserInput
     tugas?: tugasUncheckedCreateNestedManyWithoutUserInput
     user_tugas?: user_tugasUncheckedCreateNestedManyWithoutUserInput
@@ -9357,8 +10399,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     token_notifikasi?: token_notifikasiUpdateManyWithoutUserNestedInput
     tugas?: tugasUpdateManyWithoutUserNestedInput
     user_tugas?: user_tugasUpdateManyWithoutUserNestedInput
@@ -9368,8 +10410,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     token_notifikasi?: token_notifikasiUncheckedUpdateManyWithoutUserNestedInput
     tugas?: tugasUncheckedUpdateManyWithoutUserNestedInput
     user_tugas?: user_tugasUncheckedUpdateManyWithoutUserNestedInput
@@ -9405,8 +10447,8 @@ export namespace Prisma {
     id: string
     nama: string
     email: string
-    password: string
     posisi: string
+    password: string
     laporan_bulanan?: laporan_bulananCreateNestedManyWithoutUserInput
     token_notifikasi?: token_notifikasiCreateNestedManyWithoutUserInput
     user_tugas?: user_tugasCreateNestedManyWithoutUserInput
@@ -9416,8 +10458,8 @@ export namespace Prisma {
     id: string
     nama: string
     email: string
-    password: string
     posisi: string
+    password: string
     laporan_bulanan?: laporan_bulananUncheckedCreateNestedManyWithoutUserInput
     token_notifikasi?: token_notifikasiUncheckedCreateNestedManyWithoutUserInput
     user_tugas?: user_tugasUncheckedCreateNestedManyWithoutUserInput
@@ -9491,8 +10533,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUpdateManyWithoutUserNestedInput
     token_notifikasi?: token_notifikasiUpdateManyWithoutUserNestedInput
     user_tugas?: user_tugasUpdateManyWithoutUserNestedInput
@@ -9502,8 +10544,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUncheckedUpdateManyWithoutUserNestedInput
     token_notifikasi?: token_notifikasiUncheckedUpdateManyWithoutUserNestedInput
     user_tugas?: user_tugasUncheckedUpdateManyWithoutUserNestedInput
@@ -9743,8 +10785,8 @@ export namespace Prisma {
     id: string
     nama: string
     email: string
-    password: string
     posisi: string
+    password: string
     laporan_bulanan?: laporan_bulananCreateNestedManyWithoutUserInput
     token_notifikasi?: token_notifikasiCreateNestedManyWithoutUserInput
     tugas?: tugasCreateNestedManyWithoutUserInput
@@ -9754,8 +10796,8 @@ export namespace Prisma {
     id: string
     nama: string
     email: string
-    password: string
     posisi: string
+    password: string
     laporan_bulanan?: laporan_bulananUncheckedCreateNestedManyWithoutUserInput
     token_notifikasi?: token_notifikasiUncheckedCreateNestedManyWithoutUserInput
     tugas?: tugasUncheckedCreateNestedManyWithoutUserInput
@@ -9814,8 +10856,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUpdateManyWithoutUserNestedInput
     token_notifikasi?: token_notifikasiUpdateManyWithoutUserNestedInput
     tugas?: tugasUpdateManyWithoutUserNestedInput
@@ -9825,8 +10867,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUncheckedUpdateManyWithoutUserNestedInput
     token_notifikasi?: token_notifikasiUncheckedUpdateManyWithoutUserNestedInput
     tugas?: tugasUncheckedUpdateManyWithoutUserNestedInput
@@ -9875,8 +10917,8 @@ export namespace Prisma {
     id: string
     nama: string
     email: string
-    password: string
     posisi: string
+    password: string
     laporan_bulanan?: laporan_bulananCreateNestedManyWithoutUserInput
     tugas?: tugasCreateNestedManyWithoutUserInput
     user_tugas?: user_tugasCreateNestedManyWithoutUserInput
@@ -9886,8 +10928,8 @@ export namespace Prisma {
     id: string
     nama: string
     email: string
-    password: string
     posisi: string
+    password: string
     laporan_bulanan?: laporan_bulananUncheckedCreateNestedManyWithoutUserInput
     tugas?: tugasUncheckedCreateNestedManyWithoutUserInput
     user_tugas?: user_tugasUncheckedCreateNestedManyWithoutUserInput
@@ -9913,8 +10955,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUpdateManyWithoutUserNestedInput
     tugas?: tugasUpdateManyWithoutUserNestedInput
     user_tugas?: user_tugasUpdateManyWithoutUserNestedInput
@@ -9924,8 +10966,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
     posisi?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     laporan_bulanan?: laporan_bulananUncheckedUpdateManyWithoutUserNestedInput
     tugas?: tugasUncheckedUpdateManyWithoutUserNestedInput
     user_tugas?: user_tugasUncheckedUpdateManyWithoutUserNestedInput

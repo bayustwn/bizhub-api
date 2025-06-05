@@ -106,32 +106,20 @@ export const create = async (ctx: Context) => {
   }
 };
 
-export const performaBulananUser = async (ctx: Context) => {
-  const id_user = ctx.req.param("id_user");
-
-  try {
-    const user = await prisma.user.findUnique({
-      where: {
-        id: id_user,
-      },
-      select: {},
-    });
-  } catch (error) {
-    return serverError(ctx);
-  }
-};
-
 export const performaBulanan = async (ctx: Context) => {
-  const { bulan, tahun } = await dateSchema.parseAsync(await ctx.req.json());
-
   try {
-    const tanggalMulai = new Date(tahun, bulan - 1, 1);
-    const tanggalSelesai = new Date(tahun, bulan, 0, 23, 59, 59, 999);
+    const sekarang = new Date();
+
+    const tahun = sekarang.getFullYear();
+    const bulan = sekarang.getMonth();
+
+    const tanggalMulai = new Date(tahun, bulan, 1);
+    const tanggalSelesai = new Date(tahun, bulan + 1, 0, 23, 59, 59, 999);
 
     const users = await prisma.user.findMany({
       where: {
         posisi: {
-          not: "admin",
+          not: "Admin",
         },
       },
       select: {
@@ -142,6 +130,7 @@ export const performaBulanan = async (ctx: Context) => {
         user_tugas: {
           where: {
             tugas: {
+              terlambat: true,
               tanggal_dibuat: {
                 gte: tanggalMulai,
                 lte: tanggalSelesai,
@@ -149,20 +138,17 @@ export const performaBulanan = async (ctx: Context) => {
             },
           },
           select: {
-            tugas: {
-              select: {
-                terlambat: true,
-              },
-            },
+            tugas: true,
           },
         },
       },
     });
-
     const performa = users.map((user) => {
       const jumlahTerlambat = user.user_tugas.filter(
         (t) => t.tugas.terlambat
       ).length;
+
+      console.log(jumlahTerlambat);
 
       let penilaian = "Baik";
       if (jumlahTerlambat > 5) penilaian = "Buruk";
@@ -199,7 +185,7 @@ export const performaBulananById = async (ctx: Context) => {
         id: id,
         AND: {
           posisi: {
-            not: "admin",
+            not: "Admin",
           },
         },
       },
@@ -239,21 +225,20 @@ export const performaBulananById = async (ctx: Context) => {
 };
 
 export const performaMingguanById = async (ctx: Context) => {
-  
-  const id = ctx.req.param("id")
-  
+  const id = ctx.req.param("id");
+
   try {
     const week = new Date();
     week.setDate(week.getDate() - 7);
 
     const userMingguan = await prisma.user.findMany({
       where: {
-        id : id,
-        AND : {
-          posisi : {
-            not : "admin"
-          }
-        }
+        id: id,
+        AND: {
+          posisi: {
+            not: "Admin",
+          },
+        },
       },
       select: {
         nama: true,
@@ -296,7 +281,7 @@ export const performaMingguan = async (ctx: Context) => {
     const userMingguan = await prisma.user.findMany({
       where: {
         posisi: {
-          not: "admin",
+          not: "Admin",
         },
       },
       select: {
@@ -337,7 +322,7 @@ export const semuaTim = async (ctx: Context) => {
     const user = await prisma.user.findMany({
       where: {
         posisi: {
-          not: "admin",
+          not: "Admin",
         },
       },
       select: {
@@ -368,3 +353,49 @@ export const semuaTim = async (ctx: Context) => {
     return serverError(ctx);
   }
 };
+
+export const posisi = async (ctx: Context) => {
+  try {
+    const posisi = await prisma.posisi.findMany();
+
+    if (posisi) {
+      return responses(ctx, 200, true, "Sukses mendapatkan Posisi", posisi);
+    }
+  } catch (error) {
+    return serverError(ctx);
+  }
+};
+
+export const hapusAnggota = async(ctx:Context)=>{
+  
+  const id = ctx.req.param("id");
+
+  try {
+    const user = await prisma.user.findUnique({
+      where : {
+        id,
+        AND : {
+          posisi : {
+            not : "Admin"
+          }
+        }
+      }
+    })
+
+    if (user) {
+      const hapus = await prisma.user.delete({
+        where : {
+          id
+        }
+      })
+
+      if (hapus) {
+        return responses(ctx,200,true,"Anggota berhasil dihapus!")
+      }
+    }else{
+      return responses(ctx,404,false,"Anggota tidak ditemukan!")
+    }
+  } catch (error) {
+    return serverError(ctx)
+  }
+}

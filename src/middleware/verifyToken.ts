@@ -31,7 +31,7 @@ export const verifyToken = (admin: boolean) => {
                 return responses(ctx, 401, false, "Tidak diizinkan!");
             }
 
-            if (admin && user.posisi !== "admin") {
+            if (admin && user.posisi !== "Admin") {
                 return responses(ctx, 403, false, "Tidak diizinkan!");
             }
 

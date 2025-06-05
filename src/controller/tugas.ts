@@ -4,6 +4,7 @@ import { Context } from "hono";
 import prisma from "../../prisma/prisma";
 import { status_map } from "../utils/status";
 import { firebaseAdmin } from "../firebase/firebase-admin";
+import { deadlineMap } from "../utils/deadlinemapping";
 
 export const tugasSchema = z.object({
   judul: z.string({ required_error: "Judul wajib diisi" }),
@@ -37,10 +38,10 @@ export const editTugas = async (ctx: Context) => {
         judul,
         brief,
         kuantitas,
-        deadline: new Date(deadline),
+        deadline: deadlineMap(deadline),
         id_admin: admin_id,
         tanggal_diubah: hariIni,
-        terlambat: new Date(deadline) < hariIni,
+        terlambat: deadlineMap(deadline) < hariIni,
       },
     });
 
@@ -87,11 +88,13 @@ export const editTugas = async (ctx: Context) => {
       return responses(ctx, 404, false, "Tugas tidak ditemukan!");
     }
   } catch (error) {
+    console.log(error);
     return serverError(ctx);
   }
 };
 
 export const addTugas = async (ctx: Context) => {
+  const hariIni: Date = new Date();
   const { judul, brief, kuantitas, deadline, user_tugas } =
     await tugasSchema.parseAsync(await ctx.req.json());
   const admin_id = ctx.get("user_data").id;
@@ -103,9 +106,10 @@ export const addTugas = async (ctx: Context) => {
         judul: judul,
         brief: brief,
         kuantitas: kuantitas,
-        deadline: new Date(deadline),
+        deadline: deadlineMap(deadline),
         status: status_map.dibuat,
         id_admin: admin_id,
+        terlambat: deadlineMap(deadline) < hariIni
       },
     });
 
@@ -148,7 +152,7 @@ export const addTugas = async (ctx: Context) => {
       await firebaseAdmin.messaging().send(message);
     });
 
-    return responses(ctx, 201, true, "Sukses membuat tugas!");
+    return responses(ctx, 201, true, "Sukses membuat tugas!",tugas.id);
   } catch (error) {
     return serverError(ctx);
   }
@@ -236,7 +240,7 @@ export const tugasByUserId = async (ctx: Context) => {
               where: {
                 user: {
                   posisi: {
-                    not: "admin",
+                    not: "Admin",
                   },
                 },
               },
@@ -320,7 +324,7 @@ export const semuaTugas = async (ctx: Context) => {
           where: {
             user: {
               posisi: {
-                not: "admin",
+                not: "Admin",
               },
             },
           },
