@@ -4,14 +4,14 @@ import { Context } from "hono";
 import prisma from "../../prisma/prisma";
 import { status_map } from "../utils/status";
 import { firebaseAdmin } from "../firebase/firebase-admin";
-import { deadlineMap } from "../utils/deadlinemapping";
+import { aturTenggat } from "../utils/aturTenggat";
 
-export const tugasSchema = z.object({
+export const skemaTugas = z.object({
   judul: z.string({ required_error: "Judul wajib diisi" }),
   brief: z.string({ required_error: "Brief wajib diisi" }),
   kuantitas: z.number({ required_error: "Kuantitas wajib diisi" }),
   deadline: z.string({ required_error: "Deadline wajib diisi" }),
-  user_tugas: z.array(
+  tugas_pengguna: z.array(
     z.object({
       id: z.string({ required_error: "Pekerja wajib diisi" }),
     }),
@@ -19,51 +19,55 @@ export const tugasSchema = z.object({
   ),
 });
 
-const statusSchema = z.object({
+const skemaStatus = z.object({
   id: z.string(),
   status: z.enum(["Dibuat", "Dikerjakan", "Revisi", "Selesai", "Ditinjau"]),
 });
 
-export const editTugas = async (ctx: Context) => {
+export const ubahTugas = async (konteks: Context) => {
   const hariIni: Date = new Date();
-  const { judul, brief, kuantitas, deadline, user_tugas } =
-    await tugasSchema.parseAsync(await ctx.req.json());
-  const id = ctx.req.param("id");
-  const admin_id = ctx.get("user_data").id;
+  const { judul, brief, kuantitas, deadline, tugas_pengguna } =
+    await skemaTugas.parseAsync(await konteks.req.json());
+  const id = konteks.req.param("id");
+  const idAdmin = konteks.get("user_data").id;
 
   try {
-    const updatedTugas = await prisma.tugas.update({
+    const tugasDiperbarui = await prisma.tugas.update({
       where: { id },
       data: {
         judul,
         brief,
         kuantitas,
-        deadline: deadlineMap(deadline),
-        id_admin: admin_id,
+        deadline: aturTenggat(deadline),
+        id_admin: idAdmin,
         tanggal_diubah: hariIni,
-        terlambat: deadlineMap(deadline) < hariIni,
+        terlambat: aturTenggat(deadline) < hariIni,
       },
     });
 
-    if (updatedTugas) {
-      await prisma.user_tugas.deleteMany({
+    if (tugasDiperbarui) {
+      await prisma.tugas_pengguna.deleteMany({
         where: { id_tugas: id },
       });
 
-      for (const user of user_tugas) {
-        await prisma.user_tugas.create({
+      for (const pengguna of tugas_pengguna) {
+        await prisma.tugas_pengguna.create({
           data: {
             id: crypto.randomUUID(),
-            id_user: user.id,
+            id_user: pengguna.id,
             id_tugas: id,
           },
         });
       }
 
-      const token_notifikasi = await prisma.token_notifikasi.findMany({
+      const semuaUserId = [
+        ...tugas_pengguna.map((ut) => ut.id),
+        idAdmin
+      ];
+      const tokenNotifikasi = await prisma.token_notifikasi.findMany({
         where: {
           id_user: {
-            in: user_tugas.map((user) => user.id),
+            in: semuaUserId.filter((id): id is string => id !== null),
           },
         },
         select: {
@@ -71,8 +75,8 @@ export const editTugas = async (ctx: Context) => {
         },
       });
 
-      token_notifikasi.map(async (token) => {
-        const message = {
+      tokenNotifikasi.map(async (token) => {
+        const pesan = {
           notification: {
             title: "Tugas Diubah!",
             body: `${kuantitas} ${judul}`,
@@ -80,59 +84,63 @@ export const editTugas = async (ctx: Context) => {
           token: token.token,
         };
 
-        await firebaseAdmin.messaging().send(message);
+        await firebaseAdmin.messaging().send(pesan);
       });
 
-      return responses(ctx, 200, true, "Tugas berhasil diperbarui!");
+      return responses(konteks, 200, true, "Tugas berhasil diperbarui!");
     } else {
-      return responses(ctx, 404, false, "Tugas tidak ditemukan!");
+      return responses(konteks, 404, false, "Tugas tidak ditemukan!");
     }
   } catch (error) {
     console.log(error);
-    return serverError(ctx);
+    return serverError(konteks);
   }
 };
 
-export const addTugas = async (ctx: Context) => {
+export const tambahTugas = async (konteks: Context) => {
   const hariIni: Date = new Date();
-  const { judul, brief, kuantitas, deadline, user_tugas } =
-    await tugasSchema.parseAsync(await ctx.req.json());
-  const admin_id = ctx.get("user_data").id;
+  const { judul, brief, kuantitas, deadline, tugas_pengguna } =
+    await skemaTugas.parseAsync(await konteks.req.json());
+  const idAdmin = konteks.get("user_data").id;
 
   try {
-    const tugas = await prisma.tugas.create({
+    const tugasBaru = await prisma.tugas.create({
       data: {
         id: crypto.randomUUID(),
         judul: judul,
         brief: brief,
         kuantitas: kuantitas,
-        deadline: deadlineMap(deadline),
+        deadline: aturTenggat(deadline),
         status: status_map.dibuat,
-        id_admin: admin_id,
-        terlambat: deadlineMap(deadline) < hariIni
+        id_admin: idAdmin,
+        terlambat: aturTenggat(deadline) < hariIni
       },
     });
 
-    if (!tugas) {
-      return responses(ctx, 400, false, "Gagal membuat tugas!");
+    if (!tugasBaru) {
+      return responses(konteks, 400, false, "Gagal membuat tugas!");
     }
 
     await Promise.all(
-      user_tugas.map((user) => {
-        return prisma.user_tugas.create({
+      tugas_pengguna.map((pengguna) => {
+        return prisma.tugas_pengguna.create({
           data: {
             id: crypto.randomUUID(),
-            id_user: user.id,
-            id_tugas: tugas.id,
+            id_user: pengguna.id,
+            id_tugas: tugasBaru.id,
           },
         });
       })
     );
 
-    const token_notifikasi = await prisma.token_notifikasi.findMany({
+    const semuaUserId = [
+      ...tugas_pengguna.map((ut) => ut.id),
+      idAdmin
+    ];
+    const tokenNotifikasi = await prisma.token_notifikasi.findMany({
       where: {
         id_user: {
-          in: user_tugas.map((user) => user.id),
+          in: semuaUserId.filter((id): id is string => id !== null),
         },
       },
       select: {
@@ -140,8 +148,8 @@ export const addTugas = async (ctx: Context) => {
       },
     });
 
-    token_notifikasi.map(async (token) => {
-      const message = {
+    tokenNotifikasi.map(async (token) => {
+      const pesan = {
         notification: {
           title: "Tugas Baru Dibuat!",
           body: `${kuantitas} ${judul}`,
@@ -149,25 +157,25 @@ export const addTugas = async (ctx: Context) => {
         token: token.token,
       };
 
-      await firebaseAdmin.messaging().send(message);
+      await firebaseAdmin.messaging().send(pesan);
     });
 
-    return responses(ctx, 201, true, "Sukses membuat tugas!",tugas.id);
+    return responses(konteks, 201, true, "Sukses membuat tugas!",tugasBaru.id);
   } catch (error) {
-    return serverError(ctx);
+    return serverError(konteks);
   }
 };
 
-export const detailTugas = async (ctx: Context) => {
-  const tugas_id = ctx.req.param("id");
+export const detailTugas = async (konteks: Context) => {
+  const idTugas = konteks.req.param("id");
 
   try {
     const tugas = await prisma.tugas.findUnique({
       where: {
-        id: tugas_id,
+        id: idTugas,
       },
       include: {
-        file: {
+        berkas: {
           select: {
             id: true,
             nama: true,
@@ -175,9 +183,9 @@ export const detailTugas = async (ctx: Context) => {
             url: true,
           },
         },
-        user_tugas: {
+        tugas_pengguna: {
           select: {
-            user: {
+            pengguna: {
               select: {
                 id: true,
                 nama: true,
@@ -191,61 +199,43 @@ export const detailTugas = async (ctx: Context) => {
     });
 
     if (tugas) {
-      const users = tugas.user_tugas.map((ut) => ut.user);
+      const daftarPengguna = tugas.tugas_pengguna.map((ut) => ut.pengguna);
 
-      return responses(ctx, 200, true, "Sukses mendapatkan detail tugas!", {
+      return responses(konteks, 200, true, "Sukses mendapatkan detail tugas!", {
         tugas: {
           ...tugas,
-          user_tugas: users,
+          tugas_pengguna: daftarPengguna,
         },
       });
     } else {
-      return responses(ctx, 404, false, "Tugas tidak ditemukan!");
+      return responses(konteks, 404, false, "Tugas tidak ditemukan!");
     }
   } catch (error) {
-    return serverError(ctx);
+    return serverError(konteks);
   }
 };
 
-export const tugasByUserId = async (ctx: Context) => {
-  const user_id = ctx.req.param("id");
+export const tugasBerdasarkanIdPengguna = async (konteks: Context) => {
+  const idPengguna = konteks.req.param("id");
 
   try {
-    const tugas = await prisma.user_tugas.findMany({
+    const daftarTugas = await prisma.tugas_pengguna.findMany({
       where: {
-        id_user: user_id,
+        id_user: idPengguna,
       },
-      select: {
-        id_tugas: true,
-      },
-    });
-
-    if (!tugas || tugas.length === 0) {
-      return responses(
-        ctx,
-        404,
-        false,
-        "Gagal mendapatkan tugas! atau tugas tidak ada"
-      );
-    }
-
-    const semua_tugas = await Promise.all(
-      tugas.map((tugass) =>
-        prisma.tugas.findUnique({
-          where: {
-            id: tugass.id_tugas,
-          },
+      include: {
+        tugas: {
           include: {
-            user_tugas: {
+            tugas_pengguna: {
               where: {
-                user: {
+                pengguna: {
                   posisi: {
                     not: "Admin",
                   },
                 },
               },
               select: {
-                user: {
+                pengguna: {
                   select: {
                     id: true,
                     nama: true,
@@ -256,80 +246,85 @@ export const tugasByUserId = async (ctx: Context) => {
               },
             },
           },
-        })
-      )
-    );
+        },
+      },
+    });
 
-    return responses(ctx, 200, true, "Sukses ambil tugas", semua_tugas);
+    if (daftarTugas) {
+      const hasil = daftarTugas.map((t) => ({
+        ...t.tugas,
+        tugas_pengguna: t.tugas.tugas_pengguna.map((ut) => ut.pengguna),
+      }));
+
+      return responses(
+        konteks,
+        200,
+        true,
+        "Sukses mendapatkan tugas berdasarkan user!",
+        hasil
+      );
+    } else {
+      return responses(konteks, 404, false, "Tugas tidak ditemukan!");
+    }
   } catch (error) {
-    return serverError(ctx);
+    return serverError(konteks);
   }
 };
 
-export const deleteTugas = async (ctx: Context) => {
-  const tugas_id = ctx.req.param("id");
+export const hapusTugas = async (konteks: Context) => {
+  const idTugas = konteks.req.param("id");
 
   try {
-    const tugas = await prisma.tugas.delete({
+    const tugas = await prisma.tugas.findUnique({
       where: {
-        id: tugas_id,
+        id: idTugas,
       },
     });
 
     if (tugas) {
-
-        const user_tugas = await prisma.user_tugas.findMany({
-      where: {
-        id_tugas: tugas_id,
-      },
-    });
-
-    const token_notifikasi = await prisma.token_notifikasi.findMany({
-      where: {
-        id_user: {
-          in: user_tugas.map((user) => user.id_user),
+      const tugasPengguna = await prisma.tugas_pengguna.findMany({
+        where: {
+          id_tugas: idTugas,
         },
-      },
-      select: {
-        token: true,
-      },
-    });
+      });
 
-    token_notifikasi.map(async (token) => {
-      const message = {
-        notification: {
-          title: "Tugas Dihapus!",
-          body: `${tugas.kuantitas} ${tugas.judul}`,
+      if (tugasPengguna.length > 0) {
+        await prisma.tugas_pengguna.deleteMany({
+          where: {
+            id_tugas: idTugas,
+          },
+        });
+      }
+
+      await prisma.tugas.delete({
+        where: {
+          id: idTugas,
         },
-        token: token.token,
-      };
+      });
 
-      await firebaseAdmin.messaging().send(message);
-    });
-
-      return responses(ctx, 200, true, "Sukses menghapus tugas!");
+      return responses(konteks, 200, true, "Tugas berhasil dihapus!");
     } else {
-      return responses(ctx, 400, false, "Gagal menghapus tugas!");
+      return responses(konteks, 404, false, "Tugas tidak ditemukan!");
     }
   } catch (error) {
-    return serverError(ctx);
+    return serverError(konteks);
   }
 };
 
-export const semuaTugas = async (ctx: Context) => {
+export const semuaTugas = async (konteks: Context) => {
   try {
-    const tugas = await prisma.tugas.findMany({
+    const daftarTugas = await prisma.tugas.findMany({
       include: {
-        user_tugas: {
+        tugas_pengguna: {
           where: {
-            user: {
+            pengguna: {
               posisi: {
                 not: "Admin",
               },
             },
           },
           select: {
-            user: {
+            pengguna: {
               select: {
                 id: true,
                 nama: true,
@@ -345,76 +340,63 @@ export const semuaTugas = async (ctx: Context) => {
       },
     });
 
-    const hasil = tugas.map((t) => ({
+    const hasil = daftarTugas.map((t) => ({
       ...t,
-      user_tugas: t.user_tugas.map((ut) => ut.user),
+      tugas_pengguna: t.tugas_pengguna.map((ut) => ut.pengguna),
     }));
 
-    return responses(ctx, 200, true, "Sukses mengambil tugas", hasil);
+    return responses(konteks, 200, true, "Sukses mengambil tugas", hasil);
   } catch (error) {
-    return serverError(ctx);
+    return serverError(konteks);
   }
 };
 
-export const updateStatus = async (ctx: Context) => {
-  const { id, status } = await statusSchema.parseAsync(await ctx.req.json());
+export const perbaruiStatus = async (konteks: Context) => {
+  const { id, status } = await skemaStatus.parseAsync(await konteks.req.json());
 
   try {
-    const tugas = await prisma.tugas.findUnique({
+    const tugasDiperbarui = await prisma.tugas.update({
       where: { id },
+      data: { status },
     });
 
-    if (!tugas) {
-      return responses(ctx, 404, false, "Tugas tidak ditemukan");
-    } else {
-      const hariIni: Date = new Date();
+    if (tugasDiperbarui) {
+      const tugasPengguna = await prisma.tugas_pengguna.findMany({
+        where: { id_tugas: id },
+      });
 
-      const updateTugas = await prisma.tugas.update({
-        where: { id },
-        data: {
-          status: status,
-          tanggal_diubah: hariIni,
-          terlambat:
-            (tugas.deadline && tugas.deadline < hariIni) || tugas.terlambat,
+      const semuaUserId = [
+        ...tugasPengguna.map((ut) => ut.id_user),
+        tugasDiperbarui.id_admin
+      ];
+      const tokenNotifikasi = await prisma.token_notifikasi.findMany({
+        where: {
+          id_user: {
+            in: semuaUserId.filter((id): id is string => id !== null),
+          },
+        },
+        select: {
+          token: true,
         },
       });
 
-      if (updateTugas) {
-        const user_tugas = await prisma.user_tugas.findMany({
-          where: { id_tugas: id },
-        });
-
-        const token_notifikasi = await prisma.token_notifikasi.findMany({
-          where: {
-            id_user: {
-              in: user_tugas.map((user) => user.id_user),
-            },
+      tokenNotifikasi.map(async (token) => {
+        const pesan = {
+          notification: {
+            title: "Status Tugas Diubah!",
+            body: `${tugasDiperbarui.judul} - ${status}`,
           },
-          select: {
-            token: true,
-          },
-        });
+          token: token.token,
+        };
 
-        await Promise.all(
-          token_notifikasi.map(async (token) => {
-            const message = {
-              notification: {
-                title: `Status Tugas Diperbarui ( ${status} )`,
-                body: `${tugas.kuantitas} ${tugas.judul}`,
-              },
-              token: token.token,
-            };
+        await firebaseAdmin.messaging().send(pesan);
+      });
 
-            await firebaseAdmin.messaging().send(message);
-          })
-        );
-
-        return responses(ctx, 200, true, "Status tugas berhasil diperbarui");
-      } else {
-        return responses(ctx, 400, false, "Gagal memperbarui status tugas");
-      }
+      return responses(konteks, 200, true, "Status tugas berhasil diperbarui!");
+    } else {
+      return responses(konteks, 404, false, "Tugas tidak ditemukan!");
     }
   } catch (error) {
-    return serverError(ctx);
+    return serverError(konteks);
   }
 };

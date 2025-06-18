@@ -1,10 +1,10 @@
 import { Hono } from "hono";
-import { remove, upload } from "../controller/files";
+import { hapus, unggah } from "../controller/files";
 import { verifyToken } from "../middleware/verifyToken";
 
-const files = new Hono();
+const berkas = new Hono();
 
-files.post("/upload",verifyToken(true),upload);
-files.delete("/delete/:id",verifyToken(true),remove);
+berkas.post("/unggah",verifyToken(true),unggah);
+berkas.delete("/hapus/:id",verifyToken(true),hapus);
 
-export default files;
+export default berkas;

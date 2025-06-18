@@ -1,19 +1,19 @@
 import {Hono} from "hono";
-import {create, detailUser,ubahPengguna, hapusAnggota, performaBulanan, performaBulananById, performaMingguan, performaMingguanById, posisi, profile, semuaTim} from "../controller/user";
+import {buat, detailPengguna, ubahPengguna, hapusAnggota, performaBulanan, performaBulananById, performaMingguan, performaMingguanById, posisi, profil, semuaTim} from "../controller/user";
 import {verifyToken} from "../middleware/verifyToken";
 
-const user = new Hono()
+const pengguna = new Hono()
 
-user.get('/',verifyToken(true), semuaTim)
-user.get('/profile',verifyToken(false), profile )
-user.post('/create', verifyToken(true) ,create)
-user.delete('/hapus/:id',verifyToken(true),hapusAnggota)
-user.put('/ubah/:id',verifyToken(true), ubahPengguna)
-user.get('/detail/:id',verifyToken(false),detailUser)
-user.get('/posisi',verifyToken(false),posisi)
-user.get('/mingguan',verifyToken(true),performaMingguan)
-user.get('/mingguan/:id',verifyToken(false),performaMingguanById)
-user.post('/bulanan',verifyToken(true),performaBulanan)
-user.post('/bulanan/:id',verifyToken(false),performaBulananById)
+pengguna.get('/',verifyToken(true), semuaTim)
+pengguna.get('/profil',verifyToken(false), profil )
+pengguna.post('/tambah', verifyToken(true) ,buat)
+pengguna.delete('/hapus/:id',verifyToken(true),hapusAnggota)
+pengguna.put('/ubah/:id',verifyToken(true), ubahPengguna)
+pengguna.get('/detail/:id',verifyToken(false),detailPengguna)
+pengguna.get('/posisi',verifyToken(false),posisi)
+pengguna.get('/mingguan',verifyToken(true),performaMingguan)
+pengguna.get('/mingguan/:id',verifyToken(false),performaMingguanById)
+pengguna.post('/bulanan',verifyToken(true),performaBulanan)
+pengguna.post('/bulanan/:id',verifyToken(false),performaBulananById)
 
-export default user;
+export default pengguna;

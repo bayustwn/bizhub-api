@@ -1,8 +1,8 @@
 import {Hono} from 'hono'
-import { login } from '../controller/auth'
+import { masuk } from '../controller/auth'
 
 const auth = new Hono()
 
-auth.post("/login",login)
+auth.post("/masuk",masuk)
 
 export default auth

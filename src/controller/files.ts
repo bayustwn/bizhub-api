@@ -8,45 +8,45 @@ const supabase = createClient(
   Bun.env.SUPABASE_SERVICE_KEY || ""
 );
 
-export const upload = async (ctx: Context) => {
+export const unggah = async (konteks: Context) => {
   const bucket = Bun.env.SUPABASE_BUCKET || "";
-  const body = await ctx.req.parseBody();
-  const files = Array.isArray(body['file[]']) ? body['file[]'] as File[] : [body['file[]'] as File];
+  const body = await konteks.req.parseBody();
+  const berkas = Array.isArray(body['file[]']) ? body['file[]'] as File[] : [body['file[]'] as File];
   const id_tugas = body['id_tugas'] as string; 
 
-  if (!files || files.length === 0) {
-    return responses(ctx, 400, false, "File tidak ada!");
+  if (!berkas || berkas.length === 0) {
+    return responses(konteks, 400, false, "File tidak ada!");
   }
 
   try {
-    const uploadedFiles = [];
+    const berkasTerenkripsi = [];
 
-    for (const file of files) {
+    for (const file of berkas) {
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
-      const filename = `${crypto.randomUUID()}-${file.name}`;
+      const namaFile = `${crypto.randomUUID()}-${file.name}`;
 
       const { error } = await supabase.storage
         .from(bucket)
-        .upload(filename, buffer, {
+        .upload(namaFile, buffer, {
           contentType: file.type,
           upsert: false,
         });
 
       if (error) {
-        return responses(ctx, 500, false, `Upload gagal: ${error.message}`);
+        return responses(konteks, 500, false, `Upload gagal: ${error.message}`);
       }
 
-      const { data: urlData } = supabase.storage
+      const { data: dataUrl } = supabase.storage
         .from(bucket)
-        .getPublicUrl(filename);
+        .getPublicUrl(namaFile);
 
-      const unggahFile = await prisma.file.create({
+      const unggahFile = await prisma.berkas.create({
         data: {
           id: crypto.randomUUID(),
           nama: file.name,
-          nama_file: filename,
-          url: urlData.publicUrl,
+          nama_file: namaFile,
+          url: dataUrl.publicUrl,
           tanggal_upload: new Date(),
           id_tugas: id_tugas
         },
@@ -55,27 +55,27 @@ export const upload = async (ctx: Context) => {
         },
       });
 
-      uploadedFiles.push(unggahFile);
+      berkasTerenkripsi.push(unggahFile);
     }
 
-    return responses(ctx, 200, true, "File berhasil diupload", uploadedFiles);
+    return responses(konteks, 200, true, "File berhasil diupload", berkasTerenkripsi);
   } catch (error) {
     console.log(error)
-    return serverError(ctx);
+    return serverError(konteks);
   }
 };
 
-export const remove = async (ctx: Context) => {
+export const hapus = async (konteks: Context) => {
   const bucket = Bun.env.SUPABASE_BUCKET || "";
-  const { files } = await ctx.req.json();
-  const id_tugas = ctx.req.param("id");
+  const { files } = await konteks.req.json();
+  const id_tugas = konteks.req.param("id");
 
   if (!Array.isArray(files) || files.length === 0) {
-    return responses(ctx, 400, false, "file tidak ada!");
+    return responses(konteks, 400, false, "file tidak ada!");
   }
 
   try {
-    const hapusFiles = await prisma.file.deleteMany({
+    const hapusFiles = await prisma.berkas.deleteMany({
       where: {
         id_tugas: id_tugas,
         nama_file: {
@@ -85,18 +85,18 @@ export const remove = async (ctx: Context) => {
     });
 
     if (hapusFiles.count === 0) {
-      return responses(ctx, 404, false, "File tidak ditemukan!");
+      return responses(konteks, 404, false, "File tidak ditemukan!");
     }
 
     const { error } = await supabase.storage.from(bucket).remove(files);
 
     if (error) {
-      return responses(ctx, 500, false, `Gagal menghapus file di storage`);
+      return responses(konteks, 500, false, `Gagal menghapus file di storage`);
     }
 
-    return responses(ctx, 200, true, "File berhasil dihapus");
+    return responses(konteks, 200, true, "File berhasil dihapus");
   } catch (error) {
-    return serverError(ctx);
+    return serverError(konteks);
   }
 };
 

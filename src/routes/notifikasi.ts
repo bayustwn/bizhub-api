@@ -1,8 +1,8 @@
 import { Hono } from "hono";
 import { tambahAnggotaNotif } from "../controller/notif";
 
-const notif = new Hono();
+const notifikasi = new Hono();
 
-notif.post("/tambah", tambahAnggotaNotif)
+notifikasi.post("/tambah", tambahAnggotaNotif)
 
-export default notif;
+export default notifikasi;

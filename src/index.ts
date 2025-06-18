@@ -1,20 +1,20 @@
 import { Hono } from 'hono'
-import auth from "./routes/auth";
-import user from "./routes/user";
+import autentikasi from "./routes/auth";
+import pengguna from "./routes/user";
 import tugas from "./routes/tugas";
 import './cron/tugasTerlambat';
 import {cors} from "hono/cors";
-import files from './routes/files';
-import notif from './routes/notifikasi';
+import berkas from './routes/files';
+import notifikasi from './routes/notifikasi';
 
 const app = new Hono()
 
 app.use(cors())
-app.route('/auth',auth)
-app.route('/user',user)
+app.route('/autentikasi',autentikasi)
+app.route('/pengguna',pengguna)
 app.route('/tugas',tugas)
-app.route('/files', files)
-app.route('/notif', notif)
+app.route('/berkas', berkas)
+app.route('/notifikasi', notifikasi)
 app.get('/', (c) => {
   return c.text('Selamat datang di api Bizhub!')
 })

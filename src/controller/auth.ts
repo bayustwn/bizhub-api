@@ -4,53 +4,53 @@ import {sign} from "hono/jwt";
 import { z } from "zod";
 import {responses} from "../utils/response";
 
-const loginSchema = z.object({
+const skemaMasuk = z.object({
     email: z.string({ required_error: "Email wajib diisi" })
         .email("Format email tidak valid"),
     password: z.string({ required_error: "Password wajib diisi" })
 });
 
-export const login = async (ctx: Context) => {
+export const masuk = async (konteks: Context) => {
     try {
-        const { email, password } = await loginSchema.parseAsync(await ctx.req.json());
+        const { email, password } = await skemaMasuk.parseAsync(await konteks.req.json());
 
-        const user = await prisma.user.findUnique({
+        const pengguna = await prisma.pengguna.findUnique({
             where: { email },
             select: { id: true, nama: true, posisi: true, email: true, password: true },
         });
 
-        if (!user) {
-            return responses(ctx, 401, false, "Email atau password salah!");
+        if (!pengguna) {
+            return responses(konteks, 401, false, "Email atau password salah!");
         }
 
-        const isPasswordValid = await Bun.password.verify(password, user.password, "bcrypt");
+        const passwordValid = await Bun.password.verify(password, pengguna.password, "bcrypt");
 
-        if (!isPasswordValid) {
-            return responses(ctx, 401, false, "Email atau password salah!");
+        if (!passwordValid) {
+            return responses(konteks, 401, false, "Email atau password salah!");
         }
 
         const payload = {
-            id: user.id,
-            nama: user.nama,
-            email: user.email,
-            posisi: user.posisi,
+            id: pengguna.id,
+            nama: pengguna.nama,
+            email: pengguna.email,
+            posisi: pengguna.posisi,
             exp: Math.floor(Date.now() / 1000) + (2 * 24 * 60 * 60),
         };
 
         const token = await sign(payload, `${Bun.env.SECRET_KEY}`, "HS256");
 
-        return responses(ctx, 200, true, "Berhasil Login", {
+        return responses(konteks, 200, true, "Berhasil Login", {
             token : token,
-            posisi : user.posisi
+            posisi : pengguna.posisi
         });
 
     } catch (error) {
         if (error instanceof z.ZodError) {
-            const messages = error.errors.map(e => e.message).join(', ');
-            return responses(ctx, 400, false, messages);
+            const pesan = error.errors.map(e => e.message).join(', ');
+            return responses(konteks, 400, false, pesan);
         }
         
-        return responses(ctx, 500, false, "Server Error");
+        return responses(konteks, 500, false, "Server Error");
 
     }
 };
