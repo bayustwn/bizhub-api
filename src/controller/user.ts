@@ -10,10 +10,49 @@ const userSchema = z.object({
   posisi: z.string(),
 });
 
+const skemaEditPengguna = z.object({
+  nama: z.string(),
+  email: z.string().email(),
+  password: z.string().min(8).optional(),
+  posisi: z.string(),
+});
+
 const dateSchema = z.object({
   bulan: z.number(),
   tahun: z.number(),
 });
+
+export const ubahPengguna = async (konteks: Context) => {
+  const id = konteks.req.param("id")
+
+  try {
+    const dataMasuk = await konteks.req.json()
+    const { nama, email, posisi, password } = await skemaEditPengguna.parseAsync(dataMasuk)
+
+    const dataPerubahan: any = { nama, email, posisi }
+
+    if (password && password.trim() !== "") {
+      dataPerubahan.password = await Bun.password.hash(password, {
+        algorithm: "bcrypt"
+      })
+    }
+
+    const penggunaDiubah = await prisma.user.update({
+      where: { id },
+      data: dataPerubahan
+    })
+
+    if (penggunaDiubah) {
+      return responses(konteks, 200, true, "Pengguna berhasil diubah!")
+    } else {
+      return responses(konteks, 400, false, "Pengguna gagal diubah!")
+    }
+
+  } catch (error) {
+    console.error(error)
+    return serverError(konteks)
+  }
+}
 
 export const detailUser = async (ctx: Context) => {
   const id = ctx.req.param("id");
@@ -27,6 +66,7 @@ export const detailUser = async (ctx: Context) => {
         id: true,
         nama: true,
         email: true,
+        posisi: true
       },
     });
 

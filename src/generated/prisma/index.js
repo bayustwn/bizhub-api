@@ -223,7 +223,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Bayu\\Documents\\analisis\\bizhub-api\\src\\generated\\prisma",
+      "value": "C:\\Users\\Bayu\\Documents\\analisis\\bizhub-api-dua\\bizhub-api\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -237,12 +237,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Bayu\\Documents\\analisis\\bizhub-api\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Bayu\\Documents\\analisis\\bizhub-api-dua\\bizhub-api\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.6.0",
@@ -251,7 +250,7 @@ const config = {
     "db"
   ],
   "activeProvider": "mysql",
-  "postinstall": false,
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
